@@ -2,7 +2,10 @@ package com.springboot.tennisCourtManagementApp.entity;
 
 import jakarta.persistence.*;
 
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Table(name = "court_reservation")
@@ -13,8 +16,12 @@ public class CourtReservation {
     private Long id;
     @Column(name = "reservation_date")
     private LocalDate reservation_date;
+    @Column(name = "time_start")
+    private LocalTime timeStart;
+    @Column(name = "time_end")
+    private LocalTime timeEnd;
     @Column(name = "duration")
-    private Integer duration;
+    private Double duration;
     @Column(name = "price_schedule")
     private Integer priceSchedule;
     @Column(name = "total_price")
@@ -30,11 +37,16 @@ public class CourtReservation {
     @JoinColumn(name="customer_id")
     private Customer customer;
 
+    @Column(name = "reservation_made_timestamp")
+    private String reservationMadeTimestamp;
+
     public CourtReservation() {
     }
 
-    public CourtReservation(LocalDate reservation_date, Integer duration, Integer priceSchedule, Double totalPrice, boolean isDoublesMatch, boolean isPaid, String comments, Customer customer) {
+    public CourtReservation(LocalDate reservation_date, LocalTime timeStart, LocalTime timeEnd, Double duration, Integer priceSchedule, Double totalPrice, boolean isDoublesMatch, boolean isPaid, String comments, Customer customer, String reservationMadeTimestamp) {
         this.reservation_date = reservation_date;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
         this.duration = duration;
         this.priceSchedule = priceSchedule;
         this.totalPrice = totalPrice;
@@ -42,11 +54,19 @@ public class CourtReservation {
         this.isPaid = isPaid;
         this.comments = comments;
         this.customer = customer;
+        this.reservationMadeTimestamp = reservationMadeTimestamp;
     }
-    public CourtReservation(LocalDate reservation_date, Integer duration, Integer priceSchedule) {
+
+    public CourtReservation(LocalDate reservation_date, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, boolean isDoublesMatch, boolean isPaid) {
         this.reservation_date = reservation_date;
-        this.duration = duration;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.duration = (double) Duration.between(timeStart, timeEnd).toMinutes();
         this.priceSchedule = priceSchedule;
+        this.totalPrice = 0.0;
+        this.isDoublesMatch = isDoublesMatch;
+        this.isPaid = isPaid;
+        this.reservationMadeTimestamp = LocalDate.now().toString() + " " + LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
     }
 
     public Long getId() {
@@ -65,11 +85,27 @@ public class CourtReservation {
         this.reservation_date = reservation_date;
     }
 
-    public Integer getDuration() {
+    public LocalTime getTimeStart() {
+        return timeStart;
+    }
+
+    public void setTimeStart(LocalTime timeStart) {
+        this.timeStart = timeStart;
+    }
+
+    public LocalTime getTimeEnd() {
+        return timeEnd;
+    }
+
+    public void setTimeEnd(LocalTime timeEnd) {
+        this.timeEnd = timeEnd;
+    }
+
+    public Double getDuration() {
         return duration;
     }
 
-    public void setDuration(Integer duration) {
+    public void setDuration(Double duration) {
         this.duration = duration;
     }
 
@@ -121,17 +157,28 @@ public class CourtReservation {
         this.customer = customer;
     }
 
+    public String getReservationMadeTimestamp() {
+        return reservationMadeTimestamp;
+    }
+
+    public void setReservationMadeTimestamp(String reservationMadeTimestamp) {
+        this.reservationMadeTimestamp = reservationMadeTimestamp;
+    }
+
     @Override
     public String toString() {
         return "CourtReservation{" +
                 "id=" + id +
                 ", reservation_date=" + reservation_date +
+                ", timeStart=" + timeStart +
+                ", timeEnd=" + timeEnd +
                 ", duration=" + duration +
                 ", priceSchedule=" + priceSchedule +
                 ", totalPrice=" + totalPrice +
                 ", isDoublesMatch=" + isDoublesMatch +
                 ", isPaid=" + isPaid +
                 ", comments='" + comments + '\'' +
+                ", reservationMadeTimestamp='" + reservationMadeTimestamp + '\'' +
                 '}';
     }
 }

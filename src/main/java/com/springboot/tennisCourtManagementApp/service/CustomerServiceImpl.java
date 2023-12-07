@@ -57,10 +57,15 @@ public class CustomerServiceImpl implements CustomerService{
     public Customer findCustomerByIdJoinFetch(int id) {
         TypedQuery<Customer> query = entityManager.createQuery(
                 "select i from Customer i "
-                        + "JOIN FETCH i.courtReservations "
+                        + "LEFT JOIN FETCH i.courtReservations "
                         + "where i.id = :data", Customer.class);
         query.setParameter("data", id);
 
-        return query.getSingleResult();
+        List<Customer> resultList = query.getResultList();
+        if (resultList.isEmpty()) {
+            return null;
+        } else {
+            return resultList.get(0);
+        }
     }
 }
