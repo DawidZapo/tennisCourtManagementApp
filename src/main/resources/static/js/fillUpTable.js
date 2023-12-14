@@ -96,11 +96,16 @@ function iterateByCourts(reservation) {
         console.log('Nie znaleziono tabeli o podanym ID.');
     }
 }
+
 fetchReservations('2023-12-15')
     .then(reservationsList => {
         reservationsList.forEach(reservation => {
             console.log(reservation); // Tutaj będziesz mieć dostęp do pojedynczych obiektów Reservation
-            iterateByCourts(reservation);
+            console.log(reservation.id);
+            console.log(reservation.reservationDate);
+            console.log(reservation.timeStart);
+            console.log(reservation.timeEnd);
+            //iterateByCourts(reservation);
         });
     })
     .catch(error => {
