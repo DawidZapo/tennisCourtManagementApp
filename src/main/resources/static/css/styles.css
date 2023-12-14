@@ -1,0 +1,11 @@
+.reservation-tile{
+    background-color: red;
+}
+.container{
+    height: 400px;
+    overflow-y: auto;
+    align-content: center;
+}
+.navBarButton{
+
+}

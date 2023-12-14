@@ -71,7 +71,8 @@ function iterateByCourts(reservation) {
         const startHour = 7; // Godzina początkowa
         const interval = 30; // Interwał czasowy w minutach
 
-        for (let courtIndex = 1; courtIndex <= courtsCount; courtIndex++) {
+
+            let courtIndex = reservation.courtNumber;
             console.log(`Iteracja dla Kortu ${courtIndex}`);
             let currentHour = startHour;
             let currentMinute = 30;
@@ -83,7 +84,18 @@ function iterateByCourts(reservation) {
                 const timeString = `${('0' + currentHour).slice(-2)}:${('0' + currentMinute).slice(-2)}`;
                 console.log(`Wiersz ${timeString}, Kolumna ${courtIndex}: ${cell.textContent}`);
 
-                //console.log(reservation.startTime);
+                if(reservation.timeStart.slice(0,5) === timeString){
+                    const span = reservation.duration / interval;
+                    cell.rowSpan = span;
+
+                    const reservationTile = document.createElement('div');
+                    reservationTile.textContent = 'Rezerwacja'; // Możesz dostosować tekst oznaczenia
+
+                    // Dodanie klasy lub stylu dla oznaczenia (jeśli potrzebne)
+                    reservationTile.classList.add('reservation-tile'); // Dodaj klasę dla dodatkowego stylowania CSS
+
+                    cell.appendChild(reservationTile);
+                }
 
                 currentMinute += interval;
                 if (currentMinute >= 60) {
@@ -91,7 +103,7 @@ function iterateByCourts(reservation) {
                     currentMinute = 0;
                 }
             }
-        }
+
     } else {
         console.log('Nie znaleziono tabeli o podanym ID.');
     }
@@ -100,12 +112,7 @@ function iterateByCourts(reservation) {
 fetchReservations('2023-12-15')
     .then(reservationsList => {
         reservationsList.forEach(reservation => {
-            console.log(reservation); // Tutaj będziesz mieć dostęp do pojedynczych obiektów Reservation
-            console.log(reservation.id);
-            console.log(reservation.reservationDate);
-            console.log(reservation.timeStart);
-            console.log(reservation.timeEnd);
-            //iterateByCourts(reservation);
+            iterateByCourts(reservation);
         });
     })
     .catch(error => {
