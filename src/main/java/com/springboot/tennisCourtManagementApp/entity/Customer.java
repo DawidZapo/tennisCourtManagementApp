@@ -1,5 +1,6 @@
 package com.springboot.tennisCourtManagementApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Customer {
     private String lastName;
     @Column(name = "phone")
     private String phone;
+    @JsonIgnore
     @OneToMany(mappedBy = "customer",
             fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE,

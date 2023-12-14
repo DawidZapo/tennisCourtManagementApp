@@ -14,6 +14,8 @@ public class CourtReservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    @Column(name = "court_number")
+    private Integer courtNumber;
     @Column(name = "reservation_date")
     private LocalDate reservation_date;
     @Column(name = "time_start")
@@ -32,6 +34,7 @@ public class CourtReservation {
     private boolean isPaid;
     @Column(name = "comments")
     private String comments;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name="customer_id")
@@ -43,7 +46,8 @@ public class CourtReservation {
     public CourtReservation() {
     }
 
-    public CourtReservation(LocalDate reservation_date, LocalTime timeStart, LocalTime timeEnd, Double duration, Integer priceSchedule, Double totalPrice, boolean isDoublesMatch, boolean isPaid, String comments, Customer customer, String reservationMadeTimestamp) {
+    public CourtReservation(Integer courtNumber,LocalDate reservation_date, LocalTime timeStart, LocalTime timeEnd, Double duration, Integer priceSchedule, Double totalPrice, boolean isDoublesMatch, boolean isPaid, String comments, Customer customer, String reservationMadeTimestamp) {
+        this.courtNumber = courtNumber;
         this.reservation_date = reservation_date;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
@@ -57,7 +61,8 @@ public class CourtReservation {
         this.reservationMadeTimestamp = reservationMadeTimestamp;
     }
 
-    public CourtReservation(LocalDate reservation_date, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, boolean isDoublesMatch, boolean isPaid) {
+    public CourtReservation(Integer courtNumber, LocalDate reservation_date, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, boolean isDoublesMatch, boolean isPaid) {
+        this.courtNumber = courtNumber;
         this.reservation_date = reservation_date;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
@@ -75,6 +80,14 @@ public class CourtReservation {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getCourtNumber() {
+        return courtNumber;
+    }
+
+    public void setCourtNumber(Integer courtNumber) {
+        this.courtNumber = courtNumber;
     }
 
     public LocalDate getReservation_date() {

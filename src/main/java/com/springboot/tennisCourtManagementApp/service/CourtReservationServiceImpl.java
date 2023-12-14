@@ -5,6 +5,7 @@ import com.springboot.tennisCourtManagementApp.entity.CourtReservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,5 +49,10 @@ public class CourtReservationServiceImpl implements CourtReservationService{
     @Override
     public void delete(CourtReservation courtReservation) {
         courtReservationRepository.delete(courtReservation);
+    }
+
+    @Override
+    public List<CourtReservation> findAllByReservationDate(LocalDate date) {
+        return courtReservationRepository.findAllByReservationDate(date);
     }
 }

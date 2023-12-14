@@ -68,7 +68,7 @@
 <h1>Rezerwacja Kortów</h1>
 
 <div class="container w-75">
-    <table class="table table-bordered">
+    <table id="reservationTable" class="table table-bordered">
         <thead>
         <tr>
             <th></th> <!-- Pusty nagłówek w pierwszej kolumnie -->
@@ -92,53 +92,8 @@
     </table>
 </div>
 
-<script>
-    // Pobranie referencji do elementu tbody w tabeli
-    var tbody = document.querySelector('tbody');
-
-    // Godzina początkowa
-    var startHour = 8;
-    var startMinute = 0;
-
-    // Godzina końcowa
-    var endHour = 22;
-    var endMinute = 0;
-
-    // Pętla dodająca wiersze z godzinami co 30 minut
-    for (var hour = startHour; hour < endHour; hour++) {
-        for (var minute = 0; minute < 60; minute += 30) {
-            // Formatowanie godziny i minuty
-            var time = ('0' + hour).slice(-2) + ':' + ('0' + minute).slice(-2);
-
-            // Tworzenie nowego wiersza
-            var newRow = document.createElement('tr');
-
-            // Dodawanie komórek do wiersza
-            var timeCell = document.createElement('td');
-            timeCell.textContent = time;
-            newRow.appendChild(timeCell);
-
-            // Dodawanie pustych komórek dla każdego kortu
-            for (var court = 0; court < 5; court++) {
-                var emptyCell = document.createElement('td');
-                newRow.appendChild(emptyCell);
-            }
-
-            // Dodanie identyfikatorów dla odpowiednich wierszy
-            if (time === '08:00') {
-                newRow.setAttribute('id', 'morning');
-            } else if (time === '12:00') {
-                newRow.setAttribute('id', 'afternoon');
-            } else if (time === '17:00') {
-                newRow.setAttribute('id', 'evening');
-            }
-
-            // Dodanie nowego wiersza do tabeli
-            tbody.appendChild(newRow);
-        }
-    }
-
-</script>
+<script src="/js/createTable.js"></script>
+<script src="/js/fillUpTable.js"></script>
 </body>
 </html>
 
