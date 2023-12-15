@@ -1,11 +1,17 @@
 .reservation-tile{
     background-color: red;
 }
-.container{
-    height: 400px;
+.container-with-tiles{
+    height: 80vh;
     overflow-y: auto;
     align-content: center;
+    width: 75%;
+    float: right;
 }
-.navBarButton{
+.table-with-tiles{
 
+}
+.table-scrollable {
+    max-height: 300px; /* Ustaw maksymalną wysokość tabeli */
+    overflow-y: auto; /* Ustawienie przewijania tylko w pionie */
 }
