@@ -19,14 +19,16 @@
         #current-date-time {
             font-size: 24px;
         }
-        .custom-outline {
-            border: 1px solid red; /* Kolor obwódki */
-            transition: border-color 0.3s ease; /* Płynna zmiana koloru */
+        .btn-cell {
+            padding: 0;
+            text-align: center;
+        }
+        .clicked {
+            background-color: orange;
+            border-color: black;
+            color: black;
         }
 
-        .custom-outline:hover {
-            border-color: blue; /* Kolor obwódki po najechaniu */
-        }
 
     </style>
 </head>
@@ -57,14 +59,14 @@
         Zalogowany jako: <strong>Twój użytkownik</strong>
     </div>
 
-    <button class="btn btn-outline-danger mx-2">Wyloguj</button>
+    <button class="btn btn-outline-danger mx-4">Wyloguj</button>
 </nav>
 
 <div class="container-fluid mt-2">
     <div class="row">
         <div class="col-md-2">
             <div class="nav flex-column nav-pills nav-pills-vertical" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Rezerwacja kortów</a>
                 <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
                 <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
                 <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
@@ -101,14 +103,231 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <!--        <tr>-->
-                            <!--            <td>8:00</td>-->
-                            <!--            <td></td>-->
-                            <!--            <td></td>-->
-                            <!--            <td></td>-->
-                            <!--            <td></td>-->
-                            <!--            <td></td>-->
-                            <!--        </tr>-->
+                                    <tr id="morning">
+                                        <td>8:00</td>
+                                        <td class="btn-cell" style="padding: 0;text-align: center; vertical-align: middle;"><button class="btn btn-outline-primary w-100 h-100">hello</button></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>8:30</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>9:00</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>9:30</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>10:00</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>10:30</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>11:00</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr id="afternoon">
+                                        <td>11:30</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>12:00</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>12:30</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>13:00</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>13:30</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>14:00</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>14:30</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>15:00</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>15:30</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>16:00</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr id="evening">
+                                        <td>16:30</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>17:00</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>17:30</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>18:00</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>18:30</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>19:00</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>19:30</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>20:00</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>20:30</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>21:00</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>21:30</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -134,52 +353,24 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script src="/js/createTable.js"></script>
-<script src="/js/fillUpTable.js"></script>
+<!--<script src="/js/createTable.js"></script>-->
+<!--<script src="/js/fillUpTable.js"></script>-->
+<script src="/js/updateTime.js"></script>
 <script>
-    function updateDateTime() {
-        const now = new Date();
-        const formattedDate = now.toLocaleDateString('pl-PL');
-        const formattedTime = now.toLocaleTimeString('pl-PL');
-        document.getElementById('current-date-time').textContent = `${formattedDate} ${formattedTime}`;
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+        const buttons = document.querySelectorAll('.btn-cell button');
 
-    // Initial update
-    updateDateTime();
-    setInterval(updateDateTime, 1000);
-
-
-    function updateCurrentDay(date) {
-        const formattedDate = date.toLocaleDateString('pl-PL', { day: 'numeric', month: 'numeric' });
-        document.getElementById('current-day').textContent = `Bieżący dzień: ${formattedDate}`;
-    }
-
-    const datePicker = document.getElementById('date-picker');
-    datePicker.addEventListener('change', function () {
-        const selectedDate = new Date(this.value);
-        updateCurrentDay(selectedDate);
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                if (this.classList.contains('clicked')) {
+                    this.classList.remove('clicked');
+                } else {
+                    buttons.forEach(btn => btn.classList.remove('clicked'));
+                    this.classList.add('clicked');
+                }
+            });
+        });
     });
-
-    document.getElementById('prev-day').addEventListener('click', function () {
-        const datePicker = document.getElementById('date-picker');
-        const currentDate = new Date(datePicker.value);
-        currentDate.setDate(currentDate.getDate() - 1);
-        datePicker.value = currentDate.toISOString().split('T')[0];
-        updateCurrentDay(currentDate);
-    });
-
-    document.getElementById('next-day').addEventListener('click', function () {
-        const datePicker = document.getElementById('date-picker');
-        const currentDate = new Date(datePicker.value);
-        currentDate.setDate(currentDate.getDate() + 1);
-        datePicker.value = currentDate.toISOString().split('T')[0];
-        updateCurrentDay(currentDate);
-    });
-
-    // Initial update
-    const today = new Date();
-    datePicker.value = today.toISOString().split('T')[0];
-    updateCurrentDay(today);
 </script>
 </body>
 </html>
