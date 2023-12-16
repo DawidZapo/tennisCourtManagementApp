@@ -11,7 +11,7 @@
 .table-with-tiles{
 
 }
-.table-scrollable {
-    max-height: 300px; /* Ustaw maksymalną wysokość tabeli */
-    overflow-y: auto; /* Ustawienie przewijania tylko w pionie */
+
+.btn-custom{
+   height: 100vh;
 }

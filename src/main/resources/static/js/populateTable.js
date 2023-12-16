@@ -67,42 +67,26 @@ function iterateByCourts(reservation) {
     const table = document.getElementById('reservationTable'); // Znajdź tabelę po ID
 
     if (table) {
-        const courtsCount = table.rows[0].cells.length; // Zlicz liczbę kolumn kortów
-        const startHour = 7; // Godzina początkowa
-        const interval = 30; // Interwał czasowy w minutach
+        const rows = table.rows.length-1;
+        const courtIndex = reservation.courtNumber;
 
+        for(let i=1; i <= rows;i++){
+            const row = table.rows[i];
+            const cell = row.cells[courtIndex];
+            const string = reservation.timeStart.slice(0,5) +"court"+reservation.courtNumber;
+            if(cell.id === string){
+                const reservationTile = document.createElement('a');
+                reservationTile.textContent = 'Rezerwacja'; // Możesz dostosować tekst oznaczenia
 
-            let courtIndex = reservation.courtNumber;
-            console.log(`Iteracja dla Kortu ${courtIndex}`);
-            let currentHour = startHour;
-            let currentMinute = 30;
+                const span = reservation.duration / 30;
+                cell.rowSpan = span;
 
-            for (let i = 0; i < table.rows.length; i++) {
-                const row = table.rows[i];
-                const cell = row.cells[courtIndex]; // Użyj indeksu kolumny odpowiadającej danemu kortowi
-                // Tutaj możesz wykonywać operacje na każdej komórce tabeli
-                const timeString = `${('0' + currentHour).slice(-2)}:${('0' + currentMinute).slice(-2)}`;
-                console.log(`Wiersz ${timeString}, Kolumna ${courtIndex}: ${cell.textContent}`);
+                // Dodanie klasy lub stylu dla oznaczenia (jeśli potrzebne)
+                reservationTile.classList.add('btn', 'btn-warning', 'btn-custom'); // Dodaj klasę dla dodatkowego stylowania CSS
 
-                if(reservation.timeStart.slice(0,5) === timeString){
-                    const span = reservation.duration / interval;
-                    cell.rowSpan = span;
-
-                    const reservationTile = document.createElement('div');
-                    reservationTile.textContent = 'Rezerwacja'; // Możesz dostosować tekst oznaczenia
-
-                    // Dodanie klasy lub stylu dla oznaczenia (jeśli potrzebne)
-                    reservationTile.classList.add('reservation-tile'); // Dodaj klasę dla dodatkowego stylowania CSS
-
-                    cell.appendChild(reservationTile);
-                }
-
-                currentMinute += interval;
-                if (currentMinute >= 60) {
-                    currentHour++;
-                    currentMinute = 0;
-                }
+                cell.appendChild(reservationTile);
             }
+        }
 
     } else {
         console.log('Nie znaleziono tabeli o podanym ID.');
