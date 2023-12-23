@@ -22,11 +22,16 @@
         .btn-cell {
             padding: 0;
             text-align: center;
+            background-color: #ffcc15;
         }
         .clicked {
             background-color: orange;
             border-color: black;
             color: black;
+        }
+        #reservationTable {
+            width: 100%; /* Ustawienie szerokości tabeli na 100% szerokości dostępnej przestrzeni */
+            table-layout: fixed; /* Ustawienie stałej szerokości kolumn */
         }
 
 
@@ -92,7 +97,7 @@
 
                     <div class="table-container" style="overflow-y: auto; max-height: 70vh;">
                         <table id="reservationTable" class="table table-bordered table-striped">
-                            <thead class="table-dark" style="position: sticky; top: 0;">
+                            <thead class="table-dark" style="position: sticky; top: 0;z-index: 1;">
                             <tr>
                                 <th></th> <!-- Pusty nagłówek w pierwszej kolumnie -->
                                 <th>Kort 1</th>
@@ -105,229 +110,232 @@
                             <tbody>
                                     <tr id="morning">
                                         <td>8:00</td>
-                                        <td rowspan="4" class="btn-cell" style="padding: 0;text-align: center; vertical-align: middle; background-color: #ffcc15"></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td rowspan="2" id="08:00court1" style="padding: 2px; position: relative;">
+                                            <a href="#" class="btn btn-warning w-100" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center;">
+
+                                            </a>
+                                        </td>
+                                        <td id="08:00court2"></td>
+                                        <td id="08:00court3"></td>
+                                        <td id="08:00court4"></td>
+                                        <td id="08:00court5"></td>
                                     </tr>
                                     <tr>
                                         <td>8:30</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+<!--                                        <td id="08:30court1"></td>-->
+                                        <td id="08:30court2"></td>
+                                        <td id="08:30court3"></td>
+                                        <td id="08:30court4"></td>
+                                        <td id="08:30court5"></td>
                                     </tr>
                                     <tr>
                                         <td>9:00</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="09:00court1"></td>
+                                        <td id="09:00court2"></td>
+                                        <td id="09:00court3"></td>
+                                        <td id="09:00court4"></td>
+                                        <td id="09:00court5"></td>
                                     </tr>
                                     <tr>
                                         <td>9:30</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="09:30court1"></td>
+                                        <td id="09:30court2"></td>
+                                        <td id="09:30court3"></td>
+                                        <td id="09:30court4"></td>
+                                        <td id="09:30court5"></td>
                                     </tr>
                                     <tr>
                                         <td>10:00</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="10:00court1"></td>
+                                        <td id="10:00court2"></td>
+                                        <td id="10:00court3"></td>
+                                        <td id="10:00court4"></td>
+                                        <td id="10:00court5"></td>
                                     </tr>
                                     <tr>
                                         <td>10:30</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="10:30court1"></td>
+                                        <td id="10:30court2"></td>
+                                        <td id="10:30court3"></td>
+                                        <td id="10:30court4"></td>
+                                        <td id="10:30court5"></td>
                                     </tr>
                                     <tr>
                                         <td>11:00</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="11:00court1"></td>
+                                        <td id="11:00court2"></td>
+                                        <td id="11:00court3"></td>
+                                        <td id="11:00court4"></td>
+                                        <td id="11:00court5"></td>
                                     </tr>
                                     <tr id="afternoon">
                                         <td>11:30</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="11:30court1"></td>
+                                        <td id="11:30court2"></td>
+                                        <td id="11:30court3"></td>
+                                        <td id="11:30court4"></td>
+                                        <td id="11:30court5"></td>
                                     </tr>
                                     <tr>
                                         <td>12:00</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="12:00court1"></td>
+                                        <td id="12:00court2"></td>
+                                        <td id="12:00court3"></td>
+                                        <td id="12:00court4"></td>
+                                        <td id="12:00court5"></td>
                                     </tr>
                                     <tr>
                                         <td>12:30</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="12:30court1"></td>
+                                        <td id="12:30court2"></td>
+                                        <td id="12:30court3"></td>
+                                        <td id="12:30court4"></td>
+                                        <td id="12:30court5"></td>
                                     </tr>
                                     <tr>
                                         <td>13:00</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="13:00court1"></td>
+                                        <td id="13:00court2"></td>
+                                        <td id="13:00court3"></td>
+                                        <td id="13:00court4"></td>
+                                        <td id="13:00court5"></td>
                                     </tr>
                                     <tr>
                                         <td>13:30</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="13:30court1"></td>
+                                        <td id="13:30court2"></td>
+                                        <td id="13:30court3"></td>
+                                        <td id="13:30court4"></td>
+                                        <td id="13:30court5"></td>
                                     </tr>
                                     <tr>
                                         <td>14:00</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="14:00court1"></td>
+                                        <td id="14:00court2"></td>
+                                        <td id="14:00court3"></td>
+                                        <td id="14:00court4"></td>
+                                        <td id="14:00court5"></td>
                                     </tr>
                                     <tr>
                                         <td>14:30</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="14:30court1"></td>
+                                        <td id="14:30court2"></td>
+                                        <td id="14:30court3"></td>
+                                        <td id="14:30court4"></td>
+                                        <td id="14:30court5"></td>
                                     </tr>
                                     <tr>
                                         <td>15:00</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="15:00court1"></td>
+                                        <td id="15:00court2"></td>
+                                        <td id="15:00court3"></td>
+                                        <td id="15:00court4"></td>
+                                        <td id="15:00court5"></td>
                                     </tr>
                                     <tr>
                                         <td>15:30</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="15:30court1"></td>
+                                        <td id="15:30court2"></td>
+                                        <td id="15:30court3"></td>
+                                        <td id="15:30court4"></td>
+                                        <td id="15:30court5"></td>
                                     </tr>
                                     <tr>
                                         <td>16:00</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="16:00court1"></td>
+                                        <td id="16:00court2"></td>
+                                        <td id="16:00court3"></td>
+                                        <td id="16:00court4"></td>
+                                        <td id="16:00court5"></td>
                                     </tr>
                                     <tr id="evening">
                                         <td>16:30</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="16:30court1"></td>
+                                        <td id="16:30court2"></td>
+                                        <td id="16:30court3"></td>
+                                        <td id="16:30court4"></td>
+                                        <td id="16:30court5"></td>
                                     </tr>
                                     <tr>
                                         <td>17:00</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="17:00court1"></td>
+                                        <td id="17:00court2"></td>
+                                        <td id="17:00court3"></td>
+                                        <td id="17:00court4"></td>
+                                        <td id="17:00court5"></td>
                                     </tr>
                                     <tr>
                                         <td>17:30</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="17:30court1"></td>
+                                        <td id="17:30court2"></td>
+                                        <td id="17:30court3"></td>
+                                        <td id="17:30court4"></td>
+                                        <td id="17:30court5"></td>
                                     </tr>
                                     <tr>
                                         <td>18:00</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="18:00court1"></td>
+                                        <td id="18:00court2"></td>
+                                        <td id="18:00court3"></td>
+                                        <td id="18:00court4"></td>
+                                        <td id="18:00court5"></td>
                                     </tr>
                                     <tr>
                                         <td>18:30</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="18:30court1"></td>
+                                        <td id="18:30court2"></td>
+                                        <td id="18:30court3"></td>
+                                        <td id="18:30court4"></td>
+                                        <td id="18:30court5"></td>
                                     </tr>
                                     <tr>
                                         <td>19:00</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="19:00court1"></td>
+                                        <td id="19:00court2"></td>
+                                        <td id="19:00court3"></td>
+                                        <td id="19:00court4"></td>
+                                        <td id="19:00court5"></td>
                                     </tr>
                                     <tr>
                                         <td>19:30</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="19:30court1"></td>
+                                        <td id="19:30court2"></td>
+                                        <td id="19:30court3"></td>
+                                        <td id="19:30court4"></td>
+                                        <td id="19:30court5"></td>
                                     </tr>
                                     <tr>
                                         <td>20:00</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="20:00court1"></td>
+                                        <td id="20:00court2"></td>
+                                        <td id="20:00court3"></td>
+                                        <td id="20:00court4"></td>
+                                        <td id="20:00court5"></td>
                                     </tr>
                                     <tr>
                                         <td>20:30</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="20:30court1"></td>
+                                        <td id="20:30court2"></td>
+                                        <td id="20:30court3"></td>
+                                        <td id="20:30court4"></td>
+                                        <td id="20:30court5"></td>
                                     </tr>
                                     <tr>
                                         <td>21:00</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="21:00court1"></td>
+                                        <td id="21:00court2"></td>
+                                        <td id="21:00court3"></td>
+                                        <td id="21:00court4"></td>
+                                        <td id="21:00court5"></td>
                                     </tr>
                                     <tr>
                                         <td>21:30</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td id="21:30court1"></td>
+                                        <td id="21:30court2"></td>
+                                        <td id="21:30court3"></td>
+                                        <td id="21:30court4"></td>
+                                        <td id="21:30court5"></td>
                                     </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -356,22 +364,95 @@
 <!--<script src="/js/createTable.js"></script>-->
 <!--<script src="/js/fillUpTable.js"></script>-->
 <script src="/js/updateTime.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const buttons = document.querySelectorAll('.btn-cell button');
+<!--<script>-->
+<!--    document.addEventListener('DOMContentLoaded', function() {-->
+<!--        const buttons = document.querySelectorAll('.btn-cell button');-->
 
-        buttons.forEach(button => {
-            button.addEventListener('click', function() {
-                if (this.classList.contains('clicked')) {
-                    this.classList.remove('clicked');
-                } else {
-                    buttons.forEach(btn => btn.classList.remove('clicked'));
-                    this.classList.add('clicked');
-                }
-            });
-        });
-    });
-</script>
+<!--        buttons.forEach(button => {-->
+<!--            button.addEventListener('click', function() {-->
+<!--                if (this.classList.contains('clicked')) {-->
+<!--                    this.classList.remove('clicked');-->
+<!--                } else {-->
+<!--                    buttons.forEach(btn => btn.classList.remove('clicked'));-->
+<!--                    this.classList.add('clicked');-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+<!--<script th:inline="javascript">-->
+<!--    class Customer {-->
+<!--        constructor(id, firstName, lastName, phone) {-->
+<!--            this.id = id;-->
+<!--            this.firstName = firstName;-->
+<!--            this.lastName = lastName;-->
+<!--            this.phone = phone;-->
+<!--        }-->
+<!--    }-->
+
+<!--    class Reservation {-->
+<!--        constructor(id, courtNumber, reservationDate, timeStart, timeEnd, duration, priceSchedule, totalPrice, comments, reservationMadeTimestamp, paid, doublesMatch, customer) {-->
+<!--            this.id = id;-->
+<!--            this.courtNumber = courtNumber;-->
+<!--            this.reservationDate = reservationDate;-->
+<!--            this.timeStart = timeStart;-->
+<!--            this.timeEnd = timeEnd;-->
+<!--            this.duration = duration;-->
+<!--            this.priceSchedule = priceSchedule;-->
+<!--            this.totalPrice = totalPrice;-->
+<!--            this.comments = comments;-->
+<!--            this.reservationMadeTimestamp = reservationMadeTimestamp;-->
+<!--            this.paid = paid;-->
+<!--            this.doublesMatch = doublesMatch;-->
+<!--            this.customer = new Customer(-->
+<!--                customer.id,-->
+<!--                customer.firstName,-->
+<!--                customer.lastName,-->
+<!--                customer.phone-->
+<!--            );-->
+<!--        }-->
+<!--    }-->
+
+<!--    const reservations = /*[[${reservations}]]*/ [];-->
+
+<!--    function createReservationObjects() {-->
+<!--        const reservationObjects = [];-->
+
+<!--        reservations.forEach(function(reservation) {-->
+<!--            const customer = reservation.customer;-->
+<!--            const newCustomer = new Customer(-->
+<!--                customer.id,-->
+<!--                customer.firstName,-->
+<!--                customer.lastName,-->
+<!--                customer.phone-->
+<!--            );-->
+
+<!--            const newReservation = new Reservation(-->
+<!--                reservation.id,-->
+<!--                reservation.courtNumber,-->
+<!--                reservation.reservationDate,-->
+<!--                reservation.timeStart,-->
+<!--                reservation.timeEnd,-->
+<!--                reservation.duration,-->
+<!--                reservation.priceSchedule,-->
+<!--                reservation.totalPrice,-->
+<!--                reservation.comments,-->
+<!--                reservation.reservationMadeTimestamp,-->
+<!--                reservation.paid,-->
+<!--                reservation.doublesMatch,-->
+<!--                newCustomer-->
+<!--            );-->
+
+<!--            reservationObjects.push(newReservation);-->
+<!--        });-->
+
+<!--        // Zwróć utworzone obiekty rezerwacji-->
+<!--        return reservationObjects;-->
+<!--    }-->
+
+<!--    let jsReservations = createReservationObjects();-->
+
+<!--</script>-->
 </body>
 </html>
 
