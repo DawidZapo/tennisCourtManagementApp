@@ -33,6 +33,14 @@
             width: 100%; /* Ustawienie szerokości tabeli na 100% szerokości dostępnej przestrzeni */
             table-layout: fixed; /* Ustawienie stałej szerokości kolumn */
         }
+        td{
+            padding: 2px;
+            position: relative;
+        }
+        .tile{
+            position: absolute; top: 0; left: 0; right: 0; bottom: 5px; display: flex; align-items: center; justify-content: center;
+            width: 100%;
+        }
 
 
     </style>
@@ -99,7 +107,7 @@
                         <table id="reservationTable" class="table table-bordered table-striped">
                             <thead class="table-dark" style="position: sticky; top: 0;z-index: 1;">
                             <tr>
-                                <th></th> <!-- Pusty nagłówek w pierwszej kolumnie -->
+                                <th class="col-md-1"></th> <!-- Pusty nagłówek w pierwszej kolumnie -->
                                 <th>Kort 1</th>
                                 <th>Kort 2</th>
                                 <th>Kort 3</th>
@@ -110,10 +118,8 @@
                             <tbody>
                                     <tr id="morning">
                                         <td>8:00</td>
-                                        <td rowspan="2" id="08:00court1" style="padding: 2px; position: relative;">
-                                            <a href="#" class="btn btn-warning w-100" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center;">
-
-                                            </a>
+                                        <td id="08:00court1" rowspan="2">
+                                            <a href="#" class="btn btn-warning tile"></a>
                                         </td>
                                         <td id="08:00court2"></td>
                                         <td id="08:00court3"></td>
@@ -123,7 +129,9 @@
                                     <tr>
                                         <td>8:30</td>
 <!--                                        <td id="08:30court1"></td>-->
-                                        <td id="08:30court2"></td>
+                                        <td id="08:30court2" rowspan="2">
+                                            <a href="#" class="btn btn-warning tile"></a>
+                                        </td>
                                         <td id="08:30court3"></td>
                                         <td id="08:30court4"></td>
                                         <td id="08:30court5"></td>
@@ -131,7 +139,7 @@
                                     <tr>
                                         <td>9:00</td>
                                         <td id="09:00court1"></td>
-                                        <td id="09:00court2"></td>
+<!--                                        <td id="09:00court2"></td>-->
                                         <td id="09:00court3"></td>
                                         <td id="09:00court4"></td>
                                         <td id="09:00court5"></td>
@@ -380,79 +388,114 @@
 <!--        });-->
 <!--    });-->
 <!--</script>-->
-<!--<script th:inline="javascript">-->
-<!--    class Customer {-->
-<!--        constructor(id, firstName, lastName, phone) {-->
-<!--            this.id = id;-->
-<!--            this.firstName = firstName;-->
-<!--            this.lastName = lastName;-->
-<!--            this.phone = phone;-->
-<!--        }-->
-<!--    }-->
+<script th:inline="javascript">
+    class Customer {
+        constructor(id, firstName, lastName, phone) {
+            this.id = id;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.phone = phone;
+        }
+    }
 
-<!--    class Reservation {-->
-<!--        constructor(id, courtNumber, reservationDate, timeStart, timeEnd, duration, priceSchedule, totalPrice, comments, reservationMadeTimestamp, paid, doublesMatch, customer) {-->
-<!--            this.id = id;-->
-<!--            this.courtNumber = courtNumber;-->
-<!--            this.reservationDate = reservationDate;-->
-<!--            this.timeStart = timeStart;-->
-<!--            this.timeEnd = timeEnd;-->
-<!--            this.duration = duration;-->
-<!--            this.priceSchedule = priceSchedule;-->
-<!--            this.totalPrice = totalPrice;-->
-<!--            this.comments = comments;-->
-<!--            this.reservationMadeTimestamp = reservationMadeTimestamp;-->
-<!--            this.paid = paid;-->
-<!--            this.doublesMatch = doublesMatch;-->
-<!--            this.customer = new Customer(-->
-<!--                customer.id,-->
-<!--                customer.firstName,-->
-<!--                customer.lastName,-->
-<!--                customer.phone-->
-<!--            );-->
-<!--        }-->
-<!--    }-->
+    class Reservation {
+        constructor(id, courtNumber, reservationDate, timeStart, timeEnd, duration, priceSchedule, totalPrice, comments, reservationMadeTimestamp, paid, doublesMatch, customer) {
+            this.id = id;
+            this.courtNumber = courtNumber;
+            this.reservationDate = reservationDate;
+            this.timeStart = timeStart;
+            this.timeEnd = timeEnd;
+            this.duration = duration;
+            this.priceSchedule = priceSchedule;
+            this.totalPrice = totalPrice;
+            this.comments = comments;
+            this.reservationMadeTimestamp = reservationMadeTimestamp;
+            this.paid = paid;
+            this.doublesMatch = doublesMatch;
+            this.customer = new Customer(
+                customer.id,
+                customer.firstName,
+                customer.lastName,
+                customer.phone
+            );
+        }
+    }
 
-<!--    const reservations = /*[[${reservations}]]*/ [];-->
+    const reservations = /*[[${reservations}]]*/ [];
 
-<!--    function createReservationObjects() {-->
-<!--        const reservationObjects = [];-->
+    function createReservationObjects() {
+        const reservationObjects = [];
 
-<!--        reservations.forEach(function(reservation) {-->
-<!--            const customer = reservation.customer;-->
-<!--            const newCustomer = new Customer(-->
-<!--                customer.id,-->
-<!--                customer.firstName,-->
-<!--                customer.lastName,-->
-<!--                customer.phone-->
-<!--            );-->
+        reservations.forEach(function(reservation) {
+            const customer = reservation.customer;
+            const newCustomer = new Customer(
+                customer.id,
+                customer.firstName,
+                customer.lastName,
+                customer.phone
+            );
 
-<!--            const newReservation = new Reservation(-->
-<!--                reservation.id,-->
-<!--                reservation.courtNumber,-->
-<!--                reservation.reservationDate,-->
-<!--                reservation.timeStart,-->
-<!--                reservation.timeEnd,-->
-<!--                reservation.duration,-->
-<!--                reservation.priceSchedule,-->
-<!--                reservation.totalPrice,-->
-<!--                reservation.comments,-->
-<!--                reservation.reservationMadeTimestamp,-->
-<!--                reservation.paid,-->
-<!--                reservation.doublesMatch,-->
-<!--                newCustomer-->
-<!--            );-->
+            const newReservation = new Reservation(
+                reservation.id,
+                reservation.courtNumber,
+                reservation.reservationDate,
+                reservation.timeStart,
+                reservation.timeEnd,
+                reservation.duration,
+                reservation.priceSchedule,
+                reservation.totalPrice,
+                reservation.comments,
+                reservation.reservationMadeTimestamp,
+                reservation.paid,
+                reservation.doublesMatch,
+                newCustomer
+            );
 
-<!--            reservationObjects.push(newReservation);-->
-<!--        });-->
+            reservationObjects.push(newReservation);
+        });
 
-<!--        // Zwróć utworzone obiekty rezerwacji-->
-<!--        return reservationObjects;-->
-<!--    }-->
+        // Zwróć utworzone obiekty rezerwacji
+        return reservationObjects;
+    }
 
-<!--    let jsReservations = createReservationObjects();-->
+    let jsReservations = createReservationObjects();
 
-<!--</script>-->
+    function fillUpTheTable(reservations){
+        reservations.forEach(reservation=>{
+            console.log(reservation);
+
+            const timeStartId = reservation.timeStart.slice(0,5)+'court'+reservation.courtNumber;
+            const td = document.getElementById(timeStartId);
+            const numberOfRowsToSpan = reservation.duration / 30;
+
+            for (let i = 0; i < numberOfRowsToSpan; i++) {
+                const [hours, minutes] = reservation.timeStart.split(':');
+                const [year, month, day] = reservation.reservationDate.split('-');
+                const timeStart = new Date(year, month, day, hours, minutes);
+
+                const currentCellTime = new Date(timeStart.getTime() + (i * 30 * 60 * 1000));
+                const currentCellId = `${currentCellTime.getHours().toString().padStart(2, '0')}:${currentCellTime.getMinutes().toString().padStart(2, '0')}court${reservation.courtNumber}`;
+                const currentCell = document.getElementById(currentCellId);
+
+                if (i === 0) {
+                    currentCell.setAttribute('rowspan', numberOfRowsToSpan);
+                } else {
+                    currentCell.remove();
+                }
+            }
+
+            const tile = document.createElement('a');
+            tile.setAttribute('href', '#');
+            tile.classList.add('btn', 'btn-warning', 'tile');
+            tile.textContent = reservation.customer.firstName+' ' + reservation.customer.lastName;
+
+            td.appendChild(tile);
+
+        })
+    }
+    fillUpTheTable(jsReservations);
+
+</script>
 </body>
 </html>
 
