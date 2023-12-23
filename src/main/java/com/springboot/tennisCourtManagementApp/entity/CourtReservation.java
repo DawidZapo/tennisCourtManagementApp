@@ -17,7 +17,7 @@ public class CourtReservation {
     @Column(name = "court_number")
     private Integer courtNumber;
     @Column(name = "reservation_date")
-    private LocalDate reservation_date;
+    private LocalDate reservationDate;
     @Column(name = "time_start")
     private LocalTime timeStart;
     @Column(name = "time_end")
@@ -46,9 +46,9 @@ public class CourtReservation {
     public CourtReservation() {
     }
 
-    public CourtReservation(Integer courtNumber,LocalDate reservation_date, LocalTime timeStart, LocalTime timeEnd, Double duration, Integer priceSchedule, Double totalPrice, boolean isDoublesMatch, boolean isPaid, String comments, Customer customer, String reservationMadeTimestamp) {
+    public CourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Double duration, Integer priceSchedule, Double totalPrice, boolean isDoublesMatch, boolean isPaid, String comments, Customer customer, String reservationMadeTimestamp) {
         this.courtNumber = courtNumber;
-        this.reservation_date = reservation_date;
+        this.reservationDate = reservationDate;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.duration = duration;
@@ -61,9 +61,9 @@ public class CourtReservation {
         this.reservationMadeTimestamp = reservationMadeTimestamp;
     }
 
-    public CourtReservation(Integer courtNumber, LocalDate reservation_date, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, boolean isDoublesMatch, boolean isPaid) {
+    public CourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, boolean isDoublesMatch, boolean isPaid) {
         this.courtNumber = courtNumber;
-        this.reservation_date = reservation_date;
+        this.reservationDate = reservationDate;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.duration = (double) Duration.between(timeStart, timeEnd).toMinutes();
@@ -90,12 +90,12 @@ public class CourtReservation {
         this.courtNumber = courtNumber;
     }
 
-    public LocalDate getReservation_date() {
-        return reservation_date;
+    public LocalDate getReservationDate() {
+        return reservationDate;
     }
 
-    public void setReservation_date(LocalDate reservation_date) {
-        this.reservation_date = reservation_date;
+    public void setReservationDate(LocalDate reservation_date) {
+        this.reservationDate = reservation_date;
     }
 
     public LocalTime getTimeStart() {
@@ -182,7 +182,7 @@ public class CourtReservation {
     public String toString() {
         return "CourtReservation{" +
                 "id=" + id +
-                ", reservation_date=" + reservation_date +
+                ", reservation_date=" + reservationDate +
                 ", timeStart=" + timeStart +
                 ", timeEnd=" + timeEnd +
                 ", duration=" + duration +

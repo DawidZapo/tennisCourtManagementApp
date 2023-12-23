@@ -470,7 +470,7 @@
 
             for (let i = 0; i < numberOfRowsToSpan; i++) {
                 const [hours, minutes] = reservation.timeStart.split(':');
-                const [year, month, day] = reservation.reservationDate.split('-');
+                const [year,month,day] = reservation.reservationDate.split('-');
                 const timeStart = new Date(year, month, day, hours, minutes);
 
                 const currentCellTime = new Date(timeStart.getTime() + (i * 30 * 60 * 1000));
