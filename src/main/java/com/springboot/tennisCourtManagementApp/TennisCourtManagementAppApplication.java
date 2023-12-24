@@ -1,6 +1,7 @@
 package com.springboot.tennisCourtManagementApp;
 
 import com.springboot.tennisCourtManagementApp.entity.CourtReservation;
+import com.springboot.tennisCourtManagementApp.entity.Customer;
 import com.springboot.tennisCourtManagementApp.service.CourtReservationService;
 import com.springboot.tennisCourtManagementApp.service.CustomerService;
 import org.springframework.boot.CommandLineRunner;
@@ -9,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalTime;
 
 @SpringBootApplication
 public class TennisCourtManagementAppApplication {
@@ -22,12 +23,12 @@ public class TennisCourtManagementAppApplication {
 	public CommandLineRunner commandLineRunner(CourtReservationService courtReservationService, CustomerService customerService) {
 
 		return runner -> {
-//			Customer customerDawid = customerService.findCustomerByIdJoinFetch(1);
-//			Customer customerHania = customerService.findCustomerByIdJoinFetch(2);
+			Customer customerDawid = customerService.findCustomerByIdJoinFetch(1);
+			Customer customerHania = customerService.findCustomerByIdJoinFetch(2);
 //			customerDawid.addReservations(List.of(
-//					new CourtReservation(1, LocalDate.of(2023,12,24), LocalTime.of(8,0), LocalTime.of(10,30),1,false,false),
-//					new CourtReservation(1, LocalDate.of(2023,12,24), LocalTime.of(11,0), LocalTime.of(13,30),1,false,false),
-//					new CourtReservation(1, LocalDate.of(2023,12,24), LocalTime.of(13,30), LocalTime.of(16,0),1,false,false),
+//					new CourtReservation(5, LocalDate.of(2023,12,24), LocalTime.of(16,30), LocalTime.of(17,30),1,false,false),
+//					new CourtReservation(5, LocalDate.of(2023,12,24), LocalTime.of(17,30), LocalTime.of(19,30),1,false,false),
+//					new CourtReservation(5, LocalDate.of(2023,12,24), LocalTime.of(19,30), LocalTime.of(21,0),1,false,false),
 //					new CourtReservation(2, LocalDate.of(2023,12,24), LocalTime.of(10,0), LocalTime.of(12,30),1,false,false),
 //					new CourtReservation(2, LocalDate.of(2023,12,24), LocalTime.of(16,0), LocalTime.of(17,0),1,false,false),
 //					new CourtReservation(2, LocalDate.of(2023,12,24), LocalTime.of(17,0), LocalTime.of(18,30),1,false,false)
@@ -40,15 +41,12 @@ public class TennisCourtManagementAppApplication {
 //					new CourtReservation(5, LocalDate.of(2023,12,24), LocalTime.of(16,0), LocalTime.of(17,3),1,false,false),
 //					new CourtReservation(5, LocalDate.of(2023,12,24), LocalTime.of(17,3), LocalTime.of(20,30),1,false,false)
 //			));
-//
-//
-//			customerService.save(customerDawid);
-//			customerService.save(customerHania);
+			customerHania.addReservation(new CourtReservation(4, LocalDate.of(2023,12,24), LocalTime.of(8,0), LocalTime.of(8,30),1,false,false));
+			customerHania.addReservation(new CourtReservation(4, LocalDate.of(2023,12,24), LocalTime.of(8,30), LocalTime.of(9,0),1,false,false));
+			customerHania.addReservation(new CourtReservation(4, LocalDate.of(2023,12,24), LocalTime.of(9,30), LocalTime.of(10,0),1,false,false));
 
-			List<CourtReservation> reservations = courtReservationService.findAllByReservationDate(LocalDate.now());
-			for(var res : reservations){
-				System.out.println(res);
-			}
+			customerService.save(customerHania);
+
 
 		};
 	}
