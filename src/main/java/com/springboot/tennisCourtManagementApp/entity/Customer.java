@@ -92,4 +92,13 @@ public class Customer {
         courtReservations.add(courtReservation);
         courtReservation.setCustomer(this);
     }
+    public void addReservations(List<CourtReservation> listOfReservations){
+        if(courtReservations == null){
+            courtReservations = new ArrayList<>();
+        }
+        for(var courtReservation : listOfReservations){
+            courtReservations.add(courtReservation);
+            courtReservation.setCustomer(this);
+        }
+    }
 }
