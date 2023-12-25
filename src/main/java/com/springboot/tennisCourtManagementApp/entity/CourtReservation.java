@@ -194,4 +194,21 @@ public class CourtReservation {
                 ", reservationMadeTimestamp='" + reservationMadeTimestamp + '\'' +
                 '}';
     }
+
+    public String convertMinutesToHoursAndMinutes(Double minutes) {
+        if (minutes < 0) {
+            return "Błędna wartość";
+        }
+
+        int hours = (int) (minutes / 60);
+        int remainingMinutes = (int) (minutes % 60);
+
+        if (hours == 0) {
+            return remainingMinutes + "min";
+        } else if (remainingMinutes == 0) {
+            return hours + "h";
+        } else {
+            return hours + "h" + remainingMinutes + "min";
+        }
+    }
 }

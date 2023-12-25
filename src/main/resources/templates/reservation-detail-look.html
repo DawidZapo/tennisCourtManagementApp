@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rezerwacje kortów</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .navbar-custom {
+            background-color: #f8f9fa;
+        }
+        .navbar-brand img {
+            max-height: 40px;
+        }
+        .user-info {
+            margin-left: auto;
+        }
+        /* Zwiększ czcionkę daty i godziny */
+        #current-date-time {
+            font-size: 24px;
+        }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-primary bg-light navbar-custom">
+    <a class="navbar-brand" style="padding-left: 15px" th:href="@{/}">
+        <img width="60" height="100" src="/images/mzuk.png" alt="Logo">
+    </a>
+
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="#">Opcja 1</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Opcja 2</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Opcja 3</a>
+        </li>
+    </ul>
+
+    <div class="navbar-text mx-auto">
+        <h1 id="current-date-time"></h1>
+    </div>
+
+    <div class="user-info m-3">
+        Zalogowany jako: <strong th:text="${username}"></strong>
+    </div>
+
+    <button class="btn btn-outline-danger mx-4">Wyloguj</button>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title">Szczegóły rezerwacji</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="mb-2"><strong>Klient:</strong> <span th:text="${reservation.customer.firstName} + ' ' + ${reservation.customer.lastName}"></span></p>
+                            <p class="mb-2"><strong>Data:</strong> <span th:text="${reservation.reservationDate}"></span></p>
+                            <p class="mb-2"><strong>Numer kortu:</strong> <span th:text="${reservation.courtNumber}"></span></p>
+                            <p class="mb-2"><strong>Godzina rozpoczęcia:</strong> <span th:text="${reservation.timeStart}"></span></p>
+                            <p class="mb-2"><strong>Godzina zakończenia:</strong> <span th:text="${reservation.timeEnd}"></span></p>
+                            <p class="mb-2"><strong>Całkowity czas trwania:</strong> <span th:text="${reservation.convertMinutesToHoursAndMinutes(reservation.duration)}"></span></p>
+                            <p class="mb-2"><strong>Czas przyjęcia rezerwacji:</strong> <span th:text="${reservation.reservationMadeTimestamp}"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title">Płatność</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="mb-2"><strong>Czy opłacono:</strong>
+                                <span th:if="${reservation.isPaid()}">
+                                    <span>TAK</span>
+                                </span>
+                                <span th:if="${!reservation.isPaid()}">
+                                    <span>NIE</span>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title">Akcja</h5>
+                </div>
+                <div class="card-body">
+                    <!-- Tutaj umieść akcje -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/updateTime.js"></script>
+</body>
+</html>
+
+
+
