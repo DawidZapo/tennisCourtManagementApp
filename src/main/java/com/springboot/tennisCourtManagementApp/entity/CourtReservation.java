@@ -1,5 +1,8 @@
 package com.springboot.tennisCourtManagementApp.entity;
 
+import de.jollyday.HolidayCalendar;
+import de.jollyday.HolidayManager;
+import de.jollyday.ManagerParameters;
 import jakarta.persistence.*;
 
 import java.time.Duration;
@@ -61,14 +64,14 @@ public class CourtReservation {
         this.reservationMadeTimestamp = reservationMadeTimestamp;
     }
 
-    public CourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, boolean isDoublesMatch, boolean isPaid) {
+    public CourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule,Double totalPrice, boolean isDoublesMatch, boolean isPaid) {
         this.courtNumber = courtNumber;
         this.reservationDate = reservationDate;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.duration = (double) Duration.between(timeStart, timeEnd).toMinutes();
         this.priceSchedule = priceSchedule;
-        this.totalPrice = 0.0;
+        this.totalPrice = totalPrice;
         this.isDoublesMatch = isDoublesMatch;
         this.isPaid = isPaid;
         this.reservationMadeTimestamp = LocalDate.now().toString() + " " + LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
@@ -210,5 +213,11 @@ public class CourtReservation {
         } else {
             return hours + "h" + remainingMinutes + "min";
         }
+    }
+    public static Double getCalculatedPrice(LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule){
+        HolidayManager holidayManager = HolidayManager.getInstance(ManagerParameters.create(HolidayCalendar.POLAND));
+        boolean isHoliday = holidayManager.isHoliday(LocalDate.of(2022, 6, 6));
+        return 0.0;
+        // to be added
     }
 }
