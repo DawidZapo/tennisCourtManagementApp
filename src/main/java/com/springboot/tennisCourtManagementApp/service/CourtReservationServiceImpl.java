@@ -63,8 +63,9 @@ public class CourtReservationServiceImpl implements CourtReservationService{
 
     @Override
     public CourtReservation createNewCourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, boolean isDoublesMatch, String acceptedBy) {
-        Double totalPrice = 0.0;
         PriceSchedule price = priceScheduleService.findById(priceSchedule);
+
+        Double totalPrice = CourtReservation.getCalculatedPrice(reservationDate,timeStart,timeEnd,isDoublesMatch,price);
 
         return new CourtReservation(courtNumber,reservationDate,timeStart,timeEnd,priceSchedule,totalPrice,isDoublesMatch,false,acceptedBy);
     }

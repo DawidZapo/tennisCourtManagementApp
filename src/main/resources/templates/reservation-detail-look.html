@@ -69,6 +69,7 @@
                             <p class="mb-2"><strong>Godzina zakończenia:</strong> <span th:text="${reservation.timeEnd}"></span></p>
                             <p class="mb-2"><strong>Całkowity czas trwania:</strong> <span th:text="${reservation.convertMinutesToHoursAndMinutes(reservation.duration)}"></span></p>
                             <p class="mb-2"><strong>Czas przyjęcia rezerwacji:</strong> <span th:text="${reservation.acceptedAt}"></span></p>
+                            <p class="mb-2"><strong>Rezerwacja przyjęta przez:</strong> <span th:text="${reservation.getAcceptedBy()}"></span></p>
                         </div>
                     </div>
                 </div>
@@ -90,6 +91,7 @@
                                     <span>NIE</span>
                                 </span>
                             </p>
+                            <p class="mb-2"><strong>Należność:</strong> <span th:text="${reservation.totalPrice} + ' PLN'"></span></p>
                             <p class="mb-2"><strong>Rodzaj płatności:</strong>
                                 <span th:if="${reservation.isCash()==null}">
                                     <span>Nie określono</span>
@@ -103,6 +105,16 @@
                                     </span>
                                 </span>
                             </p>
+                            <p class="mb-2"><strong>Zniżka:</strong> <span th:text="${reservation.getDiscountName()}"></span></p>
+                            <p class="mb-2"><strong>Cennik deblowy:</strong>
+                                <span th:if="${reservation.isDoublesMatch()}">
+                                    <span>Tak</span>
+                                </span>
+                                <span th:if="${!reservation.isDoublesMatch()}">
+                                    <span>Nie</span>
+                                </span>
+                            </p>
+                            <p class="mb-2"><strong>Stawka:</strong> <span th:text="${reservation.getPricePerHourForHTML(priceSchedule)}"></span></p>
                         </div>
                     </div>
                 </div>

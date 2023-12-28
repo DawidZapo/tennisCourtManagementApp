@@ -5,6 +5,7 @@ import de.jollyday.HolidayManager;
 import de.jollyday.ManagerParameters;
 import jakarta.persistence.*;
 
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -46,7 +47,6 @@ public class CourtReservation {
     private Customer customer;
     @Column(name = "accepted_by")
     private String acceptedBy;
-
     @Column(name = "accepted_at")
     private String acceptedAt;
 
@@ -205,6 +205,22 @@ public class CourtReservation {
         this.acceptedAt = acceptedAt;
     }
 
+    public String getDiscountName() {
+        return switch (priceSchedule) {
+            case 1 -> "Cena regularna";
+            case 2 -> "Dzieci, młodzież szkolna do lat 16";
+            case 3 -> "Karta Rodzina 3+ (osoby dorosłe)";
+            case 4 -> "Karta Rodzina 3+ (dzieci, młodzież szkolna do lat 16)";
+            case 5 -> "Karta Gliwicki Senior 60+";
+            case 6 -> "Karta Gliwicki Senior 75+";
+            case 7 -> "Gliwicka Karta Mieszkańca";
+            case 8 -> "Gliwicka Karta Mieszkańca (dzieci, młodzież szkolna do lat 16)";
+            case 9 -> "Gliwickie stowarzyszenia i kluby sportowe";
+            case 10 -> "Inne kluby sportowe i podmioty gospodarcze";
+            default -> "Błąd";
+        };
+    }
+
     @Override
     public String toString() {
         return "CourtReservation{" +
@@ -242,10 +258,102 @@ public class CourtReservation {
             return hours + "h" + remainingMinutes + "min";
         }
     }
-    public static Double getCalculatedPrice(LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule){
+    public String getPricePerHourForHTML(PriceSchedule priceSchedule){
         HolidayManager holidayManager = HolidayManager.getInstance(ManagerParameters.create(HolidayCalendar.POLAND));
-        boolean isHoliday = holidayManager.isHoliday(LocalDate.of(2022, 6, 6));
-        return 0.0;
-        // to be added
+        boolean isHoliday = holidayManager.isHoliday(reservationDate);
+        boolean isSaturday = DayOfWeek.SATURDAY.equals(reservationDate.getDayOfWeek());
+        boolean isSunday = DayOfWeek.SUNDAY.equals(reservationDate.getDayOfWeek());
+        LocalTime time15 = LocalTime.of(15,0);
+        Double morningPrice = 0.0;
+        Double afternoonPrice = 0.0;
+
+        if(isHoliday || isSaturday || isSunday){
+            if(!isDoublesMatch){
+                morningPrice = priceSchedule.getOffdayMorningSingles();
+                afternoonPrice = priceSchedule.getOffdayAfternoonSingles();
+            }
+            else{
+                morningPrice = priceSchedule.getOffdayMorningDoubles();
+                afternoonPrice = priceSchedule.getOffdayAfternoonDoubles();
+            }
+        }
+        else{
+            if(!isDoublesMatch){
+                morningPrice = priceSchedule.getWorkdayMorningSingles();
+                afternoonPrice = priceSchedule.getWorkdayAfternoonSingles();
+            }
+            else{
+                morningPrice = priceSchedule.getWorkdayMorningDoubles();
+                afternoonPrice = priceSchedule.getWorkdayAfternoonDoubles();
+            }
+        }
+
+        if (timeStart.isBefore(time15)) {
+            if (timeEnd.isAfter(time15)) {
+                //oba cenniki
+                return morningPrice + " PLN/h oraz " + afternoonPrice + " PLN/h";
+            } else {
+                //cennik poranny
+                return morningPrice + " PLN/h";
+            }
+        }
+        else {
+            //cennik popołudniowy
+            return afternoonPrice + " PLN/h";
+        }
+
+    }
+    public static double getCalculatedPrice(LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Boolean isDoubles, PriceSchedule priceSchedule){
+        double calculatedPrice = 0.0;
+        HolidayManager holidayManager = HolidayManager.getInstance(ManagerParameters.create(HolidayCalendar.POLAND));
+        boolean isHoliday = holidayManager.isHoliday(reservationDate);
+        boolean isSaturday = DayOfWeek.SATURDAY.equals(reservationDate.getDayOfWeek());
+        boolean isSunday = DayOfWeek.SUNDAY.equals(reservationDate.getDayOfWeek());
+        LocalTime time15 = LocalTime.of(15,0);
+        Double morningPrice = 0.0;
+        Double afternoonPrice = 0.0;
+
+        if(isHoliday || isSaturday || isSunday){
+            if(!isDoubles){
+                morningPrice = priceSchedule.getOffdayMorningSingles();
+                afternoonPrice = priceSchedule.getOffdayAfternoonSingles();
+            }
+            else{
+                morningPrice = priceSchedule.getOffdayMorningDoubles();
+                afternoonPrice = priceSchedule.getOffdayAfternoonDoubles();
+            }
+        }
+        else{
+            if(!isDoubles){
+                morningPrice = priceSchedule.getWorkdayMorningSingles();
+                afternoonPrice = priceSchedule.getWorkdayAfternoonSingles();
+            }
+            else{
+                morningPrice = priceSchedule.getWorkdayMorningDoubles();
+                afternoonPrice = priceSchedule.getWorkdayAfternoonDoubles();
+            }
+        }
+
+        if (timeStart.isBefore(time15)) {
+            if (timeEnd.isAfter(time15)) {
+                //oba cenniki
+                Double before15 = Duration.between(timeStart,time15).toMinutes()/60.0;
+                Double after15 = Duration.between(time15,timeEnd).toMinutes()/60.0;
+                calculatedPrice += (before15*morningPrice);
+                calculatedPrice += (after15*afternoonPrice);
+            } else {
+                //cennik poranny
+                Double duration = Duration.between(timeStart,timeEnd).toMinutes()/60.0;
+                calculatedPrice += (duration*morningPrice);
+            }
+        }
+        else {
+            //cennik popołudniowy
+            Double duration = Duration.between(timeStart,timeEnd).toMinutes()/60.0;
+            calculatedPrice += (duration*afternoonPrice);
+        }
+
+
+        return calculatedPrice;
     }
 }

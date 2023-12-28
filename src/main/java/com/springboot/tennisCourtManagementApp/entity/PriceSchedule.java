@@ -26,12 +26,12 @@ public class PriceSchedule {
     @Column(name = "offday_morning_doubles")
     private Double offdayMorningDoubles;
     @Column(name = "offday_afternoon_doubles")
-    private Double ofdayAfternoonDoubles;
+    private Double offdayAfternoonDoubles;
 
     public PriceSchedule() {
     }
 
-    public PriceSchedule(Integer id, String discountName, Double workdayMorningSingles, Double workdayAfternoonSingles, Double offdayMorningSingles, Double offdayAfternoonSingles, Double workdayMorningDoubles, Double workdayAfternoonDoubles, Double offdayMorningDoubles, Double ofdayAfternoonDoubles) {
+    public PriceSchedule(Integer id, String discountName, Double workdayMorningSingles, Double workdayAfternoonSingles, Double offdayMorningSingles, Double offdayAfternoonSingles, Double workdayMorningDoubles, Double workdayAfternoonDoubles, Double offdayMorningDoubles, Double offdayAfternoonDoubles) {
         this.id = id;
         this.discountName = discountName;
         this.workdayMorningSingles = workdayMorningSingles;
@@ -41,7 +41,7 @@ public class PriceSchedule {
         this.workdayMorningDoubles = workdayMorningDoubles;
         this.workdayAfternoonDoubles = workdayAfternoonDoubles;
         this.offdayMorningDoubles = offdayMorningDoubles;
-        this.ofdayAfternoonDoubles = ofdayAfternoonDoubles;
+        this.offdayAfternoonDoubles = offdayAfternoonDoubles;
     }
 
     public Integer getId() {
@@ -88,8 +88,8 @@ public class PriceSchedule {
         return offdayAfternoonSingles;
     }
 
-    public void setOffdayAfternoonSingles(Double ofdayAfternoonSingles) {
-        this.offdayAfternoonSingles = ofdayAfternoonSingles;
+    public void setOffdayAfternoonSingles(Double offdayAfternoonSingles) {
+        this.offdayAfternoonSingles = offdayAfternoonSingles;
     }
 
     public Double getWorkdayMorningDoubles() {
@@ -116,12 +116,12 @@ public class PriceSchedule {
         this.offdayMorningDoubles = offdayMorningDoubles;
     }
 
-    public Double getOfdayAfternoonDoubles() {
-        return ofdayAfternoonDoubles;
+    public Double getOffdayAfternoonDoubles() {
+        return offdayAfternoonDoubles;
     }
 
-    public void setOfdayAfternoonDoubles(Double ofdayAfternoonDoubles) {
-        this.ofdayAfternoonDoubles = ofdayAfternoonDoubles;
+    public void setOffdayAfternoonDoubles(Double offdayAfternoonDoubles) {
+        this.offdayAfternoonDoubles = offdayAfternoonDoubles;
     }
 
     @Override
@@ -136,7 +136,7 @@ public class PriceSchedule {
                 ", workdayMorningDoubles=" + workdayMorningDoubles +
                 ", workdayAfternoonDoubles=" + workdayAfternoonDoubles +
                 ", offdayMorningDoubles=" + offdayMorningDoubles +
-                ", ofdayAfternoonDoubles=" + ofdayAfternoonDoubles +
+                ", offdayAfternoonDoubles=" + offdayAfternoonDoubles +
                 '}';
     }
 }
