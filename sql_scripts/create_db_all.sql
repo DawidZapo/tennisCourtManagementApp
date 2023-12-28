@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS customer (
 
 CREATE TABLE IF NOT EXISTS court_reservation (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    court_number INT,
     reservation_date DATE,
     time_start TIME,
     time_end TIME,
@@ -19,9 +20,11 @@ CREATE TABLE IF NOT EXISTS court_reservation (
     total_price DOUBLE,
     is_doubles_match TINYINT(1),
     is_paid TINYINT(1),
+    is_cash TINYINT(1),
     comments TEXT,
     customer_id INT,
-    reservation_made_timestamp VARCHAR(50),
+    accepted_by VARCHAR(50),
+    accepted_at VARCHAR(50),
     FOREIGN KEY (customer_id) REFERENCES customer(id)
 ) ENGINE=InnoDB;
 

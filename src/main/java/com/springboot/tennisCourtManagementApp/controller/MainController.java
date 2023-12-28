@@ -28,7 +28,7 @@ public class MainController {
             String username = authentication.getName();
             model.addAttribute("username", username);
         }
-        List<CourtReservation> reservations = courtReservationService.findAllByReservationDate(LocalDate.of(2023,12,24));
+        List<CourtReservation> reservations = courtReservationService.findAllByReservationDate(LocalDate.now());
         model.addAttribute("reservations", reservations);
 
         return "home";

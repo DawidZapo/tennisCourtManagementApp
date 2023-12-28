@@ -13,5 +13,5 @@ public interface CourtReservationService {
     void deleteById(int id);
     void delete(CourtReservation courtReservation);
     List<CourtReservation> findAllByReservationDate(LocalDate date);
-    CourtReservation createNewCourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, boolean isDoublesMatch);
+    CourtReservation createNewCourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, boolean isDoublesMatch, String acceptedBy);
 }

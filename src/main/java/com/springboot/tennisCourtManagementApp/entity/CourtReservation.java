@@ -32,9 +32,11 @@ public class CourtReservation {
     @Column(name = "total_price")
     private Double totalPrice;
     @Column(name = "is_doubles_match")
-    private boolean isDoublesMatch;
+    private Boolean isDoublesMatch;
     @Column(name = "is_paid")
-    private boolean isPaid;
+    private Boolean isPaid;
+    @Column(name = "is_cash")
+    private Boolean isCash;
     @Column(name = "comments")
     private String comments;
 
@@ -42,14 +44,16 @@ public class CourtReservation {
             CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name="customer_id")
     private Customer customer;
+    @Column(name = "accepted_by")
+    private String acceptedBy;
 
-    @Column(name = "reservation_made_timestamp")
-    private String reservationMadeTimestamp;
+    @Column(name = "accepted_at")
+    private String acceptedAt;
 
     public CourtReservation() {
     }
 
-    public CourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Double duration, Integer priceSchedule, Double totalPrice, boolean isDoublesMatch, boolean isPaid, String comments, Customer customer, String reservationMadeTimestamp) {
+    public CourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Double duration, Integer priceSchedule, Double totalPrice, Boolean isDoublesMatch, Boolean isPaid, Boolean isCash, String comments, Customer customer, String acceptedBy, String acceptedAt) {
         this.courtNumber = courtNumber;
         this.reservationDate = reservationDate;
         this.timeStart = timeStart;
@@ -59,12 +63,14 @@ public class CourtReservation {
         this.totalPrice = totalPrice;
         this.isDoublesMatch = isDoublesMatch;
         this.isPaid = isPaid;
+        this.isCash = isCash;
         this.comments = comments;
         this.customer = customer;
-        this.reservationMadeTimestamp = reservationMadeTimestamp;
+        this.acceptedBy = acceptedBy;
+        this.acceptedAt = acceptedAt;
     }
 
-    public CourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule,Double totalPrice, boolean isDoublesMatch, boolean isPaid) {
+    public CourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, Double totalPrice, Boolean isDoublesMatch, Boolean isPaid, String acceptedBy) {
         this.courtNumber = courtNumber;
         this.reservationDate = reservationDate;
         this.timeStart = timeStart;
@@ -74,7 +80,9 @@ public class CourtReservation {
         this.totalPrice = totalPrice;
         this.isDoublesMatch = isDoublesMatch;
         this.isPaid = isPaid;
-        this.reservationMadeTimestamp = LocalDate.now().toString() + " " + LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
+        this.isCash = null;
+        this.acceptedBy = acceptedBy;
+        this.acceptedAt = LocalDate.now().toString() + " " + LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
     }
 
     public Long getId() {
@@ -141,20 +149,28 @@ public class CourtReservation {
         this.totalPrice = totalPrice;
     }
 
-    public boolean isDoublesMatch() {
+    public Boolean isDoublesMatch() {
         return isDoublesMatch;
     }
 
-    public void setDoublesMatch(boolean doublesMatch) {
+    public void setDoublesMatch(Boolean doublesMatch) {
         isDoublesMatch = doublesMatch;
     }
 
-    public boolean isPaid() {
+    public Boolean isPaid() {
         return isPaid;
     }
 
-    public void setPaid(boolean paid) {
+    public void setPaid(Boolean paid) {
         isPaid = paid;
+    }
+
+    public Boolean isCash() {
+        return isCash;
+    }
+
+    public void setCash(Boolean cash) {
+        isCash = cash;
     }
 
     public String getComments() {
@@ -173,19 +189,28 @@ public class CourtReservation {
         this.customer = customer;
     }
 
-    public String getReservationMadeTimestamp() {
-        return reservationMadeTimestamp;
+    public String getAcceptedBy() {
+        return acceptedBy;
     }
 
-    public void setReservationMadeTimestamp(String reservationMadeTimestamp) {
-        this.reservationMadeTimestamp = reservationMadeTimestamp;
+    public void setAcceptedBy(String acceptedBy) {
+        this.acceptedBy = acceptedBy;
+    }
+
+    public String getAcceptedAt() {
+        return acceptedAt;
+    }
+
+    public void setAcceptedAt(String acceptedAt) {
+        this.acceptedAt = acceptedAt;
     }
 
     @Override
     public String toString() {
         return "CourtReservation{" +
                 "id=" + id +
-                ", reservation_date=" + reservationDate +
+                ", courtNumber=" + courtNumber +
+                ", reservationDate=" + reservationDate +
                 ", timeStart=" + timeStart +
                 ", timeEnd=" + timeEnd +
                 ", duration=" + duration +
@@ -193,8 +218,11 @@ public class CourtReservation {
                 ", totalPrice=" + totalPrice +
                 ", isDoublesMatch=" + isDoublesMatch +
                 ", isPaid=" + isPaid +
+                ", isCash=" + isCash +
                 ", comments='" + comments + '\'' +
-                ", reservationMadeTimestamp='" + reservationMadeTimestamp + '\'' +
+                ", customer=" + customer +
+                ", acceptedBy='" + acceptedBy + '\'' +
+                ", acceptedAt='" + acceptedAt + '\'' +
                 '}';
     }
 

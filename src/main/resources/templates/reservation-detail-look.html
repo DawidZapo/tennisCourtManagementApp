@@ -68,7 +68,7 @@
                             <p class="mb-2"><strong>Godzina rozpoczęcia:</strong> <span th:text="${reservation.timeStart}"></span></p>
                             <p class="mb-2"><strong>Godzina zakończenia:</strong> <span th:text="${reservation.timeEnd}"></span></p>
                             <p class="mb-2"><strong>Całkowity czas trwania:</strong> <span th:text="${reservation.convertMinutesToHoursAndMinutes(reservation.duration)}"></span></p>
-                            <p class="mb-2"><strong>Czas przyjęcia rezerwacji:</strong> <span th:text="${reservation.reservationMadeTimestamp}"></span></p>
+                            <p class="mb-2"><strong>Czas przyjęcia rezerwacji:</strong> <span th:text="${reservation.acceptedAt}"></span></p>
                         </div>
                     </div>
                 </div>
@@ -88,6 +88,19 @@
                                 </span>
                                 <span th:if="${!reservation.isPaid()}">
                                     <span>NIE</span>
+                                </span>
+                            </p>
+                            <p class="mb-2"><strong>Rodzaj płatności:</strong>
+                                <span th:if="${reservation.isCash()==null}">
+                                    <span>Nie określono</span>
+                                </span>
+                                <span th:if="${reservation.isCash()!=null}">
+                                    <span th:if="${reservation.isCash()}">
+                                        <span>Gotówka</span>
+                                    </span>
+                                    <span th:if="${!reservation.isCash()}">
+                                        <span>Karta</span>
+                                    </span>
                                 </span>
                             </p>
                         </div>
