@@ -128,7 +128,26 @@
                     <h5 class="card-title">Akcja</h5>
                 </div>
                 <div class="card-body">
-                    <!-- Tutaj umieść akcje -->
+                    <div class="row">
+                        <div class="col-sm-12 d-flex align-items-center">
+                            <form th:action="@{/reservation/save}" method="POST" class="d-flex align-items-center">
+                                <div class="mr-auto">
+                                    <input type="hidden" name="id" th:value="${reservation.id}" />
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input" name="payment" id="cash" value="cash">
+                                        <label class="form-check-label" for="cash">Gotówka</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" class="form-check-input" name="payment" id="card" value="card">
+                                        <label class="form-check-label" for="card">Karta</label>
+                                    </div>
+                                </div>
+                                <button id="submitButton" type="submit" class="btn btn-primary ml-2" disabled>Zmień płatność</button>
+                            </form>
+                        </div>
+
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -136,6 +155,22 @@
 </div>
 
 <script src="/js/updateTime.js"></script>
+<script>
+    const cashRadio = document.getElementById('cash');
+    const cardRadio = document.getElementById('card');
+    const submitBtn = document.getElementById('submitButton');
+
+    cashRadio.addEventListener('change', toggleButtonState);
+    cardRadio.addEventListener('change', toggleButtonState);
+
+    function toggleButtonState() {
+        if (cashRadio.checked || cardRadio.checked) {
+            submitBtn.disabled = false;
+        } else {
+            submitBtn.disabled = true;
+        }
+    }
+</script>
 </body>
 </html>
 

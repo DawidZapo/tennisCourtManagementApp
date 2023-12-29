@@ -69,4 +69,9 @@ public class CourtReservationServiceImpl implements CourtReservationService{
 
         return new CourtReservation(courtNumber,reservationDate,timeStart,timeEnd,priceSchedule,totalPrice,isDoublesMatch,false,acceptedBy);
     }
+
+    @Override
+    public void updatePayment(int id, Boolean isCash) {
+        courtReservationRepository.updateIsCashById(id, isCash);
+    }
 }

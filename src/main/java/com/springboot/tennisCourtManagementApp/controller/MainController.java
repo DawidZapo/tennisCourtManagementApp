@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
@@ -71,5 +72,27 @@ public class MainController {
         model.addAttribute("reservation", courtReservation);
         model.addAttribute("priceSchedule", priceSchedule);
         return "reservation-detail-look";
+    }
+
+    @PostMapping("reservation/save")
+    public String saveReservation(@RequestParam("id") int id, @RequestParam(name = "payment", required = false) String payment){
+        if(payment==null){
+            System.out.println("Payment == null");
+        }
+        else{
+            System.out.println("Wykonuje funkcje");
+            Boolean isCash;
+            if(payment.equalsIgnoreCase("cash")){
+                isCash = true;
+            }
+            else if(payment.equalsIgnoreCase("card")){
+                isCash = false;
+            }
+            else{
+                isCash = null;
+            }
+            courtReservationService.updatePayment(id,isCash);
+        }
+        return "redirect:/reservation?id="+id;
     }
 }
