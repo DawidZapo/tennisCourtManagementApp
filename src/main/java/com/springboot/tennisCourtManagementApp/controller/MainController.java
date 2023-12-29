@@ -33,7 +33,7 @@ public class MainController {
             String username = authentication.getName();
             model.addAttribute("username", username);
         }
-        List<CourtReservation> reservations = courtReservationService.findAllByReservationDate(LocalDate.now());
+        List<CourtReservation> reservations = courtReservationService.findAllByReservationDate(LocalDate.of(2023,12,28));
         model.addAttribute("reservations", reservations);
 
         return "home";

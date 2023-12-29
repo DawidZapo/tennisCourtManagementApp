@@ -480,10 +480,12 @@
                 const currentCellId = `${currentCellTime.getHours().toString().padStart(2, '0')}:${currentCellTime.getMinutes().toString().padStart(2, '0')}court${reservation.courtNumber}`;
                 const currentCell = document.getElementById(currentCellId);
 
-                if (i === 0) {
-                    currentCell.setAttribute('rowspan', numberOfRowsToSpan);
-                } else {
-                    currentCell.remove();
+                if(currentCell){
+                    if (i === 0) {
+                        currentCell.setAttribute('rowspan', numberOfRowsToSpan);
+                    } else {
+                        currentCell.remove();
+                    }
                 }
             }
 
