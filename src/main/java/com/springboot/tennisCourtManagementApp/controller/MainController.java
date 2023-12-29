@@ -5,6 +5,7 @@ import com.springboot.tennisCourtManagementApp.entity.PriceSchedule;
 import com.springboot.tennisCourtManagementApp.service.CourtReservationService;
 import com.springboot.tennisCourtManagementApp.service.PriceScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -27,14 +28,33 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String home(Model model){
+    public String home(@RequestParam(name = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, Model model) {
+        if (date == null) {
+            date = LocalDate.now();
+        }
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
             model.addAttribute("username", username);
         }
-        List<CourtReservation> reservations = courtReservationService.findAllByReservationDate(LocalDate.of(2023,12,28));
+
+        String dayOfWeek = date.getDayOfWeek().toString();
+        String dayOfWeekPolish = switch(dayOfWeek){
+            case "MONDAY" -> "PONIEDZIAŁEK";
+            case "TUESDAY" -> "WTOREK";
+            case "WEDNESDAY" -> "ŚRODA";
+            case "THURSDAY" -> "CZWARTEK";
+            case "FRIDAY" -> "PIĄTEK";
+            case "SATURDAY" -> "SOBOTA";
+            case "SUNDAY" -> "NIEDZIELA";
+            default -> "BŁĄD";
+        };
+        String dateString = date.toString();
+        List<CourtReservation> reservations = courtReservationService.findAllByReservationDate(date);
         model.addAttribute("reservations", reservations);
+        model.addAttribute("dayOfWeek",dayOfWeekPolish);
+        model.addAttribute("date", dateString);
 
         return "home";
     }

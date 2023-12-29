@@ -10,34 +10,21 @@ updateDateTime();
 setInterval(updateDateTime, 1000);
 
 
-function updateCurrentDay(date) {
-    const formattedDate = date.toLocaleDateString('pl-PL', { day: 'numeric', month: 'numeric' });
-    document.getElementById('current-day').textContent = `Bieżący dzień: ${formattedDate}`;
-}
+
+
 
 const datePicker = document.getElementById('date-picker');
-datePicker.addEventListener('change', function () {
-    const selectedDate = new Date(this.value);
-    updateCurrentDay(selectedDate);
-});
-
-document.getElementById('prev-day').addEventListener('click', function () {
+document.addEventListener('DOMContentLoaded', function() {
     const datePicker = document.getElementById('date-picker');
-    const currentDate = new Date(datePicker.value);
-    currentDate.setDate(currentDate.getDate() - 1);
-    datePicker.value = currentDate.toISOString().split('T')[0];
-    updateCurrentDay(currentDate);
+
+    datePicker.addEventListener('change', function() {
+        const selectedDate = datePicker.value;
+        changeDateWithSelected(selectedDate);
+    });
 });
 
-document.getElementById('next-day').addEventListener('click', function () {
-    const datePicker = document.getElementById('date-picker');
-    const currentDate = new Date(datePicker.value);
-    currentDate.setDate(currentDate.getDate() + 1);
-    datePicker.value = currentDate.toISOString().split('T')[0];
-    updateCurrentDay(currentDate);
-});
+function changeDateWithSelected(selectedDate) {
+    window.location.href = `/?date=${selectedDate}`;
+}
 
-// Initial update
-const today = new Date();
-datePicker.value = today.toISOString().split('T')[0];
-updateCurrentDay(today);
+
