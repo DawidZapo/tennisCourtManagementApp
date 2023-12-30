@@ -40,6 +40,7 @@ public class MainController {
             model.addAttribute("username", username);
         }
 
+        String dateString = date.toString();
         String dayOfWeek = date.getDayOfWeek().toString();
         String dayOfWeekPolish = switch(dayOfWeek){
             case "MONDAY" -> "PONIEDZIAŁEK";
@@ -51,8 +52,12 @@ public class MainController {
             case "SUNDAY" -> "NIEDZIELA";
             default -> "BŁĄD";
         };
-        String dateString = date.toString();
+
         List<CourtReservation> reservations = courtReservationService.findAllByReservationDate(date);
+
+        List<PriceSchedule> priceSchedules = priceScheduleService.findAll();
+
+
         model.addAttribute("reservations", reservations);
         model.addAttribute("dayOfWeek",dayOfWeekPolish);
         model.addAttribute("date", dateString);
@@ -74,13 +79,12 @@ public class MainController {
         return "reservation-detail-look";
     }
 
-    @PostMapping("reservation/save")
+    @PostMapping("reservation/updatePayment")
     public String saveReservation(@RequestParam("id") int id, @RequestParam(name = "payment", required = false) String payment){
         if(payment==null){
             System.out.println("Payment == null");
         }
         else{
-            System.out.println("Wykonuje funkcje");
             Boolean isCash;
             if(payment.equalsIgnoreCase("cash")){
                 isCash = true;
@@ -92,6 +96,28 @@ public class MainController {
                 isCash = null;
             }
             courtReservationService.updatePayment(id,isCash);
+        }
+        return "redirect:/reservation?id="+id;
+    }
+
+    @PostMapping("reservation/updateDiscount")
+    public String updateDiscount(@RequestParam("id") int id, @RequestParam(name = "discount", required = false) Integer discount, @RequestParam(name = "isDoublesMatch", required = false) String isDoublesMatch){
+        if(discount==null || isDoublesMatch==null){
+            System.out.println("Discount == null");
+        }
+        else{
+            Boolean tempDoublesMatch;
+            if(isDoublesMatch.equalsIgnoreCase("true")){
+                tempDoublesMatch = true;
+            }
+            else if(isDoublesMatch.equals("false")){
+                tempDoublesMatch = false;
+            }
+            else{
+                System.out.println("tempDoublesMatch == null");
+                tempDoublesMatch = null;
+            }
+            courtReservationService.updateDiscount(id,discount,tempDoublesMatch);
         }
         return "redirect:/reservation?id="+id;
     }

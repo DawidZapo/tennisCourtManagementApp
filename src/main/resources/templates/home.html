@@ -488,7 +488,7 @@
             tile.setAttribute('style', 'white-space: pre;');
             tile.textContent = reservation.customer.firstName+ ' ' + reservation.customer.lastName + '\r\n'
             + reservation.timeStart.slice(0,5) + ' - ' + reservation.timeEnd.slice(0,5);
-            const reservationURL = `http://localhost:8080/reservation?id=${reservation.id}`;
+            const reservationURL = `/reservation?id=${reservation.id}`;
             tile.setAttribute('href', reservationURL);
 
 

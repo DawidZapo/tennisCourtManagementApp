@@ -69,9 +69,32 @@ public class CourtReservationServiceImpl implements CourtReservationService{
 
         return new CourtReservation(courtNumber,reservationDate,timeStart,timeEnd,priceSchedule,totalPrice,isDoublesMatch,false,acceptedBy);
     }
-
     @Override
     public void updatePayment(int id, Boolean isCash) {
         courtReservationRepository.updateIsCashById(id, isCash);
+    }
+
+    @Override
+    public void updateDiscount(int id, Integer priceSchedule, Boolean isDoublesMatch) {
+        Optional<CourtReservation> result = courtReservationRepository.findById(id);
+        CourtReservation courtReservation = null;
+
+        if(result.isPresent()){
+            courtReservation = result.get();
+            courtReservation.setPriceSchedule(priceSchedule);
+            courtReservation.setDoublesMatch(isDoublesMatch);
+            PriceSchedule price = priceScheduleService.findById(priceSchedule);
+            Double newTotalPrice = CourtReservation.getCalculatedPrice(
+                    courtReservation.getReservationDate(),
+                    courtReservation.getTimeStart(),
+                    courtReservation.getTimeEnd(),
+                    courtReservation.isDoublesMatch(),
+                    price);
+            courtReservation.setTotalPrice(newTotalPrice);
+            courtReservationRepository.save(courtReservation);
+        }
+        else{
+            throw new RuntimeException("Did not find courtReservation id: " + id);
+        }
     }
 }

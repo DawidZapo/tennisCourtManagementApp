@@ -139,4 +139,5 @@ public class PriceSchedule {
                 ", offdayAfternoonDoubles=" + offdayAfternoonDoubles +
                 '}';
     }
+
 }

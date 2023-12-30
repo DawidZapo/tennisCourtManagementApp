@@ -53,7 +53,8 @@ public class CourtReservation {
     public CourtReservation() {
     }
 
-    public CourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Double duration, Integer priceSchedule, Double totalPrice, Boolean isDoublesMatch, Boolean isPaid, Boolean isCash, String comments, Customer customer, String acceptedBy, String acceptedAt) {
+    public CourtReservation(Long id, Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Double duration, Integer priceSchedule, Double totalPrice, Boolean isDoublesMatch, Boolean isPaid, Boolean isCash, String comments, Customer customer, String acceptedBy, String acceptedAt) {
+        this.id = id;
         this.courtNumber = courtNumber;
         this.reservationDate = reservationDate;
         this.timeStart = timeStart;
@@ -205,7 +206,7 @@ public class CourtReservation {
         this.acceptedAt = acceptedAt;
     }
 
-    public String getDiscountName() {
+    public String getDiscountNameForHTML() {
         return switch (priceSchedule) {
             case 1 -> "Cena regularna";
             case 2 -> "Dzieci, młodzież szkolna do lat 16";
