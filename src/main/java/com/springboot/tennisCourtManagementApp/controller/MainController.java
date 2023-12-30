@@ -74,6 +74,9 @@ public class MainController {
         }
         CourtReservation courtReservation = courtReservationService.findById(id);
         PriceSchedule priceSchedule = priceScheduleService.findById(courtReservation.getPriceSchedule());
+        List<PriceSchedule> discounts = priceScheduleService.findAll();
+
+        model.addAttribute("discounts", discounts);
         model.addAttribute("reservation", courtReservation);
         model.addAttribute("priceSchedule", priceSchedule);
         return "reservation-detail-look";
@@ -118,6 +121,15 @@ public class MainController {
                 tempDoublesMatch = null;
             }
             courtReservationService.updateDiscount(id,discount,tempDoublesMatch);
+        }
+        return "redirect:/reservation?id="+id;
+    }
+
+    @PostMapping("/reservation/updateTotalPrice")
+    public String updateTotalPrice(@RequestParam("id") int id, @RequestParam(name="totalPrice", required = false) Double totalPrice){
+        if(totalPrice ==0 || totalPrice >= 0.01){
+            double truncatedPriceToTwoDecimals = Math.floor(totalPrice*100)/100;
+            courtReservationService.updateTotalPrice(id,truncatedPriceToTwoDecimals);
         }
         return "redirect:/reservation?id="+id;
     }

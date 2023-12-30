@@ -97,4 +97,9 @@ public class CourtReservationServiceImpl implements CourtReservationService{
             throw new RuntimeException("Did not find courtReservation id: " + id);
         }
     }
+
+    @Override
+    public void updateTotalPrice(int id, Double newTotalPrice) {
+        courtReservationRepository.updateTotalPrice(id,newTotalPrice);
+    }
 }

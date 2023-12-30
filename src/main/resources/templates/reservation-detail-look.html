@@ -129,57 +129,54 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-12 d-flex align-items-center">
+                        <div class="col-sm-12">
                             <form th:action="@{/reservation/updatePayment}" method="POST" class="d-flex align-items-center">
-                                <div class="mr-auto">
-                                    <input type="hidden" name="id" th:value="${reservation.id}" />
-                                    <div class="form-check form-check-inline">
-                                        <input type="radio" class="form-check-input" name="payment" id="cash" value="cash">
-                                        <label class="form-check-label" for="cash">Gotówka</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
+                                <input type="hidden" name="id" th:value="${reservation.id}" />
+                                <div class="col-sm-6">
+                                    <input type="radio" class="form-check-input" name="payment" id="cash" value="cash">
+                                    <label class="form-check-label" for="cash">Gotówka</label>
+                                    <span class="m-2">
                                         <input type="radio" class="form-check-input" name="payment" id="card" value="card">
                                         <label class="form-check-label" for="card">Karta</label>
+                                    </span>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button id="submitPaymentBtn" type="submit" class="btn btn-primary flex-fill w-100" disabled>Zmień płatność</button>
+                                </div>
+                            </form>
+                            <form th:action="@{/reservation/updateDiscount}" method="POST" class="mt-4">
+                                <select name="discount" id="discount" class="form-control mr-2">
+                                    <option th:value="0" disabled selected>Wybierz zniżkę</option>
+                                    <option th:each="discount : ${discounts}" th:value="${discount.getId()}" th:text="${discount.getDiscountName()}"></option>
+                                </select>
+                                <input type="hidden" name="id" th:value="${reservation.id}" />
+                                <div class="d-flex align-items-center">
+                                    <div class="col-sm-6">
+                                        <input type="radio" class="form-check-input" name="isDoublesMatch" id="singlesMatch" value="false">
+                                        <label class="form-check-label" for="singlesMatch">Singiel</label>
+                                        <span class="m-2">
+                                            <input type="radio" class="form-check-input" name="isDoublesMatch" id="doublesMatch" value="true">
+                                        <label class="form-check-label" for="doublesMatch">Debel</label>
+                                        </span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button id="submitDiscountBtn" type="submit" class="btn btn-primary flex-fill w-100" disabled>Zmień zniżkę</button>
                                     </div>
                                 </div>
-                                <button id="submitPaymentBtn" type="submit" class="btn btn-primary ml-2" disabled>Zmień płatność</button>
+                            </form>
+                            <form th:action="@{/reservation/updateTotalPrice}" method="POST" class="d-flex align-items-center mt-4">
+                                <input type="hidden" name="id" th:value="${reservation.id}" />
+                                <div class="col-sm-6">
+                                    <input type="number" name="totalPrice" id="totalPrice" class="form-control mr-2" placeholder="Podaj cenę" step="any" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <button id="submitTotalPriceBtn" type="submit" class="btn btn-primary w-100" disabled>Zmień należność</button>
+                                </div>
                             </form>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12 d-flex align-items-center">
-                                <form th:action="@{/reservation/updateDiscount}" method="POST" class="d-flex align-items-center">
-                                    <div class="mr-auto">
-                                        <input type="hidden" name="id" th:value="${reservation.id}" />
-                                        <select name="discount" id="discount">
-                                            <option value="1">Option 1</option>
-                                            <option value="2">Option 2</option>
-                                            <option value="3">Option 3</option>
-                                            <option value="4">Option 4</option>
-                                            <option value="5">Option 5</option>
-                                            <option value="6">Option 6</option>
-                                            <option value="7">Option 7</option>
-                                            <option value="8">Option 8</option>
-                                            <option value="9">Option 9</option>
-                                            <option value="10">Option 10</option>
-                                        </select>
-                                        <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" name="isDoublesMatch" id="doublesMatch" value="true">
-                                            <label class="form-check-label" for="doublesMatch">Doubles Match</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input type="radio" class="form-check-input" name="isDoublesMatch" id="singlesMatch" value="false">
-                                            <label class="form-check-label" for="singlesMatch">Singles Match</label>
-                                        </div>
-                                    </div>
-                                    <button id="submitDiscountBtn" type="submit" class="btn btn-primary ml-2" disabled>Zmień zniżkę</button>
-                                </form>
-
-                            </div>
-                        </div>
-
-
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -202,8 +199,6 @@
         }
     }
 
-
-
     const priceScheduleSelect = document.getElementById('discount');
     const doublesMatchRadio = document.getElementById('doublesMatch');
     const singlesMatchRadio = document.getElementById('singlesMatch');
@@ -214,8 +209,8 @@
     singlesMatchRadio.addEventListener('change', toggleButtonStateDiscount);
 
     function toggleButtonStateDiscount() {
-        const isPriceSelected = priceScheduleSelect.value !== ''; // Sprawdzenie, czy wybrano wartość w liście rozwijanej
-        const isMatchSelected = doublesMatchRadio.checked || singlesMatchRadio.checked; // Sprawdzenie, czy zaznaczono radio button
+        const isPriceSelected = priceScheduleSelect.value !== '0'; // Sprawdź, czy wybrano wartość inną niż domyślna (1)
+        const isMatchSelected = doublesMatchRadio.checked || singlesMatchRadio.checked; // Sprawdź, czy zaznaczono radio button
 
         if (isPriceSelected && isMatchSelected) {
             submitBtn.disabled = false;
@@ -223,6 +218,22 @@
             submitBtn.disabled = true;
         }
     }
+
+
+
+    const totalPriceInput = document.getElementById('totalPrice');
+    const submitTotalPriceBtn = document.getElementById('submitTotalPriceBtn');
+
+    totalPriceInput.addEventListener('input', toggleTotalPriceButtonState);
+
+    function toggleTotalPriceButtonState() {
+        if (totalPriceInput.value) {
+            submitTotalPriceBtn.disabled = false;
+        } else {
+            submitTotalPriceBtn.disabled = true;
+        }
+    }
+
 </script>
 </body>
 </html>

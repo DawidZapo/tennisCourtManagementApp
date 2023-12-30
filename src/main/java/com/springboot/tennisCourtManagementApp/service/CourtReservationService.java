@@ -15,6 +15,7 @@ public interface CourtReservationService {
     List<CourtReservation> findAllByReservationDate(LocalDate date);
     CourtReservation createNewCourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, boolean isDoublesMatch, String acceptedBy);
     void updatePayment(int id, Boolean isCash);
-    public void updateDiscount(int id, Integer priceSchedule, Boolean isDoublesMatch);
+    void updateDiscount(int id, Integer priceSchedule, Boolean isDoublesMatch);
+    void updateTotalPrice(int id, Double newTotalPrice);
 }
 
