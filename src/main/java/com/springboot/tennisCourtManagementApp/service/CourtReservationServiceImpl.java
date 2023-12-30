@@ -102,4 +102,14 @@ public class CourtReservationServiceImpl implements CourtReservationService{
     public void updateTotalPrice(int id, Double newTotalPrice) {
         courtReservationRepository.updateTotalPrice(id,newTotalPrice);
     }
+
+    @Override
+    public void updateComments(int id, String comments) {
+        courtReservationRepository.updateComments(id, comments);
+    }
+
+    @Override
+    public void updateIsPaid(int id, Boolean isPaid) {
+        courtReservationRepository.updateIsPaid(id,isPaid);
+    }
 }

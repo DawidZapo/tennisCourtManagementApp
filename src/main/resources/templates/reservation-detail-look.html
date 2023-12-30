@@ -72,6 +72,10 @@
                             <p class="mb-2"><strong>Całkowity czas trwania:</strong> <span th:text="${reservation.convertMinutesToHoursAndMinutes(reservation.duration)}"></span></p>
                             <p class="mb-2"><strong>Czas przyjęcia rezerwacji:</strong> <span th:text="${reservation.acceptedAt}"></span></p>
                             <p class="mb-2"><strong>Rezerwacja przyjęta przez:</strong> <span th:text="${reservation.getAcceptedBy()}"></span></p>
+                            <p class="mb-2"><strong>Komentarz:</strong>
+                                <span th:if="${reservation.getComments()}!=null" th:text="${reservation.getComments()}"></span>
+                                <span th:if="${reservation.getComments() == null or reservation.getComments().trim().isEmpty()}" th:text="Brak"></span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -117,6 +121,12 @@
                                 </span>
                             </p>
                             <p class="mb-2"><strong>Stawka:</strong> <span th:text="${reservation.getPricePerHourForHTML(priceSchedule)}"></span></p>
+                            <form th:action="@{/reservation/updateIsPaid}" method="post" class="mt-4">
+                                <input type="hidden" name="id" th:value="${reservation.id}" />
+                                <input type="hidden" name="isPaid" th:value="${reservation.isPaid()}">
+                                <button th:if="${!reservation.isPaid()}" type="submit" id="submitToPayBtn" class="btn btn-outline-success w-100">Opłać</button>
+                                <button th:if="${reservation.isPaid()}" type="submit" id="submitToUnpayBtn" class="btn btn-outline-danger w-100">Wycofaj zapłatę</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -151,7 +161,7 @@
                                 </select>
                                 <input type="hidden" name="id" th:value="${reservation.id}" />
                                 <div class="d-flex align-items-center">
-                                    <div class="col-sm-6">
+                                    <div class="col-md-6">
                                         <input type="radio" class="form-check-input" name="isDoublesMatch" id="singlesMatch" value="false">
                                         <label class="form-check-label" for="singlesMatch">Singiel</label>
                                         <span class="m-2">
@@ -159,18 +169,29 @@
                                         <label class="form-check-label" for="doublesMatch">Debel</label>
                                         </span>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-md-6">
                                         <button id="submitDiscountBtn" type="submit" class="btn btn-primary flex-fill w-100" disabled>Zmień zniżkę</button>
                                     </div>
                                 </div>
                             </form>
                             <form th:action="@{/reservation/updateTotalPrice}" method="POST" class="d-flex align-items-center mt-4">
                                 <input type="hidden" name="id" th:value="${reservation.id}" />
-                                <div class="col-sm-6">
+                                <div class="col-md-6">
                                     <input type="number" name="totalPrice" id="totalPrice" class="form-control mr-2" placeholder="Podaj cenę" step="any" required>
                                 </div>
                                 <div class="col-md-6">
                                     <button id="submitTotalPriceBtn" type="submit" class="btn btn-primary w-100" disabled>Zmień należność</button>
+                                </div>
+                            </form>
+                            <form th:action="@{/reservation/updateComments}" method="post" class="mt-4">
+                                <input type="hidden" name="id" th:value="${reservation.id}" />
+                                <input type="text" name="comments" id="comments" class="form-control mr-2" placeholder="Dodaj komentarz do rezerwacji">
+                                <div class="d-flex align-items-center">
+                                    <div class="col-sm-6">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button type="submit" id="submitCommentsBtn" class="btn btn-primary flex-fill w-100" disabled>Dodaj komentarz</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -233,6 +254,15 @@
             submitTotalPriceBtn.disabled = true;
         }
     }
+
+
+
+    const commentsInput = document.getElementById('comments');
+    const submitCommentsBtn = document.getElementById('submitCommentsBtn');
+
+    commentsInput.addEventListener('input', function() {
+        submitCommentsBtn.disabled = commentsInput.value.trim() === '';
+    });
 
 </script>
 </body>

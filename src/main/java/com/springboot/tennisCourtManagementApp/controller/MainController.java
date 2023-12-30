@@ -133,4 +133,18 @@ public class MainController {
         }
         return "redirect:/reservation?id="+id;
     }
+
+    @PostMapping("/reservation/updateComments")
+    public String updateComments(@RequestParam("id") int id, @RequestParam(name = "comments", required = false) String comments){
+        if(comments != null){
+            courtReservationService.updateComments(id,comments);
+        }
+        return "redirect:/reservation?id="+id;
+    }
+
+    @PostMapping("/reservation/updateIsPaid")
+    public String updateIsPaid(@RequestParam("id") int id, @RequestParam("isPaid") Boolean isPaid){
+        courtReservationService.updateIsPaid(id, !isPaid); // if current state is unpaid we have to invert the boolean to make any changes
+        return "redirect:/reservation?id="+id;
+    }
 }

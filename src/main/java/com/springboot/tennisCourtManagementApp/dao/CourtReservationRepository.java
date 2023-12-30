@@ -28,4 +28,14 @@ public interface CourtReservationRepository extends JpaRepository<CourtReservati
     @Modifying
     @Query("UPDATE CourtReservation cr SET cr.totalPrice = :totalPrice WHERE cr.id = :id")
     void updateTotalPrice(@Param("id") int id, @Param("totalPrice") Double totalPrice);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE CourtReservation cr SET cr.comments = :comments WHERE cr.id = :id")
+    void updateComments(@Param("id") int id, @Param("comments") String comments);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE CourtReservation cr SET cr.isPaid = :isPaid WHERE cr.id = :id")
+    void updateIsPaid(@Param("id") int id, @Param("isPaid") Boolean isPaid);
 }

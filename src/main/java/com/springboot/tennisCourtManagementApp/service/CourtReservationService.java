@@ -17,5 +17,7 @@ public interface CourtReservationService {
     void updatePayment(int id, Boolean isCash);
     void updateDiscount(int id, Integer priceSchedule, Boolean isDoublesMatch);
     void updateTotalPrice(int id, Double newTotalPrice);
+    void updateComments(int id, String comments);
+    void updateIsPaid(int id,Boolean isPaid);
 }
 
