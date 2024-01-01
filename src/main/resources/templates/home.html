@@ -41,6 +41,10 @@
             position: absolute; top: 0; left: 0; right: 0; bottom: 2px; display: flex; align-items: center; justify-content: center;
             width: 100%;
         }
+        .clicked {
+            outline: none;
+            border: 1px solid transparent;
+        }
 
 
     </style>
@@ -75,7 +79,9 @@
         Zalogowany jako: <strong th:text="${username}"></strong>
     </div>
 
-    <button class="btn btn-outline-danger mx-4">Wyloguj</button>
+    <form class="mx-4" action="#" th:action="@{/logout}" method="POST">
+        <input type="submit" value="Wyloguj się" class="btn btn-outline-danger">
+    </form>
 </nav>
 
 <div class="container-fluid mt-2">
@@ -449,6 +455,12 @@
         </div>
     </div>
 </div>
+<div class="navbar navbar-expand-lg navbar-light bg-primary bg-light fixed-bottom navbar-custom">
+        <p>
+            Przykładowy tekst paska dolnego
+        </p>
+</div>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -537,8 +549,6 @@
 
     function fillUpTheTable(reservations){
         reservations.forEach(reservation=>{
-            console.log(reservation);
-
             const timeStartId = reservation.timeStart.slice(0,5)+'court'+reservation.courtNumber;
             const td = document.getElementById(timeStartId);
             const numberOfRowsToSpan = reservation.duration / 30;
@@ -562,7 +572,7 @@
             }
 
             const tile = document.createElement('a');
-            tile.classList.add('btn', 'btn-warning', 'tile');
+            tile.classList.add('btn', 'btn-success', 'tile');
             tile.setAttribute('style', 'white-space: pre;');
             tile.textContent = reservation.customer.firstName+ ' ' + reservation.customer.lastName + '\r\n'
             + reservation.timeStart.slice(0,5) + ' - ' + reservation.timeEnd.slice(0,5);
@@ -575,6 +585,55 @@
         })
     }
     fillUpTheTable(jsReservations);
+
+</script>
+<script th:inline="javascript">
+    function fillRemainingSlots() {
+        const table = document.getElementById('reservationTable');
+        const rows = table.getElementsByTagName('tr');
+
+        for (let i = 0; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName('td');
+            for (let j = 1; j < cells.length; j++) { // Rozpocznij od 1, pomijając pierwszą kolumnę z godzinami
+                const cell = cells[j];
+                if (cell.innerHTML.trim() === '') { // Sprawdź czy komórka jest pusta
+                    cell.addEventListener('mouseover', function() {
+                        if (!cell.classList.contains('clicked')) { // Zaznacz tylko jeśli nie jest już zaznaczona
+                            cell.style.backgroundColor = '#dcffd8'; // Zmiana koloru w momencie najechania
+                        }
+                    });
+
+                    cell.addEventListener('mouseout', function() {
+                        if (!cell.classList.contains('clicked')) {
+                            cell.style.backgroundColor = ''; // Usunięcie koloru po opuszczeniu komórki
+                        }
+                    });
+
+                    cell.addEventListener('click', function() {
+
+                        if (!cell.classList.contains('clicked')) {
+                            cell.classList.add('clicked'); // Dodanie klasy po kliknięciu, oznaczającej, że komórka została zaznaczona
+                            //cell.style.backgroundColor = 'orange'; // Zmiana koloru po kliknięciu
+                            const tile = document.createElement('a');
+                            tile.classList.add('btn', 'btn-success', 'tile');
+                            tile.setAttribute('style', 'white-space: pre;');
+                            cell.appendChild(tile);
+                        } else {
+                            cell.classList.remove('clicked'); // Usunięcie klasy i przywrócenie pierwotnego koloru po ponownym kliknięciu
+                            //cell.style.backgroundColor = '';
+                            const lastChild = cell.lastElementChild;
+                            if(lastChild){
+                                cell.removeChild(lastChild);
+                            }
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+    fillRemainingSlots();
+
 
 </script>
 </body>
