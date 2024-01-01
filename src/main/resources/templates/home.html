@@ -123,14 +123,18 @@
 
                     <div class="table-container" style="overflow-y: auto; max-height: 70vh;">
                         <table id="reservationTable" class="table table-bordered table-striped">
-                            <thead class="table-dark" style="position: sticky; top: 0;z-index: 1;">
+                            <thead class="table-dark" style="position: sticky; top: -1px;z-index: 1; height: 50px">
                             <tr>
-                                <th class="col-md-1"></th> <!-- Pusty nagłówek w pierwszej kolumnie -->
-                                <th>Kort 1</th>
-                                <th>Kort 2</th>
-                                <th>Kort 3</th>
-                                <th>Kort 4</th>
-                                <th>Kort 5</th>
+                                <th class="col-md-1 align-middle text-center">
+                                    <div class="flex-fill w-100">
+                                        <a id="addReservationBtn" class="btn btn-sm btn-success" style="display: none">Dodaj</a>
+                                    </div>
+                                </th>
+                                <th class="align-middle text-center">Kort 1</th>
+                                <th class="align-middle text-center">Kort 2</th>
+                                <th class="align-middle text-center">Kort 3</th>
+                                <th class="align-middle text-center">Kort 4</th>
+                                <th class="align-middle text-center">Kort 5</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -469,6 +473,7 @@
 <script src="/js/updateTime.js"></script>
 <script src="/js/updateSelectedDate.js"></script>
 <script th:inline="javascript">
+    // funkcja dodajace kafelki rezerwacji z db
     class Customer {
         constructor(id, firstName, lastName, phone) {
             this.id = id;
@@ -588,7 +593,13 @@
 
 </script>
 <script th:inline="javascript">
+    //funkcja dodajaca mozliwosc zaznaczaia kafelek bez rezerwacji
+    function countSelectedTiles() {
+        const selectedTiles = document.querySelectorAll('.clicked').length;
+        return selectedTiles;
+    }
     function fillRemainingSlots() {
+        const addReservationBtn = document.getElementById('addReservationBtn');
         const table = document.getElementById('reservationTable');
         const rows = table.getElementsByTagName('tr');
 
@@ -610,7 +621,6 @@
                     });
 
                     cell.addEventListener('click', function() {
-
                         if (!cell.classList.contains('clicked')) {
                             cell.classList.add('clicked'); // Dodanie klasy po kliknięciu, oznaczającej, że komórka została zaznaczona
                             //cell.style.backgroundColor = 'orange'; // Zmiana koloru po kliknięciu
@@ -626,6 +636,13 @@
                                 cell.removeChild(lastChild);
                             }
                         }
+                        const selectedTiles = countSelectedTiles();
+                        console.log('Liczba zaznaczonych kafelków: ', selectedTiles);
+                        if (selectedTiles > 0) {
+                            addReservationBtn.style.display = 'block';
+                        } else {
+                            addReservationBtn.style.display = 'none';
+                        }
                     });
                 }
             }
@@ -635,7 +652,20 @@
     fillRemainingSlots();
 
 
+
+
+    document.getElementById('addReservationBtn').addEventListener('click', function() {
+        const selectedTiles = countSelectedTiles();
+        if(selectedTiles > 0){
+            window.location.href = `/addReservation?startTime=HELLOOOO`;
+        }
+        else{
+            window.location.href = `/addReservation?startTime=NIC`;
+        }
+    });
+
 </script>
+
 </body>
 </html>
 
