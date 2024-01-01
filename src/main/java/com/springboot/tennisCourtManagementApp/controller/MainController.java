@@ -4,6 +4,9 @@ import com.springboot.tennisCourtManagementApp.entity.CourtReservation;
 import com.springboot.tennisCourtManagementApp.entity.PriceSchedule;
 import com.springboot.tennisCourtManagementApp.service.CourtReservationService;
 import com.springboot.tennisCourtManagementApp.service.PriceScheduleService;
+import de.jollyday.HolidayCalendar;
+import de.jollyday.HolidayManager;
+import de.jollyday.ManagerParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
@@ -40,18 +43,7 @@ public class MainController {
             model.addAttribute("username", username);
         }
 
-        String dateString = date.toString();
-        String dayOfWeek = date.getDayOfWeek().toString();
-        String dayOfWeekPolish = switch(dayOfWeek){
-            case "MONDAY" -> "PONIEDZIAŁEK";
-            case "TUESDAY" -> "WTOREK";
-            case "WEDNESDAY" -> "ŚRODA";
-            case "THURSDAY" -> "CZWARTEK";
-            case "FRIDAY" -> "PIĄTEK";
-            case "SATURDAY" -> "SOBOTA";
-            case "SUNDAY" -> "NIEDZIELA";
-            default -> "BŁĄD";
-        };
+        String dayOfWeekPolish = getPolishDayOfWeekString(date);
 
         List<CourtReservation> reservations = courtReservationService.findAllByReservationDate(date);
 
@@ -60,7 +52,7 @@ public class MainController {
 
         model.addAttribute("reservations", reservations);
         model.addAttribute("dayOfWeek",dayOfWeekPolish);
-        model.addAttribute("date", dateString);
+        model.addAttribute("date", date.toString());
 
         return "home";
     }
@@ -76,6 +68,12 @@ public class MainController {
         PriceSchedule priceSchedule = priceScheduleService.findById(courtReservation.getPriceSchedule());
         List<PriceSchedule> discounts = priceScheduleService.findAll();
 
+        HolidayManager holidayManager = HolidayManager.getInstance(ManagerParameters.create(HolidayCalendar.POLAND));
+        boolean isHoliday = holidayManager.isHoliday(courtReservation.getReservationDate());
+        String dayOfWeek = getPolishDayOfWeekString(courtReservation.getReservationDate());
+
+        model.addAttribute("dayOfWeek", dayOfWeek);
+        model.addAttribute("isHoliday", isHoliday);
         model.addAttribute("discounts", discounts);
         model.addAttribute("reservation", courtReservation);
         model.addAttribute("priceSchedule", priceSchedule);
@@ -146,5 +144,19 @@ public class MainController {
     public String updateIsPaid(@RequestParam("id") int id, @RequestParam("isPaid") Boolean isPaid){
         courtReservationService.updateIsPaid(id, !isPaid); // if current state is unpaid we have to invert the boolean to make any changes
         return "redirect:/reservation?id="+id;
+    }
+
+    private String getPolishDayOfWeekString(LocalDate date){
+        String dayOfWeekEN = date.getDayOfWeek().toString();
+        return switch(dayOfWeekEN){
+            case "MONDAY" -> "Poniedziałek";
+            case "TUESDAY" -> "Wtorek";
+            case "WEDNESDAY" -> "Środa";
+            case "THURSDAY" -> "Czwartek";
+            case "FRIDAY" -> "Piątek";
+            case "SATURDAY" -> "Sobota";
+            case "SUNDAY" -> "Niedziela";
+            default -> "BŁĄD";
+        };
     }
 }

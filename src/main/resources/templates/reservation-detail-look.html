@@ -66,6 +66,10 @@
                         <div class="col-sm-12">
                             <p class="mb-2"><strong>Klient:</strong> <span th:text="${reservation.customer.firstName} + ' ' + ${reservation.customer.lastName}"></span></p>
                             <p class="mb-2"><strong>Data:</strong> <span th:text="${reservation.reservationDate}"></span></p>
+                            <p class="mb-2"><strong>Dzień tygodnia:</strong>
+                                <span th:if="${!isHoliday}"><span th:text="${dayOfWeek}"></span></span>
+                                <span th:if="${isHoliday}"><span th:text="${dayOfWeek} + ' (Święto)'"></span></span>
+                            </p>
                             <p class="mb-2"><strong>Numer kortu:</strong> <span th:text="${reservation.courtNumber}"></span></p>
                             <p class="mb-2"><strong>Godzina rozpoczęcia:</strong> <span th:text="${reservation.timeStart}"></span></p>
                             <p class="mb-2"><strong>Godzina zakończenia:</strong> <span th:text="${reservation.timeEnd}"></span></p>

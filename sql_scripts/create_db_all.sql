@@ -56,7 +56,7 @@ VALUES
 
 CREATE TABLE IF NOT EXISTS price_schedule (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    discount_name VARCHAR(50),
+    discount_name VARCHAR(100),
     workday_morning_singles double,
     workday_afternoon_singles double,
     offday_morning_singles double,
@@ -66,6 +66,19 @@ CREATE TABLE IF NOT EXISTS price_schedule (
     offday_morning_doubles double,
     offday_afternoon_doubles double
 );
+INSERT INTO price_schedule (discount_name, workday_morning_singles, workday_afternoon_singles, offday_morning_singles, offday_afternoon_singles, workday_morning_doubles, workday_afternoon_doubles, offday_morning_doubles, offday_afternoon_doubles)
+VALUES 
+('Cena regularna', 20, 33, 33, 33, 30, 40, 40, 40),
+('Dzieci, młodzież szkolna do lat 16', 13, 22, 22, 22, 20, 30, 30, 30),
+('Karta Rodzina 3+ (osoby dorosłe)', 10, 16.5, 16.5, 16.5, 15, 20, 20, 20),
+('Karta Rodzina 3+ (dzieci, młodzież szkolna do lat 16)', 6.5, 11, 11, 11, 10, 15, 15, 15),
+('Karta Gliwicki Senior 60+', 14.5, 23, 23, 23, 20, 30, 30, 30),
+('Karta Gliwicki Senior 75+', 10.5, 17, 17, 17, 15, 20, 20, 20),
+('Gliwicka Karta Mieszkańca (osoby dorosłe)', 16, 24, 26, 26, 24, 32, 32, 32),
+('Gliwicka Karta Mieszkańca (dzieci, młodzież szkolna do lat 16)', 10.5, 17.5, 17.5, 17.5, 16, 24, 24, 24),
+('Gliwickie stowarzyszenia i kluby sportowe', 10, 16, 10, 16, 15, 22, 15, 22),
+('Inne kluby sportowe i podmioty gospodarcze', 15, 20, 15, 20, 20, 26, 20, 26);
+
 
 CREATE TABLE IF NOT EXISTS price_info (
     id INT AUTO_INCREMENT PRIMARY KEY,

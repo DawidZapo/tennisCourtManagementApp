@@ -82,22 +82,23 @@
     <div class="row">
         <div class="col-md-2">
             <div class="nav flex-column nav-pills nav-pills-vertical" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Rezerwacje kortów</a>
-                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Przyszłe rezerwacje</a>
-                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Podsumowanie dnia</a>
-                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Ustawienia i pomoc</a>
+                <a class="nav-link active" id="courtReservationsTab" data-toggle="pill" href="#courtReservations" role="tab" aria-controls="courtReservations" aria-selected="true">Rezerwacje kortów</a>
+                <a class="nav-link" id="upcomingReservationTab" data-toggle="pill" href="#upComingReservations" role="tab" aria-controls="upcomingReservations" aria-selected="false">Przyszłe rezerwacje</a>
+                <a class="nav-link" id="courtPreviewTab" data-toggle="pill" href="#courtPreview" role="tab" aria-controls="courtPreview" aria-selected="false">Podgląd kortów</a>
+                <a class="nav-link" id="daySummaryTab" data-toggle="pill" href="#daySummary" role="tab" aria-controls="daySummary" aria-selected="false">Podsumowanie dnia</a>
+                <a class="nav-link" id="settingsAndHelpTab" data-toggle="pill" href="#settingsAndHelp" role="tab" aria-controls="settingsAndHelp" aria-selected="false">Ustawienia i pomoc</a>
             </div>
         </div>
         <div class="col-md-10">
             <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                <div class="tab-pane fade show active" id="courtReservations" role="tabpanel" aria-labelledby="v-pills-home-tab">
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-md-12 d-flex justify-content-between align-items-center">
                                         <div class="d-flex flex-grow-1">
-                                            <h4 class="mr-3 w-100" th:text="${dayOfWeek}"></h4>
+                                            <h4 class="mr-3 w-100" th:text="${dayOfWeek.toUpperCase()}"></h4>
                                             <h4 class="w-100" th:text="${date}"></h4>
                                             <input type="date" id="date-picker" class="form-control mx-1 w-100" >
                                         </div>
@@ -355,15 +356,92 @@
                         </table>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                    <h1>Profile Content</h1>
+                <div class="tab-pane fade" id="upComingReservations" role="tabpanel" aria-labelledby="upcomingReservationTab">
+                    <h1>Upcoming reservations Content</h1>
                     <p>This is the content for Profile tab.</p>
                 </div>
-                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-                    <h1>Messages Content</h1>
+                <div class="tab-pane fade" id="courtPreview" role="tabpanel" aria-labelledby="courtPreviewTab">
+                    <h1>Podgląd kortów na żywo //under construction</h1>
+                    <div class="container mt-4">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Kort 1</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <p class="mb-2"><strong>Klient:</strong> hello</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Kort 2</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <p class="mb-2"><strong>Klient:</strong> hello</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Kort 3</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <p class="mb-2"><strong>Klient:</strong> hello</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Kort 4</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <p class="mb-2"><strong>Klient:</strong> hello</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Kort 5</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <p class="mb-2"><strong>Klient:</strong> hello</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="daySummary" role="tabpanel" aria-labelledby="daySummaryTab">
+                    <h1>Day Summary Content</h1>
                     <p>This is the content for Messages tab.</p>
                 </div>
-                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                <div class="tab-pane fade" id="settingsAndHelp" role="tabpanel" aria-labelledby="settingsAndHelpTab">
                     <h1>Settings Content</h1>
                     <p>This is the content for Settings tab.</p>
                 </div>
