@@ -51,7 +51,9 @@
         Zalogowany jako: <strong th:text="${username}"></strong>
     </div>
 
-    <button class="btn btn-outline-danger mx-4">Wyloguj</button>
+    <form class="mx-4" action="#" th:action="@{/logout}" method="POST">
+        <input type="submit" value="Wyloguj się" class="btn btn-outline-danger">
+    </form>
 </nav>
 
 <div class="container mt-4">

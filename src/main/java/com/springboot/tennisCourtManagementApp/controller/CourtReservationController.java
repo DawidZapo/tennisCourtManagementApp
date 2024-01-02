@@ -1,7 +1,10 @@
 package com.springboot.tennisCourtManagementApp.controller;
 
+import com.springboot.tennisCourtManagementApp.dto.CourtReservationDto;
 import com.springboot.tennisCourtManagementApp.entity.CourtReservation;
+import com.springboot.tennisCourtManagementApp.entity.Customer;
 import com.springboot.tennisCourtManagementApp.service.CourtReservationService;
+import com.springboot.tennisCourtManagementApp.service.CustomerService;
 import com.springboot.tennisCourtManagementApp.service.PriceScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,11 +19,13 @@ import java.util.List;
 public class CourtReservationController {
     private final CourtReservationService courtReservationService;
     private final PriceScheduleService priceScheduleService;
+    private final CustomerService customerService;
 
     @Autowired
-    public CourtReservationController(CourtReservationService courtReservationService, PriceScheduleService priceScheduleService) {
+    public CourtReservationController(CourtReservationService courtReservationService, PriceScheduleService priceScheduleService,CustomerService customerService) {
         this.courtReservationService = courtReservationService;
         this.priceScheduleService = priceScheduleService;
+        this.customerService = customerService;
     }
     @PostMapping("reservation/updatePayment")
     public String updatePayment(@RequestParam("id") int id, @RequestParam(name = "payment", required = false) String payment){
@@ -88,13 +93,23 @@ public class CourtReservationController {
         return "redirect:/reservation?id="+id;
     }
 
-    @PostMapping("/reservations/save") //under construction // bedzie do zmiany argumentu na wrapper DTO class
-    public String saveReservations(@ModelAttribute("reservations") List<CourtReservation> reservations) {
-        for(var reservation : reservations){
-            //courtReservationService.save(reservation);
-            System.out.println(reservation);
-        }
+    @PostMapping("/reservation/save")
+    public String saveReservation(@ModelAttribute("reservationDto")CourtReservationDto reservationDto) {
+        List<CourtReservation> reservations = reservationDto.getReservations();
         LocalDate date = reservations.get(0).getReservationDate();
+        for(var res : reservations){
+            Boolean doubles;
+            if(res.getDoublesMatch() != null){
+                doubles = res.getDoublesMatch();
+            }
+            else{
+                doubles = false;
+            }
+            int id = Math.toIntExact(res.getCustomer().getId());
+            Customer customer = customerService.findCustomerByIdJoinFetch(id);
+            customer.addReservation(courtReservationService.createNewCourtReservation(res.getCourtNumber(),res.getReservationDate(),res.getTimeStart(),res.getTimeEnd(),res.getPriceSchedule(),doubles,res.getAcceptedBy()));
+            customerService.save(customer);
+        }
         return "redirect:/?date="+date.toString();
     }
 

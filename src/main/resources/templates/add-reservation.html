@@ -2,21 +2,140 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hello</title>
+    <title>Rezerwacje kortów</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .navbar-custom {
+            background-color: #f8f9fa;
+        }
+        .navbar-brand img {
+            max-height: 40px;
+        }
+        .user-info {
+            margin-left: auto;
+        }
+        /* Zwiększ czcionkę daty i godziny */
+        #current-date-time {
+            font-size: 24px;
+        }
+    </style>
 </head>
 <body>
-        <span th:each="possibleReservation : ${possibleReservations}">
-            <span th:text="'data: ' + ${possibleReservation.getReservationDate()}"></span><br>
-            <span th:text="'start: ' + ${possibleReservation.getTimeStart()}"></span><br>
-            <span th:text="'koniec: ' +${possibleReservation.getTimeEnd()}"></span><br>
-            <span th:text="'kort: ' +${possibleReservation.getCourtNumber()}"></span><br><br><br>
 
-        </span>
+<!--        <form action="#" th:action="@{/reservation/save}" th:object="${courtReservationDto}"-->
+<!--              method="post">-->
+<!--            <fieldset>-->
+<!--                <input type="submit" id="submitButton" th:value="Save">-->
+<!--                    <span th:each="reservation, itemStat : *{reservations}">-->
+<!--                        <input th:field="*{reservations[__${itemStat.index}__].id}" />-->
+<!--                        <input th:field="*{reservations[__${itemStat.index}__].courtNumber}" />-->
+<!--                    </span>-->
+<!--            </fieldset>-->
+<!--        </form>-->
+<nav class="navbar navbar-expand-lg navbar-light bg-primary bg-light navbar-custom">
+    <a class="navbar-brand" style="padding-left: 15px" th:href="@{/}">
+        <img width="60" height="100" src="/images/mzuk.png" alt="Logo">
+    </a>
 
-        //wrapper class needed to wrap possibleReservations into another class
-    </span>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="#">Opcja 1</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Opcja 2</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Opcja 3</a>
+        </li>
+    </ul>
+
+    <div class="navbar-text mx-auto">
+        <a th:href="@{/}" class="text-decoration-none">
+            <h1 id="current-date-time" class="display-4"></h1>
+        </a>
+    </div>
+
+    <div class="user-info m-3">
+        Zalogowany jako: <strong th:text="${username}"></strong>
+    </div>
+
+    <form class="mx-4" action="#" th:action="@{/logout}" method="POST">
+        <input type="submit" value="Wyloguj się" class="btn btn-outline-danger">
+    </form>
+</nav>
+
+<div class="container mt-4">
+    <form action="#" th:action="@{/reservation/save}" th:object="${courtReservationDto}" method="post">
+        <button type="submit" class="btn btn-success">Dodaj</button>
+        <div class="row">
+            <div th:each="reservation, itemStat : *{reservations}" class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title">Kort 1</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type="hidden" th:field="*{reservations[__${itemStat.index}__].id}" />
+                                <input type="hidden" th:field="*{reservations[__${itemStat.index}__].acceptedBy}">
+                                <div class="d-flex flex-wrap align-items-center">
+                                    <div class="col-md-6 mb-2 text-center">
+                                        <strong class="mr-2">Numer kortu:</strong>
+                                        <input readonly="readonly" class="form-control flex-grow-1 text-center" type="text" th:field="*{reservations[__${itemStat.index}__].courtNumber}" />
+                                    </div>
+                                    <div class="col-md-6 mb-2 text-center">
+                                        <strong class="mr-2">Data rezerwacji:</strong>
+                                        <input readonly="readonly" class="form-control flex-grow-1 text-center" type="text" th:field="*{reservations[__${itemStat.index}__].reservationDate}" />
+                                    </div>
+                                    <div class="col-md-6 mb-2 text-center">
+                                        <strong class="mr-2">Czas rozpoczęcia:</strong>
+                                        <input readonly="readonly" class="form-control flex-grow-1 text-center" type="text" th:field="*{reservations[__${itemStat.index}__].timeStart}" />
+                                    </div>
+                                    <div class="col-md-6 mb-2 text-center">
+                                        <strong class="mr-2">Czas zakończenia:</strong>
+                                        <input readonly="readonly" class="form-control flex-grow-1 text-center" type="text" th:field="*{reservations[__${itemStat.index}__].timeEnd}" />
+                                    </div>
+                                    <div class="col-md-6 mb-2 text-center">
+                                        <strong class="mr-2">Zniżka:</strong>
+                                        <select class="form-control mr-2 text-center" th:field="*{reservations[__${itemStat.index}__].priceSchedule}">
+                                            <option th:value="0" disabled selected>Wybierz zniżkę</option>
+                                            <option th:each="price : ${priceSchedulesDto.priceSchedules}" th:value="${price.id}" th:text="${price.discountName}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-2 text-center">
+                                        <div>
+                                            <strong class="mr-2">Cennik Deblowy:</strong>
+                                        </div>
+                                        <div class="mx-1">
+                                            <input th:field="*{reservations[__${itemStat.index}__].doublesMatch}" type="radio" class="form-check-input" id="singlesMatch" value="false">
+                                            <label class="form-check-label" for="singlesMatch">Singiel</label>
+                                            <input th:field="*{reservations[__${itemStat.index}__].doublesMatch}" type="radio" class="form-check-input" id="doublesMatch" value="true">
+                                            <label class="form-check-label" for="doublesMatch">Debel</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-2 text-center">
+                                        <strong class="mr-2">Klient:</strong>
+                                        <select class="form-control mr-2 text-center" th:field="*{reservations[__${itemStat.index}__].customer.id}" id="selectCustomer">
+                                            <option th:value="0" disabled selected>Wybierz klienta</option>
+                                            <option th:each="customer : ${customerDto.customers}" th:value="${customer.id}" th:text="${customer.firstName} + ' ' + ${customer.lastName}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-2 text-center">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 
 
-
+<script src="/js/updateTime.js"></script>
 </body>
 </html>

@@ -165,6 +165,18 @@ public class CourtReservation {
         isDoublesMatch = doublesMatch;
     }
 
+    public Boolean getDoublesMatch() {
+        return isDoublesMatch;
+    }
+
+    public Boolean getPaid() {
+        return isPaid;
+    }
+
+    public Boolean getCash() {
+        return isCash;
+    }
+
     public Boolean isPaid() {
         return isPaid;
     }

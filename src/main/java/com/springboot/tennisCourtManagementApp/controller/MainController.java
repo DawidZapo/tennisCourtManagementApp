@@ -1,8 +1,13 @@
 package com.springboot.tennisCourtManagementApp.controller;
 
+import com.springboot.tennisCourtManagementApp.dto.CourtReservationDto;
+import com.springboot.tennisCourtManagementApp.dto.CustomerDto;
+import com.springboot.tennisCourtManagementApp.dto.PriceScheduleDto;
 import com.springboot.tennisCourtManagementApp.entity.CourtReservation;
+import com.springboot.tennisCourtManagementApp.entity.Customer;
 import com.springboot.tennisCourtManagementApp.entity.PriceSchedule;
 import com.springboot.tennisCourtManagementApp.service.CourtReservationService;
+import com.springboot.tennisCourtManagementApp.service.CustomerService;
 import com.springboot.tennisCourtManagementApp.service.PriceScheduleService;
 import de.jollyday.HolidayCalendar;
 import de.jollyday.HolidayManager;
@@ -27,11 +32,13 @@ import java.util.List;
 public class MainController {
     private CourtReservationService courtReservationService;
     private PriceScheduleService priceScheduleService;
+    private CustomerService customerService;
 
     @Autowired
-    public MainController(CourtReservationService courtReservationService, PriceScheduleService priceScheduleService) {
+    public MainController(CourtReservationService courtReservationService, PriceScheduleService priceScheduleService, CustomerService customerService) {
         this.courtReservationService = courtReservationService;
         this.priceScheduleService = priceScheduleService;
+        this.customerService = customerService;
     }
 
     @GetMapping("/")
@@ -105,15 +112,36 @@ public class MainController {
             }
         }
 
-        //buggy, to be changed
+        String username = null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            username = authentication.getName();
+            model.addAttribute("username", username);
+        }
+
         List<List<String>> allCourtsTiles = Arrays.asList(court1Tiles, court2Tiles, court3Tiles, court4Tiles, court5Tiles);
-        List<CourtReservation> possibleReservations = getPossibleReservations(allCourtsTiles,date);
+        List<CourtReservation> reservations = getPossibleReservations(allCourtsTiles,date);
+        CourtReservationDto courtReservationDto = new CourtReservationDto();
+        courtReservationDto.setReservations(reservations);
+        if(username != null){
+            for(var res : courtReservationDto.getReservations()){
+                res.setAcceptedBy(username);
+            }
+        }
+
+        List<Customer> customers = customerService.findAll();
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setCustomers(customers);
+
+        List<PriceSchedule> priceSchedules = priceScheduleService.findAll();
+        PriceScheduleDto priceScheduleDto = new PriceScheduleDto();
+        priceScheduleDto.setPriceSchedules(priceSchedules);
 
         model.addAttribute("selectedTiles", selectedTiles);
-        model.addAttribute("possibleReservations", possibleReservations);
-        model.addAttribute("reservation", possibleReservations.get(0));
+        model.addAttribute("courtReservationDto", courtReservationDto);
+        model.addAttribute("customerDto", customerDto);
+        model.addAttribute("priceSchedulesDto", priceScheduleDto);
 
-        // tu beda zmiany, trzeba bedzie podac arguemnt possibleReservations w Wrapper class
 
         return "add-reservation";
     }
