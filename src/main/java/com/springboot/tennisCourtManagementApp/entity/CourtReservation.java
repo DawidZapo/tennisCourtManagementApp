@@ -71,6 +71,13 @@ public class CourtReservation {
         this.acceptedAt = acceptedAt;
     }
 
+    public CourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd) {
+        this.courtNumber = courtNumber;
+        this.reservationDate = reservationDate;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+    }
+
     public CourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, Double totalPrice, Boolean isDoublesMatch, Boolean isPaid, String acceptedBy) {
         this.courtNumber = courtNumber;
         this.reservationDate = reservationDate;

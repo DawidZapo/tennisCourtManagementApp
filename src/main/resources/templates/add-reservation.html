@@ -5,6 +5,11 @@
     <title>Hello</title>
 </head>
 <body>
-
+        <span th:each="reservation : ${reservations}">
+            <span th:text="'data: ' + ${reservation.getReservationDate()}"></span><br>
+            <span th:text="'start: ' + ${reservation.getTimeStart()}"></span><br>
+            <span th:text="'koniec: ' +${reservation.getTimeEnd()}"></span><br>
+            <span th:text="'kort: ' +${reservation.getCourtNumber()}"></span><br><br><br>
+        </span>
 </body>
 </html>

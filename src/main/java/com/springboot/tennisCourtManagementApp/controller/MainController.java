@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -51,7 +55,7 @@ public class MainController {
 
         model.addAttribute("reservations", reservations);
         model.addAttribute("dayOfWeek",dayOfWeekPolish);
-        model.addAttribute("date", date.toString());
+        model.addAttribute("date", date);
 
         return "home";
     }
@@ -80,8 +84,61 @@ public class MainController {
     }
 
     @GetMapping("/addReservation")
-    public String showFormForAddReservation(@RequestParam("startTime") String startTime,Model model){
-        System.out.println(startTime);
+    public String showReservationForm(@RequestParam(value = "selectedTiles", required = false) String selectedTilesParam,
+                                      @RequestParam(value = "date", required = false) LocalDate date, Model model) {
+
+        String[] selectedTiles = selectedTilesParam != null ? selectedTilesParam.split(",") : new String[0];
+        List<String> court1Tiles = new ArrayList<>();
+        List<String> court2Tiles = new ArrayList<>();
+        List<String> court3Tiles = new ArrayList<>();
+        List<String> court4Tiles = new ArrayList<>();
+        List<String> court5Tiles = new ArrayList<>();
+
+        for (String tile : selectedTiles) {
+            System.out.println("Zaznaczony kafelek: " + tile);
+            char lastChar = tile.charAt(tile.length()-1);
+            switch(lastChar){
+                case '1' -> court1Tiles.add(tile);
+                case '2' -> court2Tiles.add(tile);
+                case '3' -> court3Tiles.add(tile);
+                case '4' -> court4Tiles.add(tile);
+                case '5' -> court5Tiles.add(tile);
+            }
+        }
+
+        //buggy, to be changed
+        List<CourtReservation> reservations = new ArrayList<>();
+        List<List<String>> allCourtsTiles = Arrays.asList(court1Tiles, court2Tiles, court3Tiles, court4Tiles, court5Tiles);
+
+        for (List<String> courtTiles : allCourtsTiles) {
+            if (!courtTiles.isEmpty()) {
+                Collections.sort(courtTiles); // Posortowanie listy kafelków dla danego kortu
+                LocalTime lastTimeEnd = null;
+                LocalDate reservationDate = date;
+                Integer courtNumber = Integer.parseInt(courtTiles.get(0).substring(courtTiles.get(0).length() - 1));
+
+                for (String tile : courtTiles) {
+                    LocalTime timeStart = LocalTime.parse(tile.substring(0, 5)); // Pobranie godziny rozpoczęcia
+                    LocalTime timeEnd = timeStart.plusMinutes(30); // Założenie, że każda rezerwacja trwa 30 minut
+                    if (lastTimeEnd != null && !lastTimeEnd.equals(timeStart)) {
+                        // Tworzenie rezerwacji, jeśli istnieje przerwa między poprzednim a aktualnym czasem
+                        reservations.add(new CourtReservation(courtNumber,reservationDate, timeStart, lastTimeEnd));
+                    }
+                    lastTimeEnd = timeEnd;
+                }
+
+                // Dodanie ostatniej rezerwacji, jeśli istnieje
+                if (lastTimeEnd != null && date != null) {
+                    reservations.add(new CourtReservation(courtNumber,date, LocalTime.parse(courtTiles.get(courtTiles.size() - 1).substring(0, 5)),
+                            lastTimeEnd));
+                }
+            }
+        }
+
+
+        model.addAttribute("selectedTiles", selectedTiles);
+        model.addAttribute("reservations", reservations);
+
         return "add-reservation";
     }
 
