@@ -5,11 +5,18 @@
     <title>Hello</title>
 </head>
 <body>
-        <span th:each="reservation : ${reservations}">
-            <span th:text="'data: ' + ${reservation.getReservationDate()}"></span><br>
-            <span th:text="'start: ' + ${reservation.getTimeStart()}"></span><br>
-            <span th:text="'koniec: ' +${reservation.getTimeEnd()}"></span><br>
-            <span th:text="'kort: ' +${reservation.getCourtNumber()}"></span><br><br><br>
+        <span th:each="possibleReservation : ${possibleReservations}">
+            <span th:text="'data: ' + ${possibleReservation.getReservationDate()}"></span><br>
+            <span th:text="'start: ' + ${possibleReservation.getTimeStart()}"></span><br>
+            <span th:text="'koniec: ' +${possibleReservation.getTimeEnd()}"></span><br>
+            <span th:text="'kort: ' +${possibleReservation.getCourtNumber()}"></span><br><br><br>
+
         </span>
+
+        //wrapper class needed to wrap possibleReservations into another class
+    </span>
+
+
+
 </body>
 </html>

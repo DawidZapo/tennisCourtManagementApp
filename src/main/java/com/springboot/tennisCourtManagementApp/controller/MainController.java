@@ -95,7 +95,6 @@ public class MainController {
         List<String> court5Tiles = new ArrayList<>();
 
         for (String tile : selectedTiles) {
-            System.out.println("Zaznaczony kafelek: " + tile);
             char lastChar = tile.charAt(tile.length()-1);
             switch(lastChar){
                 case '1' -> court1Tiles.add(tile);
@@ -107,41 +106,50 @@ public class MainController {
         }
 
         //buggy, to be changed
-        List<CourtReservation> reservations = new ArrayList<>();
         List<List<String>> allCourtsTiles = Arrays.asList(court1Tiles, court2Tiles, court3Tiles, court4Tiles, court5Tiles);
-
-        for (List<String> courtTiles : allCourtsTiles) {
-            if (!courtTiles.isEmpty()) {
-                Collections.sort(courtTiles); // Posortowanie listy kafelków dla danego kortu
-                LocalTime lastTimeEnd = null;
-                LocalDate reservationDate = date;
-                Integer courtNumber = Integer.parseInt(courtTiles.get(0).substring(courtTiles.get(0).length() - 1));
-
-                for (String tile : courtTiles) {
-                    LocalTime timeStart = LocalTime.parse(tile.substring(0, 5)); // Pobranie godziny rozpoczęcia
-                    LocalTime timeEnd = timeStart.plusMinutes(30); // Założenie, że każda rezerwacja trwa 30 minut
-                    if (lastTimeEnd != null && !lastTimeEnd.equals(timeStart)) {
-                        // Tworzenie rezerwacji, jeśli istnieje przerwa między poprzednim a aktualnym czasem
-                        reservations.add(new CourtReservation(courtNumber,reservationDate, timeStart, lastTimeEnd));
-                    }
-                    lastTimeEnd = timeEnd;
-                }
-
-                // Dodanie ostatniej rezerwacji, jeśli istnieje
-                if (lastTimeEnd != null && date != null) {
-                    reservations.add(new CourtReservation(courtNumber,date, LocalTime.parse(courtTiles.get(courtTiles.size() - 1).substring(0, 5)),
-                            lastTimeEnd));
-                }
-            }
-        }
-
+        List<CourtReservation> possibleReservations = getPossibleReservations(allCourtsTiles,date);
 
         model.addAttribute("selectedTiles", selectedTiles);
-        model.addAttribute("reservations", reservations);
+        model.addAttribute("possibleReservations", possibleReservations);
+        model.addAttribute("reservation", possibleReservations.get(0));
+
+        // tu beda zmiany, trzeba bedzie podac arguemnt possibleReservations w Wrapper class
 
         return "add-reservation";
     }
+    private List<CourtReservation> getPossibleReservations(List<List<String>> allCourtsTiles, LocalDate date){
+        List<CourtReservation> possibleReservations = new ArrayList<>();
+        for (List<String> courtTiles : allCourtsTiles) {
+            if (!courtTiles.isEmpty()) {
+                Collections.sort(courtTiles); // Posortowanie listy kafelków dla danego kortu
+                Integer courtNumber = Integer.parseInt(courtTiles.get(0).substring(courtTiles.get(0).length() - 1));
 
+                LocalTime startTime = null;
+                LocalTime endTime = null;
+
+                for (String tile : courtTiles) {
+                    LocalTime time = LocalTime.parse(tile.substring(0, 5)); // Pobranie godziny rozpoczęcia
+
+                    if (startTime == null) {
+                        startTime = time;
+                        endTime = time.plusMinutes(30);
+                    } else if (time.equals(endTime)) {
+                        endTime = endTime.plusMinutes(30);
+                    } else {
+                        possibleReservations.add(new CourtReservation(courtNumber, date, startTime, endTime));
+                        startTime = time;
+                        endTime = time.plusMinutes(30);
+                    }
+                }
+
+                // Dodanie ostatniej rezerwacji, jeśli istnieje
+                if (startTime != null && endTime != null) {
+                    possibleReservations.add(new CourtReservation(courtNumber, date, startTime, endTime));
+                }
+            }
+        }
+        return possibleReservations;
+    }
     private String getPolishDayOfWeekString(LocalDate date){
         String dayOfWeekEN = date.getDayOfWeek().toString();
         return switch(dayOfWeekEN){
