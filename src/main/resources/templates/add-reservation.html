@@ -67,8 +67,8 @@
 
 <div class="container mt-2">
     <form action="#" th:action="@{/reservation/save}" th:object="${courtReservationDto}" method="post">
-        <button type="submit" id="submitBtn" class="btn btn-success">Dodaj</button>
-        <div class="row">
+        <div class="row d-flex justify-content-center align-items-center">
+            <button type="submit" id="submitBtn" class="btn btn-success mb-2">Dodaj</button>
             <div th:each="reservation, itemStat : *{reservations}" class="col-md-4">
                 <div class="card mb-4">
                     <div class="card-header">

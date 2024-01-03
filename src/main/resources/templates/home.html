@@ -444,32 +444,21 @@
                 </div>
                 <div class="tab-pane fade" id="customerHandling" role="tabpanel" aria-labelledby="customerHandlingTab">
                     <h1>Zarządzaj klientami</h1>
-                    <a th:href="@{/customer/showFormForAdd}" class="btn btn-success">Dodaj nowego klienta</a>
+                    <a th:href="@{/customer/showFormForAdd}" class="btn btn-success mt-3">Dodaj nowego klienta</a>
 
                     <hr class="my-3">
-                    <input type="text" id="searchInput" oninput="searchCustomers()" class="form-control" placeholder="Wyszukaj klienta">
+                    <input type="text" id="searchInput" oninput="searchCustomers()" class="form-control" placeholder="Wyszukaj klienta [nazwisko]">
 
                     <table id="customerTable" class="table mt-2">
                         <thead>
                         <tr>
-                            <th>Imię</th>
-                            <th>Nazwisko</th>
-                            <th>Telefon</th>
-                            <th>Akcja</th>
+                            <th class="text-center">Imię</th>
+                            <th class="text-center">Nazwisko</th>
+                            <th class="text-center">Telefon</th>
+                            <th class="text-center">Akcja</th>
                         </tr>
                         </thead>
                         <tbody id="customerTableBody">
-<!--                        <tr th:each="customer, iterStat : ${customers}">-->
-<!--                            <td th:text="${iterStat.index + 1}"></td>-->
-<!--                            <td th:text="${customer.firstName}"></td>-->
-<!--                            <td th:text="${customer.lastName}"></td>-->
-<!--                            <td th:text="${customer.phone}"></td>-->
-<!--                            <td>-->
-<!--                                <a class="btn btn-sm btn-warning" th:href="@{/customer/showFormForUpdate(id=${customer.id})}">Edytuj</a>-->
-<!--                                <a class="btn btn-sm btn-danger" th:href="@{/customer/delete(id=${customer.id})}"-->
-<!--                                   onclick="if (!(confirm('Czy na pewno chcesz usunąć tego klienta? Zostaną również usunięte jego rezerwacje'))) return false">Usuń</a>-->
-<!--                            </td>-->
-<!--                        </tr>-->
                         </tbody>
                     </table>
 
@@ -724,31 +713,40 @@
                     tableBody.removeChild(tableBody.firstChild);
                 }
 
-                // Tworzenie nowych wierszy na podstawie wyników wyszukiwania
-                data.forEach(customer => {
+                if (data.length === 0) {
                     const row = tableBody.insertRow();
-                    row.insertCell().textContent = customer.firstName;
-                    row.insertCell().textContent = customer.lastName;
-                    row.insertCell().textContent = customer.phone;
+                    const cell = row.insertCell();
+                    cell.colSpan = 4; // Ustawienie, aby komórka zajmowała cały wiersz
+                    cell.textContent = 'Brak danych';
+                } else {
+                    // Tworzenie nowych wierszy na podstawie wyników wyszukiwania
+                    data.forEach(customer => {
+                        const row = tableBody.insertRow();
+                        row.insertCell().textContent = customer.firstName;
+                        row.insertCell().textContent = customer.lastName;
+                        row.insertCell().textContent = customer.phone;
+                        row.classList.add('text-center');
 
-                    // Tutaj można dodać przyciski akcji, np. edycji i usuwania
-                    const editButton = document.createElement('a');
-                    editButton.textContent = 'Edytuj';
-                    editButton.classList.add('btn','btn-sm', 'btn-outline-warning');
-                    editButton.setAttribute('href',`/customer/showFormForUpdate?id=${customer.id}`)
-                    // Dodaj obsługę kliknięcia przycisku Edytuj
+                        // Tutaj można dodać przyciski akcji, np. edycji i usuwania
+                        const editButton = document.createElement('a');
+                        editButton.textContent = 'Edytuj';
+                        editButton.classList.add('btn','btn-sm', 'btn-outline-warning','mx-1');
+                        editButton.setAttribute('href',`/customer/showFormForUpdate?id=${customer.id}`)
+                        // Dodaj obsługę kliknięcia przycisku Edytuj
 
-                    const deleteButton = document.createElement('a');
-                    deleteButton.textContent = 'Usuń';
-                    deleteButton.classList.add('btn','btn-sm', 'btn-outline-danger');
-                    deleteButton.setAttribute('href',`/customer/delete?id=${customer.id}`)
-                    deleteButton.setAttribute('onclick',"if (!(confirm('Czy na pewno chcesz usunąć tego klienta? Zostaną również usunięte jego rezerwacje'))) return false");
-                    // Dodaj obsługę kliknięcia przycisku Usuń
+                        const deleteButton = document.createElement('a');
+                        deleteButton.textContent = 'Usuń';
+                        deleteButton.classList.add('btn','btn-sm', 'btn-outline-danger','mx-1');
+                        deleteButton.setAttribute('href',`/customer/delete?id=${customer.id}`)
+                        deleteButton.setAttribute('onclick',"if (!(confirm('Czy na pewno chcesz usunąć tego klienta? Zostaną również usunięte jego rezerwacje'))) return false");
+                        // Dodaj obsługę kliknięcia przycisku Usuń
 
-                    const actionCell = row.insertCell();
-                    actionCell.appendChild(editButton);
-                    actionCell.appendChild(deleteButton);
-                });
+                        const actionCell = row.insertCell();
+                        actionCell.appendChild(editButton);
+                        actionCell.appendChild(deleteButton);
+                    });
+                }
+
             })
             .catch(error => {
                 console.error('There has been a problem with your fetch operation:', error);
