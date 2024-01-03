@@ -78,15 +78,17 @@ public class MainController {
         PriceSchedule priceSchedule = priceScheduleService.findById(courtReservation.getPriceSchedule());
         List<PriceSchedule> discounts = priceScheduleService.findAll();
 
+        LocalDate date = courtReservation.getReservationDate();
         HolidayManager holidayManager = HolidayManager.getInstance(ManagerParameters.create(HolidayCalendar.POLAND));
-        boolean isHoliday = holidayManager.isHoliday(courtReservation.getReservationDate());
-        String dayOfWeek = getPolishDayOfWeekString(courtReservation.getReservationDate());
+        boolean isHoliday = holidayManager.isHoliday(date);
+        String dayOfWeek = getPolishDayOfWeekString(date);
 
         model.addAttribute("dayOfWeek", dayOfWeek);
         model.addAttribute("isHoliday", isHoliday);
         model.addAttribute("discounts", discounts);
         model.addAttribute("reservation", courtReservation);
         model.addAttribute("priceSchedule", priceSchedule);
+        model.addAttribute("date", date);
         return "reservation-detail-look";
     }
 

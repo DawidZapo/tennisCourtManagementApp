@@ -105,6 +105,7 @@ public class CourtReservationController {
             else{
                 doubles = false;
             }
+            // former way of saving reservation, inefficient bcoz we had to fetch customer with all his reservations in order to save one more
 //            Customer customer = customerService.findCustomerByIdJoinFetch(res.getCustomer().getId());
 //            customer.addReservation(courtReservationService.createNewCourtReservation(res.getCourtNumber(),res.getReservationDate(),res.getTimeStart(),res.getTimeEnd(),res.getPriceSchedule(),doubles,res.getAcceptedBy()));
 //            customerService.save(customer);
@@ -113,6 +114,12 @@ public class CourtReservationController {
             courtReservation.setCustomer(customer);
             courtReservationService.save(courtReservation);
         }
+        return "redirect:/?date="+date.toString();
+    }
+
+    @PostMapping("/reservation/delete")
+    public String deleteReservation(@RequestParam("id") int id, @RequestParam("date") LocalDate date){
+        courtReservationService.deleteById(id);
         return "redirect:/?date="+date.toString();
     }
 

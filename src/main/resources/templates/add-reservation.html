@@ -72,7 +72,7 @@
             <div th:each="reservation, itemStat : *{reservations}" class="col-md-4">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h5 class="card-title">Kort 1</h5>
+                        <h5 class="card-title" th:text="'Rezerwacja #' + ${itemStat.index + 1}"></h5>
                     </div>
                     <div class="card-body">
                         <div class="row">

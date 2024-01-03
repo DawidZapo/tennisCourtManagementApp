@@ -56,7 +56,7 @@
     </form>
 </nav>
 
-<div class="container mt-4">
+<div class="container mt-2">
     <div class="row">
         <div class="col-md-4">
             <div class="card mb-4">
@@ -199,6 +199,11 @@
                                         <button type="submit" id="submitCommentsBtn" class="btn btn-primary flex-fill w-100" disabled>Dodaj komentarz</button>
                                     </div>
                                 </div>
+                            </form>
+                            <form th:action="@{/reservation/delete}" method="post" class="mt-4">
+                                <input type="hidden" name="id" th:value="${reservation.id}" />
+                                <input type="hidden" name="date" th:value="${date}">
+                                <button type="submit" id="deleteBtn" class="btn btn-outline-danger flex-fill w-100">Odwołaj rezerwację</button>
                             </form>
                         </div>
                     </div>
