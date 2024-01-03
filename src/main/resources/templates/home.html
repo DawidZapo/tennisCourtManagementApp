@@ -19,16 +19,6 @@
         #current-date-time {
             font-size: 24px;
         }
-        .btn-cell {
-            padding: 0;
-            text-align: center;
-            background-color: #ffcc15;
-        }
-        .clicked {
-            background-color: orange;
-            border-color: black;
-            color: black;
-        }
         #reservationTable {
             width: 100%; /* Ustawienie szerokości tabeli na 100% szerokości dostępnej przestrzeni */
             table-layout: fixed; /* Ustawienie stałej szerokości kolumn */
@@ -92,6 +82,7 @@
                 <a class="nav-link" id="upcomingReservationTab" data-toggle="pill" href="#upComingReservations" role="tab" aria-controls="upcomingReservations" aria-selected="false">Przyszłe rezerwacje</a>
                 <a class="nav-link" id="courtPreviewTab" data-toggle="pill" href="#courtPreview" role="tab" aria-controls="courtPreview" aria-selected="false">Podgląd kortów</a>
                 <a class="nav-link" id="daySummaryTab" data-toggle="pill" href="#daySummary" role="tab" aria-controls="daySummary" aria-selected="false">Podsumowanie dnia</a>
+                <a class="nav-link" id="customerHandlingTab" data-toggle="pill" href="#customerHandling" role="tab" aria-controls="customerHandling" aria-selected="false">Zarządzanie klientami</a>
                 <a class="nav-link" id="settingsAndHelpTab" data-toggle="pill" href="#settingsAndHelp" role="tab" aria-controls="settingsAndHelp" aria-selected="false">Ustawienia i pomoc</a>
             </div>
         </div>
@@ -451,6 +442,38 @@
                     <h1>Day Summary Content</h1>
                     <p>This is the content for Messages tab.</p>
                 </div>
+                <div class="tab-pane fade" id="customerHandling" role="tabpanel" aria-labelledby="customerHandlingTab">
+                    <h1>Zarządzaj klientami</h1>
+                    <a th:href="@{/customer/showFormForAdd}" class="btn btn-success">Dodaj nowego klienta</a>
+
+                    <hr class="my-3">
+                    <input type="text" id="searchInput" oninput="searchCustomers()" class="form-control" placeholder="Wyszukaj klienta">
+
+                    <table id="customerTable" class="table mt-2">
+                        <thead>
+                        <tr>
+                            <th>Imię</th>
+                            <th>Nazwisko</th>
+                            <th>Telefon</th>
+                            <th>Akcja</th>
+                        </tr>
+                        </thead>
+                        <tbody id="customerTableBody">
+<!--                        <tr th:each="customer, iterStat : ${customers}">-->
+<!--                            <td th:text="${iterStat.index + 1}"></td>-->
+<!--                            <td th:text="${customer.firstName}"></td>-->
+<!--                            <td th:text="${customer.lastName}"></td>-->
+<!--                            <td th:text="${customer.phone}"></td>-->
+<!--                            <td>-->
+<!--                                <a class="btn btn-sm btn-warning" th:href="@{/customer/showFormForUpdate(id=${customer.id})}">Edytuj</a>-->
+<!--                                <a class="btn btn-sm btn-danger" th:href="@{/customer/delete(id=${customer.id})}"-->
+<!--                                   onclick="if (!(confirm('Czy na pewno chcesz usunąć tego klienta? Zostaną również usunięte jego rezerwacje'))) return false">Usuń</a>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+                        </tbody>
+                    </table>
+
+                </div>
                 <div class="tab-pane fade" id="settingsAndHelp" role="tabpanel" aria-labelledby="settingsAndHelpTab">
                     <h1>Settings Content</h1>
                     <p>This is the content for Settings tab.</p>
@@ -678,6 +701,61 @@
 
         window.location.href = `/addReservation?selectedTiles=${selectedTilesParam}&date=${date}`;
     });
+
+
+</script>
+<script th:inline="javascript">
+    function searchCustomers() {
+        const searchValue = document.getElementById('searchInput').value;
+
+        fetch(`/api/customer/search?lastName=${searchValue}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                const tableBody = document.getElementById('customerTableBody');
+
+                // Wyczyszczenie istniejących wierszy
+                while (tableBody.firstChild) {
+                    tableBody.removeChild(tableBody.firstChild);
+                }
+
+                // Tworzenie nowych wierszy na podstawie wyników wyszukiwania
+                data.forEach(customer => {
+                    const row = tableBody.insertRow();
+                    row.insertCell().textContent = customer.firstName;
+                    row.insertCell().textContent = customer.lastName;
+                    row.insertCell().textContent = customer.phone;
+
+                    // Tutaj można dodać przyciski akcji, np. edycji i usuwania
+                    const editButton = document.createElement('a');
+                    editButton.textContent = 'Edytuj';
+                    editButton.classList.add('btn','btn-sm', 'btn-outline-warning');
+                    editButton.setAttribute('href',`/customer/showFormForUpdate?id=${customer.id}`)
+                    // Dodaj obsługę kliknięcia przycisku Edytuj
+
+                    const deleteButton = document.createElement('a');
+                    deleteButton.textContent = 'Usuń';
+                    deleteButton.classList.add('btn','btn-sm', 'btn-outline-danger');
+                    deleteButton.setAttribute('href',`/customer/delete?id=${customer.id}`)
+                    deleteButton.setAttribute('onclick',"if (!(confirm('Czy na pewno chcesz usunąć tego klienta? Zostaną również usunięte jego rezerwacje'))) return false");
+                    // Dodaj obsługę kliknięcia przycisku Usuń
+
+                    const actionCell = row.insertCell();
+                    actionCell.appendChild(editButton);
+                    actionCell.appendChild(deleteButton);
+                });
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+                // Obsługa błędu
+            });
+    }
+
 
 
 </script>

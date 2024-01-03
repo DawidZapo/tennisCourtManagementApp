@@ -11,4 +11,5 @@ public interface CustomerService {
     void deleteById(int id);
     void delete(Customer customer);
     Customer findCustomerByIdJoinFetch(Long id);
+    List<Customer> findByLastName(String lastName);
 }

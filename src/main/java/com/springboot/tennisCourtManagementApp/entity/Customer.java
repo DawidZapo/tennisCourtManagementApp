@@ -22,8 +22,7 @@ public class Customer {
     @JsonIgnore
     @OneToMany(mappedBy = "customer",
             fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE,
-                    CascadeType.DETACH, CascadeType.REFRESH})
+            cascade = CascadeType.ALL)
     private List<CourtReservation> courtReservations;
 
     public Customer() {

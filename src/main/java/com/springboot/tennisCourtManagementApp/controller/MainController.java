@@ -59,10 +59,13 @@ public class MainController {
 
         List<PriceSchedule> priceSchedules = priceScheduleService.findAll();
 
+        List<Customer> customers = customerService.findAll();
+
 
         model.addAttribute("reservations", reservations);
         model.addAttribute("dayOfWeek",dayOfWeekPolish);
         model.addAttribute("date", date);
+        model.addAttribute("customers", customers);
 
         return "home";
     }

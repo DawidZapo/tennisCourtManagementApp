@@ -65,9 +65,9 @@
     </form>
 </nav>
 
-<div class="container mt-4">
+<div class="container mt-2">
     <form action="#" th:action="@{/reservation/save}" th:object="${courtReservationDto}" method="post">
-        <button type="submit" class="btn btn-success">Dodaj</button>
+        <button type="submit" id="submitBtn" class="btn btn-success">Dodaj</button>
         <div class="row">
             <div th:each="reservation, itemStat : *{reservations}" class="col-md-4">
                 <div class="card mb-4">
@@ -117,7 +117,7 @@
                                     <div class="col-md-6 mb-2 text-center">
                                         <strong class="mr-2">Klient:</strong>
                                         <select class="form-control mr-2 text-center" th:field="*{reservations[__${itemStat.index}__].customer.id}" id="selectCustomer">
-                                            <option th:value="0" disabled selected>Wybierz klienta</option>
+                                            <option value="" selected>Wybierz klienta</option>
                                             <option th:each="customer : ${customerDto.customers}" th:value="${customer.id}" th:text="${customer.firstName} + ' ' + ${customer.lastName}"></option>
                                         </select>
                                     </div>
@@ -135,7 +135,24 @@
     </form>
 </div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var selectCustomer = document.getElementById('selectCustomer');
+        var submitBtn = document.getElementById('submitBtn');
 
+        function checkSelection() {
+            if (selectCustomer.value !== '') {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        }
+
+        selectCustomer.addEventListener('change', checkSelection);
+        checkSelection();
+    });
+
+</script>
 <script src="/js/updateTime.js"></script>
 </body>
 </html>

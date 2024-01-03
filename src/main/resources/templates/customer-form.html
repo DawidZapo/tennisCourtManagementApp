@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rezerwacje kortów</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .navbar-custom {
+            background-color: #f8f9fa;
+        }
+        .navbar-brand img {
+            max-height: 40px;
+        }
+        .user-info {
+            margin-left: auto;
+        }
+        /* Zwiększ czcionkę daty i godziny */
+        #current-date-time {
+            font-size: 24px;
+        }
+
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-primary bg-light navbar-custom">
+    <a class="navbar-brand" style="padding-left: 15px" th:href="@{/}">
+        <img width="60" height="100" src="/images/mzuk.png" alt="Logo">
+    </a>
+
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="#">Opcja 1</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Opcja 2</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Opcja 3</a>
+        </li>
+    </ul>
+
+    <div class="navbar-text mx-auto">
+        <a th:href="@{/}" class="text-decoration-none">
+            <h1 id="current-date-time" class="display-4"></h1>
+        </a>
+    </div>
+
+    <div class="user-info m-3">
+        Zalogowany jako: <strong th:text="${username}"></strong>
+    </div>
+
+    <form class="mx-4" action="#" th:action="@{/logout}" method="POST">
+        <input type="submit" value="Wyloguj się" class="btn btn-outline-danger">
+    </form>
+</nav>
+
+<div class="container mt-2">
+    <form action="#" th:action="@{/customer/save}" th:object="${customer}" method="POST">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title" th:if="${isUpdate}">Zaktualizuj dane klienta</h5>
+                        <h5 class="card-title" th:if="${!isUpdate}">Dodaj dane klienta</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type="hidden" th:field="${customer.id}"/>
+                                <div class="d-flex flex-wrap align-items-center">
+                                    <div class="col-md-6 mb-2 text-center">
+                                        <strong class="mr-2">Imię:</strong>
+                                        <input class="form-control flex-grow-1 text-center" type="text" th:field="${customer.firstName}" />
+                                    </div>
+                                    <div class="col-md-6 mb-2 text-center">
+                                        <strong class="mr-2">Nazwisko:</strong>
+                                        <input class="form-control flex-grow-1 text-center" type="text" th:field="${customer.lastName}" />
+                                    </div>
+                                    <div class="col-md-6 mb-2 text-center">
+                                        <strong class="mr-2">Telefon:</strong>
+                                        <input class="form-control flex-grow-1 text-center" type="text" th:field="${customer.phone}" />
+                                    </div>
+                                    <div class="col-md-6  mt-3 text-center">
+
+                                        <button th:if="${isUpdate}" class="btn btn-success form-control flex-grow-1 text-center" type="submit">Aktualizuj</button>
+                                        <button th:if="${!isUpdate}" class="btn btn-success form-control flex-grow-1 text-center" type="submit">Dodaj</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
