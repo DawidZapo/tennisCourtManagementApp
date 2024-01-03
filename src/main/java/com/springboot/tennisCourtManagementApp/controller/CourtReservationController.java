@@ -105,9 +105,13 @@ public class CourtReservationController {
             else{
                 doubles = false;
             }
-            Customer customer = customerService.findCustomerByIdJoinFetch(res.getCustomer().getId());
-            customer.addReservation(courtReservationService.createNewCourtReservation(res.getCourtNumber(),res.getReservationDate(),res.getTimeStart(),res.getTimeEnd(),res.getPriceSchedule(),doubles,res.getAcceptedBy()));
-            customerService.save(customer);
+//            Customer customer = customerService.findCustomerByIdJoinFetch(res.getCustomer().getId());
+//            customer.addReservation(courtReservationService.createNewCourtReservation(res.getCourtNumber(),res.getReservationDate(),res.getTimeStart(),res.getTimeEnd(),res.getPriceSchedule(),doubles,res.getAcceptedBy()));
+//            customerService.save(customer);
+            CourtReservation courtReservation = courtReservationService.createNewCourtReservation(res.getCourtNumber(),res.getReservationDate(),res.getTimeStart(),res.getTimeEnd(),res.getPriceSchedule(),doubles,res.getAcceptedBy());
+            Customer customer = customerService.findById(res.getCustomer().getId());
+            courtReservation.setCustomer(customer);
+            courtReservationService.save(courtReservation);
         }
         return "redirect:/?date="+date.toString();
     }

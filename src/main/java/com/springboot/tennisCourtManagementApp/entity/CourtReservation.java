@@ -71,6 +71,7 @@ public class CourtReservation {
         this.acceptedAt = acceptedAt;
     }
 
+    // constructor to create possible reservation (not saved yet) to pass as argument in addReservation form
     public CourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd) {
         this.courtNumber = courtNumber;
         this.reservationDate = reservationDate;
