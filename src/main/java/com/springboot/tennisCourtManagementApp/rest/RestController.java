@@ -22,6 +22,7 @@ public class RestController {
     @GetMapping("/customer/search")
     public List<Customer> searchByLastName(@RequestParam("lastName") String lastName){
         List<Customer> customers = customerService.findByLastName(lastName);
+//        List<Customer> customers - customerService.findByLastNameContaining(lastName);
         return customers;
     }
 

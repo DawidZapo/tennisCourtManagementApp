@@ -471,11 +471,11 @@
         </div>
     </div>
 </div>
-<div class="navbar navbar-expand-lg navbar-light bg-primary bg-light fixed-bottom navbar-custom">
-        <p>
-            Przykładowy tekst paska dolnego
-        </p>
-</div>
+<!--<div class="navbar navbar-expand-lg navbar-light bg-primary bg-light fixed-bottom navbar-custom">-->
+<!--        <p>-->
+<!--            Przykładowy tekst paska dolnego-->
+<!--        </p>-->
+<!--</div>-->
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -708,7 +708,7 @@
                 console.log(data);
                 const tableBody = document.getElementById('customerTableBody');
 
-                // Wyczyszczenie istniejących wierszy
+
                 while (tableBody.firstChild) {
                     tableBody.removeChild(tableBody.firstChild);
                 }
@@ -716,10 +716,10 @@
                 if (data.length === 0) {
                     const row = tableBody.insertRow();
                     const cell = row.insertCell();
-                    cell.colSpan = 4; // Ustawienie, aby komórka zajmowała cały wiersz
+                    cell.colSpan = 4;
                     cell.textContent = 'Brak danych';
                 } else {
-                    // Tworzenie nowych wierszy na podstawie wyników wyszukiwania
+
                     data.forEach(customer => {
                         const row = tableBody.insertRow();
                         row.insertCell().textContent = customer.firstName;
@@ -727,19 +727,16 @@
                         row.insertCell().textContent = customer.phone;
                         row.classList.add('text-center');
 
-                        // Tutaj można dodać przyciski akcji, np. edycji i usuwania
                         const editButton = document.createElement('a');
                         editButton.textContent = 'Edytuj';
                         editButton.classList.add('btn','btn-sm', 'btn-outline-warning','mx-1');
-                        editButton.setAttribute('href',`/customer/showFormForUpdate?id=${customer.id}`)
-                        // Dodaj obsługę kliknięcia przycisku Edytuj
+                        editButton.setAttribute('href',`/customer/showFormForUpdate?id=${customer.id}`);
 
                         const deleteButton = document.createElement('a');
                         deleteButton.textContent = 'Usuń';
                         deleteButton.classList.add('btn','btn-sm', 'btn-outline-danger','mx-1');
                         deleteButton.setAttribute('href',`/customer/delete?id=${customer.id}`)
                         deleteButton.setAttribute('onclick',"if (!(confirm('Czy na pewno chcesz usunąć tego klienta? Zostaną również usunięte jego rezerwacje'))) return false");
-                        // Dodaj obsługę kliknięcia przycisku Usuń
 
                         const actionCell = row.insertCell();
                         actionCell.appendChild(editButton);
@@ -750,7 +747,6 @@
             })
             .catch(error => {
                 console.error('There has been a problem with your fetch operation:', error);
-                // Obsługa błędu
             });
     }
 

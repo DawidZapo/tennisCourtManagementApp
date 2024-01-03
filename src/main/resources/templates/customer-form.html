@@ -84,10 +84,9 @@
                                     <div class="col-md-6  mt-3 text-center">
 
                                         <button th:if="${isUpdate}" class="btn btn-success form-control flex-grow-1 text-center" type="submit">Aktualizuj</button>
-                                        <button th:if="${!isUpdate}" class="btn btn-success form-control flex-grow-1 text-center" type="submit">Dodaj</button>
+                                        <button id="submitBtn" th:if="${!isUpdate}" class="btn btn-success form-control flex-grow-1 text-center" type="submit">Dodaj</button>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -96,6 +95,35 @@
         </div>
     </form>
 </div>
+<script th:inline="javascript">
+    /* Pobranie wartości isUpdate z kontrolera i przypisanie do zmiennej JS */
+    var isUpdate = [[${isUpdate}]];
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var submitBtn = document.getElementById('submitBtn');
+        var formInputs = document.querySelectorAll('input[type="text"]');
+
+        function checkInputs() {
+            var isEmpty = false;
+            formInputs.forEach(function(input) {
+                if (input.value.trim() === '') {
+                    isEmpty = true;
+                }
+            });
+
+            submitBtn.disabled = isEmpty;
+        }
+
+        if (!isUpdate) {
+            formInputs.forEach(function(input) {
+                input.addEventListener('input', checkInputs);
+            });
+
+            checkInputs();
+        }
+    });
+</script>
+
 
 </body>
 </html>

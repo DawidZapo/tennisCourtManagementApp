@@ -135,24 +135,7 @@
     </form>
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var selectCustomer = document.getElementById('selectCustomer');
-        var submitBtn = document.getElementById('submitBtn');
-
-        function checkSelection() {
-            if (selectCustomer.value !== '') {
-                submitBtn.disabled = false;
-            } else {
-                submitBtn.disabled = true;
-            }
-        }
-
-        selectCustomer.addEventListener('change', checkSelection);
-        checkSelection();
-    });
-
-</script>
+<script src="/js/handleSubmitButton.js"></script>
 <script src="/js/updateTime.js"></script>
 </body>
 </html>

@@ -12,4 +12,5 @@ public interface CustomerService {
     void delete(Customer customer);
     Customer findCustomerByIdJoinFetch(Long id);
     List<Customer> findByLastName(String lastName);
+    List<Customer> findByLastNameContaining(String lastName);
 }
