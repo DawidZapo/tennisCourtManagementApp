@@ -54,7 +54,7 @@ public class CustomerServiceImpl implements CustomerService{
         customerRepository.delete(customer);
     }
     @Override
-    public Customer findCustomerByIdJoinFetch(int id) {
+    public Customer findCustomerByIdJoinFetch(Long id) {
         TypedQuery<Customer> query = entityManager.createQuery(
                 "select i from Customer i "
                         + "LEFT JOIN FETCH i.courtReservations "

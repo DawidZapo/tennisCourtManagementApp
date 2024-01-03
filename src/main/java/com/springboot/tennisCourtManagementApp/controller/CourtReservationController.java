@@ -105,8 +105,7 @@ public class CourtReservationController {
             else{
                 doubles = false;
             }
-            int id = Math.toIntExact(res.getCustomer().getId());
-            Customer customer = customerService.findCustomerByIdJoinFetch(id);
+            Customer customer = customerService.findCustomerByIdJoinFetch(res.getCustomer().getId());
             customer.addReservation(courtReservationService.createNewCourtReservation(res.getCourtNumber(),res.getReservationDate(),res.getTimeStart(),res.getTimeEnd(),res.getPriceSchedule(),doubles,res.getAcceptedBy()));
             customerService.save(customer);
         }

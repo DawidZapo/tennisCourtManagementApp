@@ -10,5 +10,5 @@ public interface CustomerService {
     Customer save(Customer customer);
     void deleteById(int id);
     void delete(Customer customer);
-    public Customer findCustomerByIdJoinFetch(int id);
+    Customer findCustomerByIdJoinFetch(Long id);
 }
