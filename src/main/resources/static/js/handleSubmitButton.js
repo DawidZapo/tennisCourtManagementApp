@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var selectCustomers = document.querySelectorAll('select[id^=selectCustomer]');
     var submitBtn = document.getElementById('submitBtn');
 
-    function checkSelection() {
+    function checkSelectionForBtn() {
         var allSelected = true;
         selectCustomers.forEach(function(select) {
             if (select.value === '') {
@@ -14,8 +14,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     selectCustomers.forEach(function(select) {
-        select.addEventListener('change', checkSelection);
+        select.addEventListener('change', checkSelectionForBtn);
     });
 
-    checkSelection();
+    checkSelectionForBtn();
 });

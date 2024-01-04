@@ -22,17 +22,6 @@
     </style>
 </head>
 <body>
-
-<!--        <form action="#" th:action="@{/reservation/save}" th:object="${courtReservationDto}"-->
-<!--              method="post">-->
-<!--            <fieldset>-->
-<!--                <input type="submit" id="submitButton" th:value="Save">-->
-<!--                    <span th:each="reservation, itemStat : *{reservations}">-->
-<!--                        <input th:field="*{reservations[__${itemStat.index}__].id}" />-->
-<!--                        <input th:field="*{reservations[__${itemStat.index}__].courtNumber}" />-->
-<!--                    </span>-->
-<!--            </fieldset>-->
-<!--        </form>-->
 <nav class="navbar navbar-expand-lg navbar-light bg-primary bg-light navbar-custom">
     <a class="navbar-brand" style="padding-left: 15px" th:href="@{/}">
         <img width="60" height="100" src="/images/mzuk.png" alt="Logo">
@@ -68,7 +57,7 @@
 <div class="container mt-2">
     <form action="#" th:action="@{/reservation/save}" th:object="${courtReservationDto}" method="post">
         <div class="row d-flex justify-content-center align-items-center">
-            <button type="submit" id="submitBtn" class="btn btn-success mb-2">Dodaj</button>
+            <button  type="submit" id="submitBtn" class="btn btn-success mb-2">Dodaj</button>
             <div th:each="reservation, itemStat : *{reservations}" class="col-md-4">
                 <div class="card mb-4">
                     <div class="card-header">
@@ -115,14 +104,15 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-2 text-center">
-                                        <strong class="mr-2">Klient:</strong>
-                                        <select class="form-control mr-2 text-center" th:field="*{reservations[__${itemStat.index}__].customer.id}" id="selectCustomer">
-                                            <option value="" selected>Wybierz klienta</option>
-                                            <option th:each="customer : ${customerDto.customers}" th:value="${customer.id}" th:text="${customer.firstName} + ' ' + ${customer.lastName}"></option>
-                                        </select>
+                                        <strong class="mr-2">Wyszukaj:</strong>
+                                        <input type="text" id="searchCustomer" class="form-control mr-2" placeholder="Wyszukaj klienta...">
                                     </div>
                                     <div class="col-md-6 mb-2 text-center">
-
+                                        <strong class="mr-2">Klient:</strong>
+                                        <select id="selectCustomer" class="form-control mr-2 text-center" th:field="*{reservations[__${itemStat.index}__].customer.id}">
+                                            <option id="defaultValue" value="" selected>Wybierz klienta</option>
+                                            <option th:each="customer : ${customerDto.customers}" th:value="${customer.id}" th:text="${customer.firstName} + ' ' + ${customer.lastName}"></option>
+                                        </select>
                                     </div>
 
                                 </div>
@@ -135,7 +125,115 @@
     </form>
 </div>
 
-<script src="/js/handleSubmitButton.js"></script>
+<!--<script src="/js/handleSubmitButton.js"></script>-->
 <script src="/js/updateTime.js"></script>
+<!--<script>-->
+<!--    document.addEventListener("DOMContentLoaded", function() {-->
+<!--        const searchInput = document.getElementById('searchCustomer');-->
+<!--        const selectCustomer = document.getElementById('selectCustomer');-->
+<!--        const options = selectCustomer.getElementsByTagName('option');-->
+<!--        const defaultOption = document.getElementById('defaultValue');-->
+
+<!--        var selectCustomers = document.querySelectorAll('select[id^=selectCustomer]');-->
+<!--        console.log(selectCustomers);-->
+<!--        var submitBtn = document.getElementById('submitBtn');-->
+
+<!--        searchInput.addEventListener('input', function() {-->
+<!--            const searchValue = searchInput.value.trim().toLowerCase();-->
+
+<!--            for (let i = 0; i < options.length; i++) {-->
+<!--                const text = options[i].text.toLowerCase();-->
+<!--                const isVisible = text.includes(searchValue);-->
+<!--                options[i].style.display = isVisible ? 'block' : 'none';-->
+
+<!--                if (isVisible) {-->
+<!--                    options[i].selected = true; // Wybierz widoczne opcje-->
+<!--                }-->
+<!--            }-->
+
+<!--            checkSelection(); // Sprawdź wybór po zmianie wartości-->
+<!--            checkSelectionForBtn();-->
+<!--        });-->
+
+<!--        function checkSelection() {-->
+<!--            if (!searchInput.value.trim()) {-->
+<!--                defaultOption.selected = true; // Wybierz domyślną opcję-->
+<!--            }-->
+<!--        }-->
+
+<!--        function checkSelectionForBtn() {-->
+<!--            var allSelected = true;-->
+<!--            selectCustomers.forEach(function(select) {-->
+<!--                if (select.value === '') {-->
+<!--                    allSelected = false;-->
+<!--                }-->
+<!--            });-->
+
+<!--            submitBtn.disabled = !allSelected;-->
+<!--        }-->
+
+<!--        selectCustomers.forEach(function(select) {-->
+<!--            select.addEventListener('change', checkSelectionForBtn);-->
+<!--        });-->
+<!--    });-->
+
+
+<!--</script>-->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var searchInputs = document.querySelectorAll('.row input#searchCustomer');
+        var selectCustomers = document.querySelectorAll('.row select#selectCustomer');
+        var submitBtn = document.getElementById('submitBtn');
+
+        searchInputs.forEach(function(searchInput, index) {
+            searchInput.addEventListener('input', function() {
+                var searchValue = searchInput.value.trim().toLowerCase();
+                var options = selectCustomers[index].getElementsByTagName('option');
+                var defaultOption = options[0];
+
+                for (var i = 0; i < options.length; i++) {
+                    var customerText = options[i].text.toLowerCase();
+                    var option = options[i];
+
+                    if (customerText.includes(searchValue)) {
+                        option.style.display = '';
+                        if (searchValue !== '' && defaultOption !== option) {
+                            selectCustomers[index].selectedIndex = i;
+                            break;
+                        }
+                    } else {
+                        option.style.display = 'none';
+                    }
+                }
+
+                if (searchValue === '') {
+                    defaultOption.selected = true;
+                }
+                checkSelectionForBtn(); // Sprawdzamy po zmianie wartości
+            });
+        });
+
+        function checkSelectionForBtn() {
+            var allSelected = true;
+
+            selectCustomers.forEach(function(select) {
+                if (select.value === '' || select.value === 'placeholder') {
+                    allSelected = false;
+                }
+            });
+
+            submitBtn.disabled = !allSelected;
+        }
+
+        selectCustomers.forEach(function(select) {
+            select.addEventListener('change', checkSelectionForBtn);
+        });
+
+        checkSelectionForBtn(); // Sprawdzamy na początku
+    });
+
+
+</script>
 </body>
 </html>
