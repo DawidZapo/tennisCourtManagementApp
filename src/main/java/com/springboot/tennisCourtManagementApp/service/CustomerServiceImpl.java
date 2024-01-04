@@ -78,4 +78,14 @@ public class CustomerServiceImpl implements CustomerService{
     public List<Customer> findByLastNameContaining(String lastName) {
         return customerRepository.findByLastNameContaining(lastName);
     }
+
+    @Override
+    public List<Customer> findByFirstNameContaining(String pattern) {
+        return customerRepository.findByFirstNameContaining(pattern);
+    }
+
+    @Override
+    public List<Customer> findAllByOrderByLastName() {
+        return customerRepository.findAllByOrderByLastName();
+    }
 }

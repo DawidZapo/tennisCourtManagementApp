@@ -134,7 +134,7 @@ public class MainController {
             }
         }
 
-        List<Customer> customers = customerService.findAll();
+        List<Customer> customers = customerService.findAllByOrderByLastName();
         CustomerDto customerDto = new CustomerDto();
         customerDto.setCustomers(customers);
 

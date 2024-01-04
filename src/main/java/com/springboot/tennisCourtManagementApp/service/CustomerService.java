@@ -13,4 +13,6 @@ public interface CustomerService {
     Customer findCustomerByIdJoinFetch(Long id);
     List<Customer> findByLastName(String lastName);
     List<Customer> findByLastNameContaining(String lastName);
+    List<Customer> findByFirstNameContaining(String pattern);
+    List<Customer> findAllByOrderByLastName();
 }

@@ -22,7 +22,13 @@ public class RestController {
     @GetMapping("/customer/search")
     public List<Customer> searchByLastName(@RequestParam("lastName") String lastName){
         List<Customer> customers = customerService.findByLastName(lastName);
-//        List<Customer> customers - customerService.findByLastNameContaining(lastName);
+        return customers;
+    }
+
+    @GetMapping("/customer/searchContaining")
+    public List<Customer> searchByLastNameContaining(@RequestParam("lastName") String pattern){
+        List<Customer> customers = customerService.findByLastNameContaining(pattern);
+        //List<Customer> customersFirstName = customerService.findByFirstNameContaining(pattern);
         return customers;
     }
 

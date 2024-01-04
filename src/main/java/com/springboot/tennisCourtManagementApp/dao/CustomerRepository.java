@@ -9,4 +9,6 @@ public interface CustomerRepository extends JpaRepository<Customer,Integer> {
    Customer findById(Long id);
    List<Customer> findByLastName(String lastName);
    List<Customer> findByLastNameContaining(String lastName);
+   List<Customer> findByFirstNameContaining(String pattern);
+   List<Customer> findAllByOrderByLastName();
 }
