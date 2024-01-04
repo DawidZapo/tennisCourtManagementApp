@@ -85,3 +85,18 @@ CREATE TABLE IF NOT EXISTS price_info (
     description_info VARCHAR(50),
     price double
 );
+
+USE court_management;
+CREATE TABLE IF NOT EXISTS court (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    court_number INT,
+    is_active TINYINT(1),
+    is_taken TINYINT(1),
+    is_flooded TINYINT(1)
+) ENGINE=InnoDB;
+INSERT INTO court (court_number,is_active,is_taken,is_flooded) VALUES
+(1,1,0,0),
+(2,1,0,0),
+(3,1,0,0),
+(4,1,0,0),
+(5,1,0,0)
