@@ -366,7 +366,7 @@
                     <div class="container mt-4">
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="card mb-4">
+                                <div id="court1Card" class="card mb-4">
                                     <div class="card-header">
                                         <h5 class="card-title">Kort 1</h5>
                                     </div>
@@ -380,7 +380,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="card mb-4">
+                                <div id="court2Card" class="card mb-4">
                                     <div class="card-header">
                                         <h5 class="card-title">Kort 2</h5>
                                     </div>
@@ -394,7 +394,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="card mb-4">
+                                <div id="court3Card" class="card mb-4">
                                     <div class="card-header">
                                         <h5 class="card-title">Kort 3</h5>
                                     </div>
@@ -408,7 +408,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="card mb-4">
+                                <div id="court4Card" class="card mb-4">
                                     <div class="card-header">
                                         <h5 class="card-title">Kort 4</h5>
                                     </div>
@@ -422,7 +422,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="card mb-4">
+                                <div id="court5Card" class="card mb-4">
                                     <div class="card-header">
                                         <h5 class="card-title">Kort 5</h5>
                                     </div>
@@ -694,6 +694,7 @@
 
 </script>
 <script th:inline="javascript">
+    // wyszukanie klienta w zarządzaniu
     function searchCustomers() {
         const searchValue = document.getElementById('searchInput').value;
 
@@ -751,6 +752,41 @@
     }
 
 
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const courtPreview = document.getElementById('courtPreview');
+
+        fetch('/api/courtReservations/current')
+            .then(response => response.json())
+            .then(reservations => {
+
+                reservations.forEach(reservation => {
+                    const courtId = reservation.courtNumber;
+                    const card = document.getElementById(`court${courtId}Card`);
+
+                    if (card) {
+                        const body = card.querySelector('.card-body');
+                        body.innerHTML = '';
+
+                        if (reservation) {
+                            body.innerHTML = `
+                            <p class="mb-2"><strong>Klient:</strong> ${reservation.customer.lastName}</p>
+                            <p class="mb-2"><strong>Status:</strong> zajęty</p>
+                        `;
+                        } else {
+                            body.innerHTML = `
+                            <p class="mb-2"><strong>Status:</strong> wolny</p>
+                        `;
+                        }
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Błąd podczas pobierania danych:', error);
+            });
+    });
 
 </script>
 

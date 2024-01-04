@@ -3,10 +3,12 @@ package com.springboot.tennisCourtManagementApp.controller;
 import com.springboot.tennisCourtManagementApp.dto.CourtReservationDto;
 import com.springboot.tennisCourtManagementApp.dto.CustomerDto;
 import com.springboot.tennisCourtManagementApp.dto.PriceScheduleDto;
+import com.springboot.tennisCourtManagementApp.entity.Court;
 import com.springboot.tennisCourtManagementApp.entity.CourtReservation;
 import com.springboot.tennisCourtManagementApp.entity.Customer;
 import com.springboot.tennisCourtManagementApp.entity.PriceSchedule;
 import com.springboot.tennisCourtManagementApp.service.CourtReservationService;
+import com.springboot.tennisCourtManagementApp.service.CourtService;
 import com.springboot.tennisCourtManagementApp.service.CustomerService;
 import com.springboot.tennisCourtManagementApp.service.PriceScheduleService;
 import de.jollyday.HolidayCalendar;
@@ -33,12 +35,14 @@ public class MainController {
     private CourtReservationService courtReservationService;
     private PriceScheduleService priceScheduleService;
     private CustomerService customerService;
+    private CourtService courtService;
 
     @Autowired
-    public MainController(CourtReservationService courtReservationService, PriceScheduleService priceScheduleService, CustomerService customerService) {
+    public MainController(CourtReservationService courtReservationService, PriceScheduleService priceScheduleService, CustomerService customerService, CourtService courtService) {
         this.courtReservationService = courtReservationService;
         this.priceScheduleService = priceScheduleService;
         this.customerService = customerService;
+        this.courtService = courtService;
     }
 
     @GetMapping("/")
@@ -61,11 +65,14 @@ public class MainController {
 
         List<Customer> customers = customerService.findAll();
 
+        List<Court> courts = courtService.findAll();
+
 
         model.addAttribute("reservations", reservations);
         model.addAttribute("dayOfWeek",dayOfWeekPolish);
         model.addAttribute("date", date);
         model.addAttribute("customers", customers);
+        model.addAttribute("courts", courts);
 
         return "home";
     }
