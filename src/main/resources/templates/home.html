@@ -362,21 +362,22 @@
                     <p>This is the content for Profile tab.</p>
                 </div>
                 <div class="tab-pane fade" id="courtPreview" role="tabpanel" aria-labelledby="courtPreviewTab">
-                    <h1>Podgląd kortów na żywo //under construction</h1>
-                    <div class="container mt-4">
+                    <h2>Podgląd kortów na żywo</h2>
+                    <hr class="my-0">
+                    <div class="container mt-3">
                         <div class="row">
                             <div class="col-md-4">
                                 <div id="court1Card" class="card mb-4">
                                     <div class="card-header">
                                         <h5 class="card-title">Kort 1</h5>
                                     </div>
-                                    <div class="card-body">
+                                    <a style="text-decoration: none;" class="card-body">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <p class="mb-2"><strong>Klient:</strong> hello</p>
+                                                <p class="mb-2"><strong>Status: </strong>wolny</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -384,13 +385,13 @@
                                     <div class="card-header">
                                         <h5 class="card-title">Kort 2</h5>
                                     </div>
-                                    <div class="card-body">
+                                    <a style="text-decoration: none;" class="card-body">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <p class="mb-2"><strong>Klient:</strong> hello</p>
+                                                <p class="mb-2"><strong>Status: </strong>wolny</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -398,13 +399,13 @@
                                     <div class="card-header">
                                         <h5 class="card-title">Kort 3</h5>
                                     </div>
-                                    <div class="card-body">
+                                    <a style="text-decoration: none;" class="card-body">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <p class="mb-2"><strong>Klient:</strong> hello</p>
+                                                <p class="mb-2"><strong>Status: </strong>wolny</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -412,13 +413,13 @@
                                     <div class="card-header">
                                         <h5 class="card-title">Kort 4</h5>
                                     </div>
-                                    <div class="card-body">
+                                    <a style="text-decoration: none;" class="card-body">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <p class="mb-2"><strong>Klient:</strong> hello</p>
+                                                <p class="mb-2"><strong>Status: </strong>wolny</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -426,13 +427,13 @@
                                     <div class="card-header">
                                         <h5 class="card-title">Kort 5</h5>
                                     </div>
-                                    <div class="card-body">
+                                    <a style="text-decoration: none;" class="card-body">
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <p class="mb-2"><strong>Klient:</strong> hello</p>
+                                                <p class="mb-2"><strong>Status: </strong>wolny</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -756,36 +757,45 @@
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const courtPreview = document.getElementById('courtPreview');
+        function fetchData(){
+            console.log("refreshing data");
+            const courtPreview = document.getElementById('courtPreview');
 
-        fetch('/api/courtReservations/current')
-            .then(response => response.json())
-            .then(reservations => {
+            fetch('/api/courtReservations/current')
+                .then(response => response.json())
+                .then(reservations => {
+                    const bodyToRemove = document.querySelectorAll('.card-body');
+                    bodyToRemove.forEach(body=>{
+                       body.innerHTML = '';
+                    });
 
-                reservations.forEach(reservation => {
-                    const courtId = reservation.courtNumber;
-                    const card = document.getElementById(`court${courtId}Card`);
+                    reservations.forEach(reservation => {
+                        const courtId = reservation.courtNumber;
+                        const card = document.getElementById(`court${courtId}Card`);
 
-                    if (card) {
-                        const body = card.querySelector('.card-body');
-                        body.innerHTML = '';
+                        if (card) {
+                            const body = card.querySelector('.card-body');
+                            body.innerHTML = '';
 
-                        if (reservation) {
-                            body.innerHTML = `
-                            <p class="mb-2"><strong>Klient:</strong> ${reservation.customer.lastName}</p>
-                            <p class="mb-2"><strong>Status:</strong> zajęty</p>
+                            if (reservation) {
+                                body.setAttribute('href',`/reservation?id=${reservation.id}`);
+                                body.innerHTML = `
+                            <p class="mb-2"><strong>Klient: </strong>${reservation.customer.firstName} ${reservation.customer.lastName}</p>
+                            <p class="mb-2"><strong>Godzina rozpoczęcia: </strong>${reservation.timeStart.toString().substring(0,5)}</p>
+                            <p class="mb-2"><strong>Godzina zakończenia: </strong>${reservation.timeEnd.toString().substring(0,5)}</p>
+
                         `;
-                        } else {
-                            body.innerHTML = `
-                            <p class="mb-2"><strong>Status:</strong> wolny</p>
-                        `;
+                            }
                         }
-                    }
+                    });
+                })
+                .catch(error => {
+                    console.error('Błąd podczas pobierania danych:', error);
                 });
-            })
-            .catch(error => {
-                console.error('Błąd podczas pobierania danych:', error);
-            });
+        }
+        fetchData();
+        setInterval(fetchData, 60000)
+
     });
 
 </script>
