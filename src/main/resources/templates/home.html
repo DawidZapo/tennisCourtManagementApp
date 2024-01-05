@@ -79,8 +79,8 @@
         <div class="col-md-2">
             <div class="nav flex-column nav-pills nav-pills-vertical" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active" id="courtReservationsTab" data-toggle="pill" href="#courtReservations" role="tab" aria-controls="courtReservations" aria-selected="true">Rezerwacje kortów</a>
-                <a class="nav-link" id="upcomingReservationTab" data-toggle="pill" href="#upComingReservations" role="tab" aria-controls="upcomingReservations" aria-selected="false">Przyszłe rezerwacje</a>
                 <a class="nav-link" id="courtPreviewTab" data-toggle="pill" href="#courtPreview" role="tab" aria-controls="courtPreview" aria-selected="false">Podgląd kortów</a>
+                <a class="nav-link" id="upcomingReservationTab" data-toggle="pill" href="#upComingReservations" role="tab" aria-controls="upcomingReservations" aria-selected="false">Przyszłe rezerwacje</a>
                 <a class="nav-link" id="daySummaryTab" data-toggle="pill" href="#daySummary" role="tab" aria-controls="daySummary" aria-selected="false">Podsumowanie dnia</a>
                 <a class="nav-link" id="customerHandlingTab" data-toggle="pill" href="#customerHandling" role="tab" aria-controls="customerHandling" aria-selected="false">Zarządzanie klientami</a>
                 <a class="nav-link" id="settingsAndHelpTab" data-toggle="pill" href="#settingsAndHelp" role="tab" aria-controls="settingsAndHelp" aria-selected="false">Ustawienia i pomoc</a>
@@ -357,77 +357,17 @@
                         </table>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="upComingReservations" role="tabpanel" aria-labelledby="upcomingReservationTab">
-                    <h1>Upcoming reservations Content</h1>
-                    <p>This is the content for Profile tab.</p>
-                </div>
                 <div class="tab-pane fade" id="courtPreview" role="tabpanel" aria-labelledby="courtPreviewTab">
                     <h2>Podgląd kortów na żywo</h2>
                     <hr class="my-0">
                     <div class="container mt-3">
                         <div class="row">
-                            <div class="col-md-4">
-                                <div id="court1Card" class="card mb-4">
+                            <div th:each="court : ${courts}" class="col-md-4">
+                                <div th:id="displayCourtCard + ${court.id}" class="card mb-4">
                                     <div class="card-header">
-                                        <h5 class="card-title">Kort 1</h5>
+                                        <h5 class="card-title" th:text="Kort + ' ' + ${court.id}"></h5>
                                     </div>
-                                    <a style="text-decoration: none;" class="card-body">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <p class="mb-2"><strong>Status: </strong>wolny</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div id="court2Card" class="card mb-4">
-                                    <div class="card-header">
-                                        <h5 class="card-title">Kort 2</h5>
-                                    </div>
-                                    <a style="text-decoration: none;" class="card-body">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <p class="mb-2"><strong>Status: </strong>wolny</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div id="court3Card" class="card mb-4">
-                                    <div class="card-header">
-                                        <h5 class="card-title">Kort 3</h5>
-                                    </div>
-                                    <a style="text-decoration: none;" class="card-body">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <p class="mb-2"><strong>Status: </strong>wolny</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div id="court4Card" class="card mb-4">
-                                    <div class="card-header">
-                                        <h5 class="card-title">Kort 4</h5>
-                                    </div>
-                                    <a style="text-decoration: none;" class="card-body">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <p class="mb-2"><strong>Status: </strong>wolny</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div id="court5Card" class="card mb-4">
-                                    <div class="card-header">
-                                        <h5 class="card-title">Kort 5</h5>
-                                    </div>
-                                    <a style="text-decoration: none;" class="card-body">
+                                    <a th:id="displayCourtCardBody+${court.id}" style="text-decoration: none;" class="card-body">
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <p class="mb-2"><strong>Status: </strong>wolny</p>
@@ -439,13 +379,35 @@
                         </div>
                     </div>
                 </div>
+                <div class="tab-pane fade" id="upComingReservations" role="tabpanel" aria-labelledby="upcomingReservationTab">
+                    <h2>Przyszłe rezerwacje</h2>
+                    <hr class="my-0">
+                    <div class="container mt-3">
+                        <div class="row">
+                            <div th:each="court : ${courts}" class="col-md-4">
+                                <div th:id="futureCourtCard + ${court.id}" class="card mb-4">
+                                    <div class="card-header">
+                                        <h5 class="card-title" th:text="Kort + ' ' + ${court.id}"></h5>
+                                    </div>
+                                    <a style="text-decoration: none;" class="card-body">
+                                        <div class="row">
+                                            <div th:id="futureCourtCardBody+${court.id}" class="col-sm-12">
+                                                <p class="mb-2"><strong>Status: </strong>wolny hello</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="tab-pane fade" id="daySummary" role="tabpanel" aria-labelledby="daySummaryTab">
-                    <h1>Day Summary Content</h1>
+                    <h2>Day Summary Content</h2>
                     <p>This is the content for Messages tab.</p>
                 </div>
                 <div class="tab-pane fade" id="customerHandling" role="tabpanel" aria-labelledby="customerHandlingTab">
-                    <h1>Zarządzaj klientami</h1>
-                    <a th:href="@{/customer/showFormForAdd}" class="btn btn-success mt-3">Dodaj nowego klienta</a>
+                    <h2>Zarządzaj klientami</h2>
+                    <a th:href="@{/customer/showFormForAdd}" class="btn btn-success mt-2">Dodaj nowego klienta</a>
 
                     <hr class="my-3">
                     <input type="text" id="searchInput" oninput="searchCustomers()" class="form-control" placeholder="Wyszukaj klienta [nazwisko]">
@@ -465,7 +427,7 @@
 
                 </div>
                 <div class="tab-pane fade" id="settingsAndHelp" role="tabpanel" aria-labelledby="settingsAndHelpTab">
-                    <h1>Settings Content</h1>
+                    <h2>Settings Content</h2>
                     <p>This is the content for Settings tab.</p>
                 </div>
             </div>
@@ -485,6 +447,7 @@
 
 <script src="/js/updateTime.js"></script>
 <script src="/js/updateSelectedDate.js"></script>
+<script src="/js/updateCurrentReservations.js"></script>
 <script th:inline="javascript">
     // funkcja dodajace kafelki rezerwacji z db
     class Customer {
@@ -753,50 +716,6 @@
     }
 
 
-
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        function fetchData(){
-            console.log("refreshing data");
-            const courtPreview = document.getElementById('courtPreview');
-
-            fetch('/api/courtReservations/current')
-                .then(response => response.json())
-                .then(reservations => {
-                    const bodyToRemove = document.querySelectorAll('.card-body');
-                    bodyToRemove.forEach(body=>{
-                       body.innerHTML = '';
-                    });
-
-                    reservations.forEach(reservation => {
-                        const courtId = reservation.courtNumber;
-                        const card = document.getElementById(`court${courtId}Card`);
-
-                        if (card) {
-                            const body = card.querySelector('.card-body');
-                            body.innerHTML = '';
-
-                            if (reservation) {
-                                body.setAttribute('href',`/reservation?id=${reservation.id}`);
-                                body.innerHTML = `
-                            <p class="mb-2"><strong>Klient: </strong>${reservation.customer.firstName} ${reservation.customer.lastName}</p>
-                            <p class="mb-2"><strong>Godzina rozpoczęcia: </strong>${reservation.timeStart.toString().substring(0,5)}</p>
-                            <p class="mb-2"><strong>Godzina zakończenia: </strong>${reservation.timeEnd.toString().substring(0,5)}</p>
-
-                        `;
-                            }
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('Błąd podczas pobierania danych:', error);
-                });
-        }
-        fetchData();
-        setInterval(fetchData, 60000)
-
-    });
 
 </script>
 
