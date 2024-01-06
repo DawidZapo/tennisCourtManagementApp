@@ -25,35 +25,41 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-primary bg-light navbar-custom">
-    <a class="navbar-brand" style="padding-left: 15px" th:href="@{/}">
-        <img width="60" height="100" src="/images/mzuk.png" alt="Logo">
-    </a>
-
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="#">Opcja 1</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Opcja 2</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Opcja 3</a>
-        </li>
-    </ul>
-
-    <div class="navbar-text mx-auto">
-        <a th:href="@{/}" class="text-decoration-none">
-            <h1 id="current-date-time" class="display-4"></h1>
+    <div class="col-md-4 d-flex flex-wrap align-items-center">
+        <a class="navbar-brand" style="padding-left: 15px" th:href="@{/}">
+            <img width="60" height="100" src="/images/mzuk.png" alt="Logo">
         </a>
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Korty</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Podsumowanie dnia</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Ustawienia</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-4 d-flex flex-wrap align-items-center">
+        <div class="navbar-text mx-auto">
+            <a th:href="@{/}" class="text-decoration-none">
+                <h1 id="current-date-time" class="display-4"></h1>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-4 d-flex flex-wrap justify-content-end align-items-center">
+        <div class="user-info m-3">
+            Zalogowany jako: <strong th:text="${username}"></strong>
+        </div>
+
+        <form class="mx-4" action="#" th:action="@{/logout}" method="POST">
+            <input type="submit" value="Wyloguj się" class="btn btn-outline-danger">
+        </form>
     </div>
 
-    <div class="user-info m-3">
-        Zalogowany jako: <strong th:text="${username}"></strong>
-    </div>
 
-    <form class="mx-4" action="#" th:action="@{/logout}" method="POST">
-        <input type="submit" value="Wyloguj się" class="btn btn-outline-danger">
-    </form>
 </nav>
 
 <div class="container mt-2">

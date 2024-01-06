@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 for(let i=1;i<=5;i++){
                     const card = document.getElementById(`futureCourtCard${i}`);
                     const body = card.querySelector('.card-body');
-                    console.log(body);
                     while (body.firstChild) {
                         body.removeChild(body.firstChild);
                     }
@@ -16,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
 
                 reservations.forEach(reservation => {
-                    console.log(reservation);
                     const courtId = reservation.courtNumber;
                     const card = document.getElementById(`futureCourtCard${courtId}`);
 
