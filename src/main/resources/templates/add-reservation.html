@@ -48,10 +48,10 @@
 
 <div class="container mt-2">
     <form action="#" th:action="@{/reservation/save}" th:object="${courtReservationDto}" method="post">
-        <div class="row d-flex justify-content-center align-items-center">
+        <div th:id="toDeactivate" class="row d-flex justify-content-center align-items-center">
             <button  type="submit" id="submitBtn" class="btn btn-success mb-2">Dodaj</button>
             <div th:each="reservation, itemStat : *{reservations}" class="col-md-4">
-                <div class="card mb-4">
+                <div  class="card mb-4">
                     <div class="card-header">
                         <h5 class="card-title" th:text="'Rezerwacja #' + ${itemStat.index + 1}"></h5>
                     </div>
@@ -116,8 +116,27 @@
         </div>
     </form>
 </div>
+<div id="data" th:data-enable-changes="${enableChanges}" hidden></div>
+
 
 <script src="/js/updateTime.js"></script>
 <script src="/js/handleCustomerSearchAndChoice.js"></script>
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        showMessage();
+    });
+
+    function showMessage() {
+        let enableChanges = document.getElementById('data').getAttribute('data-enable-changes');
+
+        enableChanges = (enableChanges === 'true');
+
+        if (!enableChanges) {
+            const card = document.getElementById("toDeactivate");
+            card.classList.add('disabled');
+            alert("Ups! Próbujesz dodać rezerwację dla minionego dnia. W celu korekcji przeszłych rezerwacji skontaktuj się z administratorem strony");
+        }
+    }
+</script>
 </body>
 </html>

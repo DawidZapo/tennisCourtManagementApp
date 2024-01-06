@@ -48,7 +48,7 @@
 </nav>
 
 <div class="container mt-2">
-    <div class="row">
+    <div th:id="toDeactivate" class="row">
         <div class="col-md-4">
             <div class="card mb-4">
                 <div class="card-header">
@@ -121,8 +121,10 @@
                             <form th:action="@{/reservation/updateIsPaid}" method="post" class="mt-4">
                                 <input type="hidden" name="id" th:value="${reservation.id}" />
                                 <input type="hidden" name="isPaid" th:value="${reservation.isPaid()}">
-                                <button th:if="${!reservation.isPaid()}" type="submit" id="submitToPayBtn" class="btn btn-outline-success w-100">Opłać</button>
-                                <button th:if="${reservation.isPaid()}" type="submit" id="submitToUnpayBtn" class="btn btn-outline-danger w-100">Wycofaj zapłatę</button>
+                                <th:block th:if="${enableChanges}">
+                                    <button th:if="${!reservation.isPaid()}" type="submit" id="submitToPayBtn" class="btn btn-outline-success w-100">Opłać</button>
+                                    <button th:if="${reservation.isPaid()}" type="submit" id="submitToUnpayBtn" class="btn btn-outline-danger w-100">Wycofaj zapłatę</button>
+                                </th:block>
                             </form>
                         </div>
                     </div>
@@ -194,7 +196,9 @@
                             <form th:action="@{/reservation/delete}" method="post" class="mt-4">
                                 <input type="hidden" name="id" th:value="${reservation.id}" />
                                 <input type="hidden" name="date" th:value="${date}">
-                                <button type="submit" id="deleteBtn" class="btn btn-outline-danger flex-fill w-100">Odwołaj rezerwację</button>
+                                <th:block th:if="${enableChanges}">
+                                    <button type="submit" id="deleteBtn" class="btn btn-outline-danger flex-fill w-100">Odwołaj rezerwację</button>
+                                </th:block>
                             </form>
                         </div>
                     </div>
@@ -204,7 +208,7 @@
         </div>
     </div>
 </div>
-
+<div id="data" th:data-enable-changes="${enableChanges}" hidden></div>
 <script src="/js/updateTime.js"></script>
 <script>
     const cashRadio = document.getElementById('cash');
@@ -266,6 +270,23 @@
         submitCommentsBtn.disabled = commentsInput.value.trim() === '';
     });
 
+</script>
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        showMessage();
+    });
+
+    function showMessage() {
+        let enableChanges = document.getElementById('data').getAttribute('data-enable-changes');
+
+        enableChanges = (enableChanges === 'true');
+
+        if (!enableChanges) {
+            const card = document.getElementById("toDeactivate");
+            card.classList.add('disabled');
+            alert("Ups! Próbujesz modyfikować rezerwację dla minionego dnia. W celu korekcji przeszłych rezerwacji skontaktuj się z administratorem strony");
+        }
+    }
 </script>
 </body>
 </html>

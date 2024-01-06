@@ -98,6 +98,12 @@ public class MainController {
         boolean isHoliday = holidayManager.isHoliday(date);
         String dayOfWeek = getPolishDayOfWeekString(date);
 
+        boolean enableChanges = true;
+        if(date.isBefore(LocalDate.now())){
+            enableChanges = false;
+        }
+        model.addAttribute("enableChanges", enableChanges);
+
         model.addAttribute("dayOfWeek", dayOfWeek);
         model.addAttribute("isHoliday", isHoliday);
         model.addAttribute("discounts", discounts);
@@ -158,6 +164,11 @@ public class MainController {
         model.addAttribute("courtReservationDto", courtReservationDto);
         model.addAttribute("customerDto", customerDto);
         model.addAttribute("priceSchedulesDto", priceScheduleDto);
+        boolean enableChanges = true;
+        if(date.isBefore(LocalDate.now())){
+            enableChanges = false;
+        }
+        model.addAttribute("enableChanges", enableChanges);
 
 
         return "add-reservation";
