@@ -53,19 +53,22 @@ public class RestController {
         return currentReservations;
     }
 
-    @GetMapping("/courtReservations/upcoming")
+    @GetMapping("/courtReservations/upcomingAndOngoing")
     public List<CourtReservation> getUpcomingReservations() {
         List<CourtReservation> todayReservations = courtReservationService.findAllByReservationDate(LocalDate.now());
-        List<CourtReservation> upcomingReservations = new ArrayList<>();
+        List<CourtReservation> upcomingAndOngoingReservations = new ArrayList<>();
         LocalTime currentTime = LocalTime.now();
 
         for (CourtReservation reservation : todayReservations) {
             if(reservation.getTimeStart().isAfter(currentTime)){
-                upcomingReservations.add(reservation);
+                upcomingAndOngoingReservations.add(reservation);
+            }
+            else if(currentTime.isAfter(reservation.getTimeStart()) && currentTime.isBefore(reservation.getTimeEnd())){
+                upcomingAndOngoingReservations.add(reservation);
             }
         }
-
-        return upcomingReservations;
+        CourtReservation.sortReservations(upcomingAndOngoingReservations);
+        return upcomingAndOngoingReservations;
     }
 
 }

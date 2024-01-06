@@ -10,6 +10,8 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
+import java.util.List;
 
 @Entity
 @Table(name = "court_reservation")
@@ -376,5 +378,12 @@ public class CourtReservation {
 
 
         return calculatedPrice;
+    }
+
+    public static void sortReservations(List<CourtReservation> reservations) {
+        Comparator<CourtReservation> byCourtNumber = Comparator.comparingInt(CourtReservation::getCourtNumber);
+        Comparator<CourtReservation> byTimeStart = Comparator.comparing(CourtReservation::getTimeStart);
+
+        reservations.sort(byCourtNumber.thenComparing(byTimeStart));
     }
 }

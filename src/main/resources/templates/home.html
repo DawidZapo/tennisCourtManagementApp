@@ -389,13 +389,15 @@
                                     <div class="card-header">
                                         <h5 class="card-title" th:text="Kort + ' ' + ${court.id}"></h5>
                                     </div>
-                                    <a style="text-decoration: none;" class="card-body">
+                                    <div style="text-decoration: none;" class="card-body">
                                         <div class="row">
                                             <div th:id="futureCourtCardBody+${court.id}" class="col-sm-12">
-                                                <p class="mb-2"><strong>Status: </strong>wolny hello</p>
+                                                <a style="text-decoration: none;">
+                                                    <p class="mb-2" style="color: black !important;"><strong>Status: </strong>wolny hello</p>
+                                                </a>
                                             </div>
                                         </div>
-                                    </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -448,6 +450,7 @@
 <script src="/js/updateTime.js"></script>
 <script src="/js/updateSelectedDate.js"></script>
 <script src="/js/updateCurrentReservations.js"></script>
+<script src="/js/updateUpcomingAndOngoingReservations.js"></script>
 <script th:inline="javascript">
     // funkcja dodajace kafelki rezerwacji z db
     class Customer {
