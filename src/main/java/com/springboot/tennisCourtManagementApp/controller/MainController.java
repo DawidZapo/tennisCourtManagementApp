@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -67,10 +68,14 @@ public class MainController {
 
         List<Court> courts = courtService.findAll();
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        String formattedDate = date.format(formatter);
+
 
         model.addAttribute("reservations", reservations);
         model.addAttribute("dayOfWeek",dayOfWeekPolish);
         model.addAttribute("date", date);
+        model.addAttribute("formattedDate", formattedDate);
         model.addAttribute("customers", customers);
         model.addAttribute("courts", courts);
 

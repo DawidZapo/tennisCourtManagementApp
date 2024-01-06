@@ -1,17 +1,34 @@
-.reservation-tile{
-    background-color: red;
+.navbar-custom {
+    background-color: #f8f9fa;
 }
-.container-with-tiles{
-    height: 80vh;
-    overflow-y: auto;
-    align-content: center;
-    width: 75%;
-    float: right;
+.navbar-brand img {
+    max-height: 40px;
 }
-.table-with-tiles{
-
+.user-info {
+    margin-left: auto;
 }
-
-.btn-custom{
-   height: 100vh;
+/* Zwiększ czcionkę daty i godziny */
+#current-date-time {
+    font-size: 24px;
+}
+#reservationTable {
+    width: 100%; /* Ustawienie szerokości tabeli na 100% szerokości dostępnej przestrzeni */
+    table-layout: fixed; /* Ustawienie stałej szerokości kolumn */
+}
+td{
+    padding: 2px;
+    position: relative;
+}
+.tile{
+    position: absolute; top: 0; left: 0; right: 0; bottom: 2px; display: flex; align-items: center; justify-content: center;
+    width: 100%;
+}
+.clicked {
+    outline: none;
+    border: 1px solid transparent;
+}
+.disabled {
+    color: #A9A9A9;
+    background-color: #F0F0F0;
+    opacity: 0.5;
 }
