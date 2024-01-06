@@ -1,8 +1,9 @@
-package com.springboot.tennisCourtManagementApp.service;
+package com.springboot.tennisCourtManagementApp.service.courtReservation;
 
 import com.springboot.tennisCourtManagementApp.dao.CourtReservationRepository;
 import com.springboot.tennisCourtManagementApp.entity.CourtReservation;
 import com.springboot.tennisCourtManagementApp.entity.PriceSchedule;
+import com.springboot.tennisCourtManagementApp.service.priceSchedule.PriceScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CourtReservationServiceImpl implements CourtReservationService{
+public class CourtReservationServiceImpl implements CourtReservationService {
     private CourtReservationRepository courtReservationRepository;
     private PriceScheduleService priceScheduleService;
 

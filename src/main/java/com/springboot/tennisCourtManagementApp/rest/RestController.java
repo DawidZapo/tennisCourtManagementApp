@@ -2,8 +2,8 @@ package com.springboot.tennisCourtManagementApp.rest;
 
 import com.springboot.tennisCourtManagementApp.entity.CourtReservation;
 import com.springboot.tennisCourtManagementApp.entity.Customer;
-import com.springboot.tennisCourtManagementApp.service.CourtReservationService;
-import com.springboot.tennisCourtManagementApp.service.CustomerService;
+import com.springboot.tennisCourtManagementApp.service.courtReservation.CourtReservationService;
+import com.springboot.tennisCourtManagementApp.service.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

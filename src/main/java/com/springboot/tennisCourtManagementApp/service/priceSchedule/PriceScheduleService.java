@@ -1,4 +1,4 @@
-package com.springboot.tennisCourtManagementApp.service;
+package com.springboot.tennisCourtManagementApp.service.priceSchedule;
 
 import com.springboot.tennisCourtManagementApp.entity.PriceSchedule;
 

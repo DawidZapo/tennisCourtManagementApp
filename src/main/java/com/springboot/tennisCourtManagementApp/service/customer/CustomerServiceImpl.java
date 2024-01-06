@@ -1,7 +1,8 @@
-package com.springboot.tennisCourtManagementApp.service;
+package com.springboot.tennisCourtManagementApp.service.customer;
 
 import com.springboot.tennisCourtManagementApp.dao.CustomerRepository;
 import com.springboot.tennisCourtManagementApp.entity.Customer;
+import com.springboot.tennisCourtManagementApp.service.customer.CustomerService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
     private EntityManager entityManager;
 

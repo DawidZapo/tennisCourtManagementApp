@@ -1,7 +1,7 @@
 package com.springboot.tennisCourtManagementApp.controller;
 
 import com.springboot.tennisCourtManagementApp.entity.Customer;
-import com.springboot.tennisCourtManagementApp.service.CustomerService;
+import com.springboot.tennisCourtManagementApp.service.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -1,14 +1,15 @@
-package com.springboot.tennisCourtManagementApp.service;
+package com.springboot.tennisCourtManagementApp.service.priceSchedule;
 
 import com.springboot.tennisCourtManagementApp.dao.PriceScheduleRepository;
 import com.springboot.tennisCourtManagementApp.entity.PriceSchedule;
+import com.springboot.tennisCourtManagementApp.service.priceSchedule.PriceScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 @Service
-public class PriceScheduleServiceImpl implements PriceScheduleService{
+public class PriceScheduleServiceImpl implements PriceScheduleService {
     private PriceScheduleRepository priceScheduleRepository;
 
     @Autowired

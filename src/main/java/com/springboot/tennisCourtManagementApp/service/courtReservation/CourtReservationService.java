@@ -1,4 +1,4 @@
-package com.springboot.tennisCourtManagementApp.service;
+package com.springboot.tennisCourtManagementApp.service.courtReservation;
 
 import com.springboot.tennisCourtManagementApp.entity.CourtReservation;
 

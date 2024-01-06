@@ -1,7 +1,8 @@
-package com.springboot.tennisCourtManagementApp.service;
+package com.springboot.tennisCourtManagementApp.service.priceInfo;
 
 import com.springboot.tennisCourtManagementApp.dao.PriceInfoRepository;
 import com.springboot.tennisCourtManagementApp.entity.PriceInfo;
+import com.springboot.tennisCourtManagementApp.service.priceInfo.PriceInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PriceInfoServiceImpl implements PriceInfoService{
+public class PriceInfoServiceImpl implements PriceInfoService {
 
     private PriceInfoRepository priceInfoRepository;
 

@@ -1,4 +1,4 @@
-package com.springboot.tennisCourtManagementApp.service;
+package com.springboot.tennisCourtManagementApp.service.priceInfo;
 
 import com.springboot.tennisCourtManagementApp.entity.PriceInfo;
 

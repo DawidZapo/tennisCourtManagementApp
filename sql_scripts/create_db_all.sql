@@ -99,4 +99,18 @@ INSERT INTO court (court_number,is_active,is_taken,is_flooded) VALUES
 (2,1,0,0),
 (3,1,0,0),
 (4,1,0,0),
-(5,1,0,0)
+(5,1,0,0);
+
+USE court_management;
+CREATE TABLE IF NOT EXISTS settlement_day (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    summary_date DATE,
+    cash_total DOUBLE,
+    card_total DOUBLE,
+    cash_box DOUBLE,
+    card_terminal DOUBLE,
+    number_of_reservations INT,
+    is_correct TINYINT(1),
+    accepted_by VARCHAR(50),
+    accepted_at VARCHAR(50)
+) ENGINE=InnoDB;

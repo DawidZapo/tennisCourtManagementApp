@@ -1,14 +1,15 @@
-package com.springboot.tennisCourtManagementApp.service;
+package com.springboot.tennisCourtManagementApp.service.court;
 
 import com.springboot.tennisCourtManagementApp.dao.CourtRepository;
 import com.springboot.tennisCourtManagementApp.entity.Court;
+import com.springboot.tennisCourtManagementApp.service.court.CourtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class CourtServiceImpl implements CourtService{
+public class CourtServiceImpl implements CourtService {
     private CourtRepository courtRepository;
 
     @Autowired

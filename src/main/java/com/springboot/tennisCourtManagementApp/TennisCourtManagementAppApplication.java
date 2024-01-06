@@ -11,9 +11,10 @@ public class TennisCourtManagementAppApplication {
 	}
 
 //	@Bean
-//	public CommandLineRunner commandLineRunner(CourtReservationService courtReservationService, CustomerService customerService, PriceInfoService priceInfoService, PriceScheduleService priceScheduleService) {
+//	public CommandLineRunner commandLineRunner(SettlementDayService settlementDayService) {
 //
 //		return runner -> {
+//			settlementDayService.deleteById(2);
 //
 //		};
 //	}

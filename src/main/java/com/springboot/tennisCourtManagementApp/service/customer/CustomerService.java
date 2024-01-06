@@ -1,4 +1,4 @@
-package com.springboot.tennisCourtManagementApp.service;
+package com.springboot.tennisCourtManagementApp.service.customer;
 
 import com.springboot.tennisCourtManagementApp.entity.Customer;
 
