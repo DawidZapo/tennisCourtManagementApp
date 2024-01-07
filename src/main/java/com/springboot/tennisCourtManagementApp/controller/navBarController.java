@@ -1,6 +1,8 @@
 package com.springboot.tennisCourtManagementApp.controller;
 
+import com.springboot.tennisCourtManagementApp.entity.CourtReservation;
 import com.springboot.tennisCourtManagementApp.entity.SettlementDay;
+import com.springboot.tennisCourtManagementApp.service.courtReservation.CourtReservationService;
 import com.springboot.tennisCourtManagementApp.service.settlementDay.SettlementDayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,15 +15,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Controller
 public class navBarController {
 
     private SettlementDayService settlementDayService;
+    private CourtReservationService courtReservationService;
 
     @Autowired
-    public navBarController(SettlementDayService settlementDayService) {
+    public navBarController(SettlementDayService settlementDayService, CourtReservationService courtReservationService) {
         this.settlementDayService = settlementDayService;
+        this.courtReservationService = courtReservationService;
     }
 
     @GetMapping("/courts")
@@ -45,16 +50,26 @@ public class navBarController {
         if(date==null){
             date = LocalDate.now();
         }
+
         SettlementDay settlementDay = settlementDayService.findBySummaryDate(date);
         if(settlementDay == null){
             settlementDay = new SettlementDay();
         }
+        model.addAttribute("date", date);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         String formattedDate = date.format(formatter);
 
+        List<CourtReservation> reservationsValidForSummary = courtReservationService.findByReservationDateAndValidForFinanceSummary(date,true);
+        List<CourtReservation> reservationsInvalidForSummary = courtReservationService.findByReservationDateAndValidForFinanceSummary(date,false);
+        Double totalCashMoney = getTotalCashMoney(reservationsValidForSummary);
+        Double totalCardMoney = getTotalCardMoney(reservationsValidForSummary);
+
+        model.addAttribute("totalCashMoney", totalCashMoney);
+        model.addAttribute("totalCardMoney", totalCardMoney);
+        model.addAttribute("reservationsValid", reservationsValidForSummary);
+        model.addAttribute("reservationsInvalid", reservationsInvalidForSummary);
         model.addAttribute("settlementDay", settlementDay);
         model.addAttribute("formattedDate", formattedDate);
-        model.addAttribute("date", date);
 
         return "day-summary";
     }
@@ -67,5 +82,34 @@ public class navBarController {
         }
 
         return "settings";
+    }
+
+    private Double getTotalCashMoney(List<CourtReservation> reservations){
+        Double sum = 0.0;
+        for(var reservation : reservations){
+            if(reservation.getCash() != null && reservation.getPaid()){
+                if(reservation.getCash()){
+                    sum += reservation.getTotalPrice();
+                }
+            }
+            else{
+                return null;
+            }
+        }
+        return sum;
+    }
+    private Double getTotalCardMoney(List<CourtReservation> reservations){
+        Double sum = 0.0;
+        for(var reservation : reservations){
+            if(reservation.getCash() != null && reservation.getPaid()){
+                if(!reservation.getCash()){
+                    sum += reservation.getTotalPrice();
+                }
+            }
+            else{
+                return null;
+            }
+        }
+        return sum;
     }
 }

@@ -38,4 +38,7 @@ public interface CourtReservationRepository extends JpaRepository<CourtReservati
     @Modifying
     @Query("UPDATE CourtReservation cr SET cr.isPaid = :isPaid WHERE cr.id = :id")
     void updateIsPaid(@Param("id") int id, @Param("isPaid") Boolean isPaid);
+
+    List<CourtReservation> findByReservationDateAndValidForFinanceSummary(LocalDate date, Boolean valid);
+
 }

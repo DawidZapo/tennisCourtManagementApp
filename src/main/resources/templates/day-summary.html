@@ -59,47 +59,98 @@
     </div>
 
     <div class="row mt-3">
-        <div class="col-md-12">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5 class="card-title text-center" th:text="'Podsumowanie dnia ' + ${formattedDate}"></h5>
-                </div>
-                <div style="text-decoration: none;" class="card-body">
-                    <div class="row">
-                        <div class="col-sm-12 d-flex">
-                            <div class="col-sm-3 d-flex">
-                                <p class="mb-2"><strong>Status: </strong>wolny</p>
-                                <button class="btn btn-success">hello</button>
-                            </div>
-                            <div class="col-sm-3 d-flex">
-                                <p class="mb-2"><strong>Status: </strong>wolny</p>
-                                <button class="btn btn-success">hello</button>
-                            </div>
-                            <div class="col-sm-3">
-                                <button class="btn btn-success">hello</button>
-                            </div>
-                            <div class="col-sm-3">
-                                <button class="btn btn-success">hello</button>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 d-flex">
-                            <div class="col-sm-3">
-                                <button class="btn btn-danger">hello</button>
-                            </div>
-                            <div class="col-sm-3">
-                                <button class="btn btn-danger">hello</button>
-                            </div>
-                            <div class="col-sm-3">
-                                <button class="btn btn-danger">hello</button>
-                            </div>
-                            <div class="col-sm-3">
-                                <button class="btn btn-danger">hello</button>
+        <form th:action="@{/settlementDay/save}" th:object="${settlementDay}" method="post">
+            <input type="hidden" th:field="${settlementDay.id}">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title text-center" th:text="'Podsumowanie dnia ' + ${formattedDate}"></h5>
+                    </div>
+                    <div style="text-decoration: none;" class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 d-flex">
+                                <div class="col-md-4">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h5 class="card-title">Należności według stanu rezerwacji</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-12 d-flex text-center align-items-center">
+                                                    <div class="col-md-6">
+                                                        <p class="mb-2"><strong>Gotówka: </strong></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="form-control mb-2" th:if="${totalCashMoney}!=null" th:text="${totalCashMoney}"></p>
+                                                        <p class="form-control mb-2" th:if="${totalCashMoney}==null">:)</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 d-flex text-center align-items-center">
+                                                    <div class="col-md-6">
+                                                        <p class="mb-2"><strong>Karta: </strong></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p class="form-control mb-2" th:if="${totalCardMoney}!=null" th:text="${totalCardMoney}"></p>
+                                                        <p class="form-control mb-2" th:if="${totalCardMoney}==null">:)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <th:block th:if="${totalCashMoney == null or totalCardMoney == null}">
+                                        <div class="alert alert-danger">
+                                            <p>Nie wszystkie rezerwacje zostały opłacone lub nie wszystkim rezerwacjom została przypisana płatność.</p>
+                                        </div>
+                                    </th:block>
+                                </div>
+                                <div class="col-md-4 mx-1">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h5 class="card-title text-center">Stan kasy</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-12 d-flex text-center align-items-center">
+                                                    <div class="col-md-6">
+                                                        <p class="mb-2"><strong>Gotówka: </strong></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="number" step="any" class="form-control mb-2" th:field="${settlementDay.cashBox}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 d-flex text-center align-items-center">
+                                                    <div class="col-md-6">
+                                                        <p class="mb-2"><strong>Karta: </strong></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <input type="number" step="any" class="form-control mb-2" th:field="${settlementDay.card_terminal}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <h5 class="card-title text-center">Należności niepodlegące rozliczeniu</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <p class="mb-2"><strong>Status: </strong>wolny hello</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <button class="btn btn-success" type="submit">Zapisz dzień obrachunkowy</button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 

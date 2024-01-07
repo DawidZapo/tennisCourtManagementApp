@@ -113,4 +113,9 @@ public class CourtReservationServiceImpl implements CourtReservationService {
     public void updateIsPaid(int id, Boolean isPaid) {
         courtReservationRepository.updateIsPaid(id,isPaid);
     }
+
+    @Override
+    public List<CourtReservation> findByReservationDateAndValidForFinanceSummary(LocalDate date, Boolean valid) {
+        return courtReservationRepository.findByReservationDateAndValidForFinanceSummary(date,valid);
+    }
 }

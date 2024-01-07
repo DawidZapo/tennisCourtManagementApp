@@ -19,5 +19,7 @@ public interface CourtReservationService {
     void updateTotalPrice(int id, Double newTotalPrice);
     void updateComments(int id, String comments);
     void updateIsPaid(int id,Boolean isPaid);
+    List<CourtReservation> findByReservationDateAndValidForFinanceSummary(LocalDate date, Boolean valid);
+
 }
 
