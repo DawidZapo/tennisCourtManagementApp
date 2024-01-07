@@ -52,10 +52,12 @@ public class CourtReservation {
     @Column(name = "accepted_at")
     private String acceptedAt;
 
+    @Column(name = "valid_for_finance_summary")
+    private Boolean validForFinanceSummary;
     public CourtReservation() {
     }
 
-    public CourtReservation(Long id, Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Double duration, Integer priceSchedule, Double totalPrice, Boolean isDoublesMatch, Boolean isPaid, Boolean isCash, String comments, Customer customer, String acceptedBy, String acceptedAt) {
+    public CourtReservation(Long id, Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Double duration, Integer priceSchedule, Double totalPrice, Boolean isDoublesMatch, Boolean isPaid, Boolean isCash, String comments, Customer customer, String acceptedBy, String acceptedAt, Boolean validForFinanceSummary) {
         this.id = id;
         this.courtNumber = courtNumber;
         this.reservationDate = reservationDate;
@@ -71,6 +73,7 @@ public class CourtReservation {
         this.customer = customer;
         this.acceptedBy = acceptedBy;
         this.acceptedAt = acceptedAt;
+        this.validForFinanceSummary = validForFinanceSummary;
     }
 
     // constructor to create possible reservation (not saved yet) to pass as argument in addReservation form
@@ -81,7 +84,7 @@ public class CourtReservation {
         this.timeEnd = timeEnd;
     }
 
-    public CourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, Double totalPrice, Boolean isDoublesMatch, Boolean isPaid, String acceptedBy) {
+    public CourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, Double totalPrice, Boolean isDoublesMatch, Boolean isPaid, String acceptedBy, Boolean validForFinanceSummary) {
         this.courtNumber = courtNumber;
         this.reservationDate = reservationDate;
         this.timeStart = timeStart;
@@ -94,6 +97,7 @@ public class CourtReservation {
         this.isCash = null;
         this.acceptedBy = acceptedBy;
         this.acceptedAt = LocalDate.now().toString() + " " + LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
+        this.validForFinanceSummary = validForFinanceSummary;
     }
 
     public Long getId() {
@@ -228,6 +232,14 @@ public class CourtReservation {
         this.acceptedAt = acceptedAt;
     }
 
+    public Boolean getValidForFinanceSummary() {
+        return validForFinanceSummary;
+    }
+
+    public void setValidForFinanceSummary(Boolean validForFinanceSummary) {
+        this.validForFinanceSummary = validForFinanceSummary;
+    }
+
     public String getDiscountNameForHTML() {
         return switch (priceSchedule) {
             case 1 -> "Cena regularna";
@@ -262,6 +274,7 @@ public class CourtReservation {
                 ", customer=" + customer +
                 ", acceptedBy='" + acceptedBy + '\'' +
                 ", acceptedAt='" + acceptedAt + '\'' +
+                ", validForFinanceSummary=" + validForFinanceSummary +
                 '}';
     }
 

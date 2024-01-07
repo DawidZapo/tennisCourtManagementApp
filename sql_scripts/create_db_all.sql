@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS court_reservation (
     customer_id INT,
     accepted_by VARCHAR(50),
     accepted_at VARCHAR(50),
+    valid_for_finance_summary TINYINT(1),
     FOREIGN KEY (customer_id) REFERENCES customer(id)
 ) ENGINE=InnoDB;
 

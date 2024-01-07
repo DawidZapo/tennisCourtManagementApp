@@ -44,9 +44,64 @@
             <input type="submit" value="Wyloguj się" class="btn btn-outline-danger">
         </form>
     </div>
-
-
 </nav>
+<div class="container mt-3">
+    <div class="col-md-12 d-flex">
+        <div class="col-md-5 d-flex flex-wrap">
+<!--            <input type="date" class="form-control mx-1 w-10">-->
+        </div>
+        <div class="col-md-2 d-flex flex-wrap">
+            <input type="date" id="date-picker" class="form-control mx-1 w-10">
+        </div>
+        <div class="col-md-5 d-flex flex-wrap">
+<!--            <input type="date" class="form-control mx-1 w-10">-->
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title text-center" th:text="'Podsumowanie dnia ' + ${formattedDate}"></h5>
+                </div>
+                <div style="text-decoration: none;" class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12 d-flex">
+                            <div class="col-sm-3 d-flex">
+                                <p class="mb-2"><strong>Status: </strong>wolny</p>
+                                <button class="btn btn-success">hello</button>
+                            </div>
+                            <div class="col-sm-3 d-flex">`
+                                <p class="mb-2"><strong>Status: </strong>wolny</p>
+                                <button class="btn btn-success">hello</button>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-success">hello</button>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-success">hello</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 d-flex">
+                            <div class="col-sm-3">
+                                <button class="btn btn-danger">hello</button>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-danger">hello</button>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-danger">hello</button>
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-danger">hello</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="/js/updateTime.js"></script>
 </body>

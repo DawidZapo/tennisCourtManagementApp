@@ -14,7 +14,9 @@ public class TennisCourtManagementAppApplication {
 //	public CommandLineRunner commandLineRunner(SettlementDayService settlementDayService) {
 //
 //		return runner -> {
-//			settlementDayService.deleteById(2);
+//			LocalDate date = LocalDate.of(2024,1,6);
+//			SettlementDay settlementDay = settlementDayService.findBySummaryDate(date);
+//			System.out.println(settlementDay);
 //
 //		};
 //	}
