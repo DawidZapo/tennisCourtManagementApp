@@ -71,7 +71,7 @@
                                 <p class="mb-2"><strong>Status: </strong>wolny</p>
                                 <button class="btn btn-success">hello</button>
                             </div>
-                            <div class="col-sm-3 d-flex">`
+                            <div class="col-sm-3 d-flex">
                                 <p class="mb-2"><strong>Status: </strong>wolny</p>
                                 <button class="btn btn-success">hello</button>
                             </div>
@@ -104,5 +104,28 @@
 </div>
 
 <script src="/js/updateTime.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const datePicker = document.getElementById('date-picker');
+        const urlParams = new URLSearchParams(window.location.search);
+
+        if (urlParams.has('date')) {
+            const urlDate = urlParams.get('date');
+            datePicker.value = urlDate;
+        } else {
+            const today = new Date().toISOString().slice(0, 10);
+            datePicker.value = today;
+        }
+
+        datePicker.addEventListener('change', function() {
+            const selectedDate = datePicker.value;
+            changeDateWithSelected(selectedDate);
+        });
+    });
+
+    function changeDateWithSelected(selectedDate) {
+        window.location.href = `/daySummary?date=${selectedDate}`;
+    }
+</script>
 </body>
 </html>
