@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Rezerwacje kortów</title>
@@ -46,12 +47,13 @@
     </div>
 </nav>
 <div class="container mt-3">
+    <form th:action="@{/settlementDay/save}" th:object="${settlementDay}" method="post">
     <div class="col-md-12 d-flex">
         <div class="col-md-5 d-flex flex-wrap">
 <!--            <input type="date" class="form-control mx-1 w-10">-->
         </div>
         <div class="col-md-2 d-flex flex-wrap">
-            <input type="date" id="date-picker" class="form-control mx-1 w-10">
+            <input type="date" id="date-picker" th:field="${settlementDay.summaryDate}" class="form-control mx-1 w-10">
         </div>
         <div class="col-md-5 d-flex flex-wrap">
 <!--            <input type="date" class="form-control mx-1 w-10">-->
@@ -59,7 +61,6 @@
     </div>
 
     <div class="row mt-3">
-        <form th:action="@{/settlementDay/save}" th:object="${settlementDay}" method="post">
             <input type="hidden" th:field="${settlementDay.id}">
             <div class="col-md-12">
                 <div class="card mb-4">
@@ -81,8 +82,7 @@
                                                         <p class="mb-2"><strong>Gotówka: </strong></p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <p class="form-control mb-2" th:if="${totalCashMoney}!=null" th:text="${totalCashMoney}"></p>
-                                                        <p class="form-control mb-2" th:if="${totalCashMoney}==null">:)</p>
+                                                        <p class="form-control mb-2" th:text="${totalCashMoney}"></p>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12 d-flex text-center align-items-center">
@@ -90,16 +90,15 @@
                                                         <p class="mb-2"><strong>Karta: </strong></p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <p class="form-control mb-2" th:if="${totalCardMoney}!=null" th:text="${totalCardMoney}"></p>
-                                                        <p class="form-control mb-2" th:if="${totalCardMoney}==null">:)</p>
+                                                        <p class="form-control mb-2" th:text="${totalCardMoney}"></p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <th:block th:if="${totalCashMoney == null or totalCardMoney == null}">
+                                    <th:block th:if="${!isSummaryEligible}">
                                         <div class="alert alert-danger">
-                                            <p>Nie wszystkie rezerwacje zostały opłacone lub nie wszystkim rezerwacjom została przypisana płatność.</p>
+                                            <p>Nie wszystkie rezerwacje zostały opłacone lub nie wszystkim rezerwacjom została przypisana płatność. Wróc kiedy opłacisz rezerwacje</p>
                                         </div>
                                     </th:block>
                                 </div>
@@ -147,11 +146,16 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-success" type="submit">Zapisz dzień obrachunkowy</button>
+                    <th:block th:if="${!isSummaryEligible}">
+                        <button disabled class="btn btn-success" type="submit">Zapisz dzień obrachunkowy</button>
+                    </th:block>
+                    <th:block th:if="${isSummaryEligible}">
+                        <button class="btn btn-success" type="submit">Zapisz dzień obrachunkowy</button>
+                    </th:block>
                 </div>
             </div>
-        </form>
     </div>
+    </form>
 </div>
 
 <script src="/js/updateTime.js"></script>

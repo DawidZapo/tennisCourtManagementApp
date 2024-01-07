@@ -63,7 +63,9 @@ public class navBarController {
         List<CourtReservation> reservationsInvalidForSummary = courtReservationService.findByReservationDateAndValidForFinanceSummary(date,false);
         Double totalCashMoney = getTotalCashMoney(reservationsValidForSummary);
         Double totalCardMoney = getTotalCardMoney(reservationsValidForSummary);
+        boolean isSummaryEligible = checkEligibility(reservationsValidForSummary);
 
+        model.addAttribute("isSummaryEligible", isSummaryEligible);
         model.addAttribute("totalCashMoney", totalCashMoney);
         model.addAttribute("totalCardMoney", totalCardMoney);
         model.addAttribute("reservationsValid", reservationsValidForSummary);
@@ -87,13 +89,10 @@ public class navBarController {
     private Double getTotalCashMoney(List<CourtReservation> reservations){
         Double sum = 0.0;
         for(var reservation : reservations){
-            if(reservation.getCash() != null && reservation.getPaid()){
+            if(reservation.getCash() != null){
                 if(reservation.getCash()){
                     sum += reservation.getTotalPrice();
                 }
-            }
-            else{
-                return null;
             }
         }
         return sum;
@@ -101,15 +100,20 @@ public class navBarController {
     private Double getTotalCardMoney(List<CourtReservation> reservations){
         Double sum = 0.0;
         for(var reservation : reservations){
-            if(reservation.getCash() != null && reservation.getPaid()){
+            if(reservation.getCash() != null){
                 if(!reservation.getCash()){
                     sum += reservation.getTotalPrice();
                 }
             }
-            else{
-                return null;
-            }
         }
         return sum;
+    }
+    private boolean checkEligibility(List<CourtReservation> reservations){
+        for(var reservation : reservations){
+            if(reservation.getPaid().equals(Boolean.FALSE) || reservation.getCash() == null){
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -20,6 +20,6 @@ public interface CourtReservationService {
     void updateComments(int id, String comments);
     void updateIsPaid(int id,Boolean isPaid);
     List<CourtReservation> findByReservationDateAndValidForFinanceSummary(LocalDate date, Boolean valid);
-
+    boolean existsByIsCashIsNotNullAndIsPaidTrueAndReservationDate(LocalDate date);
 }
 

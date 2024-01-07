@@ -41,4 +41,5 @@ public interface CourtReservationRepository extends JpaRepository<CourtReservati
 
     List<CourtReservation> findByReservationDateAndValidForFinanceSummary(LocalDate date, Boolean valid);
 
+    boolean existsByIsCashIsNotNullAndIsPaidTrueAndReservationDate(LocalDate date);
 }

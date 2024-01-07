@@ -118,4 +118,9 @@ public class CourtReservationServiceImpl implements CourtReservationService {
     public List<CourtReservation> findByReservationDateAndValidForFinanceSummary(LocalDate date, Boolean valid) {
         return courtReservationRepository.findByReservationDateAndValidForFinanceSummary(date,valid);
     }
+
+    @Override
+    public boolean existsByIsCashIsNotNullAndIsPaidTrueAndReservationDate(LocalDate date) {
+        return courtReservationRepository.existsByIsCashIsNotNullAndIsPaidTrueAndReservationDate(date);
+    }
 }

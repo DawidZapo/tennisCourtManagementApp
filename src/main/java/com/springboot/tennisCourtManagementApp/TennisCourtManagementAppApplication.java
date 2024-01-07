@@ -11,12 +11,9 @@ public class TennisCourtManagementAppApplication {
 	}
 
 //	@Bean
-//	public CommandLineRunner commandLineRunner(SettlementDayService settlementDayService) {
+//	public CommandLineRunner commandLineRunner(SettlementDayService settlementDayService, CourtReservationService courtReservationService) {
 //
 //		return runner -> {
-//			LocalDate date = LocalDate.of(2024,1,6);
-//			SettlementDay settlementDay = settlementDayService.findBySummaryDate(date);
-//			System.out.println(settlementDay);
 //
 //		};
 //	}
