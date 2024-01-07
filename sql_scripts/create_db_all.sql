@@ -110,6 +110,7 @@ CREATE TABLE IF NOT EXISTS settlement_day (
     card_total DOUBLE,
     cash_box DOUBLE,
     card_terminal DOUBLE,
+    non_summary_total DOUBLE,
     number_of_reservations INT,
     is_correct TINYINT(1),
     accepted_by VARCHAR(50),
