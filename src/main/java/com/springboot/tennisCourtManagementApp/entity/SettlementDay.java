@@ -22,7 +22,7 @@ public class SettlementDay {
     @Column(name = "cash_box")
     private Double cashBox;
     @Column(name = "card_terminal")
-    private Double card_terminal;
+    private Double cardTerminal;
     @Column(name = "non_summary_total")
     private Double nonSummaryTotal;
     @Column(name = "number_of_reservations")
@@ -37,13 +37,13 @@ public class SettlementDay {
     public SettlementDay() {
     }
 
-    public SettlementDay(Integer id, LocalDate summaryDate, Double cashTotal, Double cardTotal, Double cashBox, Double card_terminal,Double nonSummaryTotal, Integer numberOfReservations, Boolean isCorrect, String acceptedBy, String acceptedAt) {
+    public SettlementDay(Integer id, LocalDate summaryDate, Double cashTotal, Double cardTotal, Double cashBox, Double cardTerminal, Double nonSummaryTotal, Integer numberOfReservations, Boolean isCorrect, String acceptedBy, String acceptedAt) {
         this.id = id;
         this.summaryDate = summaryDate;
         this.cashTotal = cashTotal;
         this.cardTotal = cardTotal;
         this.cashBox = cashBox;
-        this.card_terminal = card_terminal;
+        this.cardTerminal = cardTerminal;
         this.nonSummaryTotal = nonSummaryTotal;
         this.numberOfReservations = numberOfReservations;
         this.isCorrect = isCorrect;
@@ -51,12 +51,12 @@ public class SettlementDay {
         this.acceptedAt = acceptedAt;
     }
 
-    public SettlementDay(LocalDate summaryDate, Double cashTotal, Double cardTotal, Double cashBox, Double card_terminal,Double nonSummaryTotal, Integer numberOfReservations, Boolean isCorrect, String acceptedBy) {
+    public SettlementDay(LocalDate summaryDate, Double cashTotal, Double cardTotal, Double cashBox, Double cardTerminal, Double nonSummaryTotal, Integer numberOfReservations, Boolean isCorrect, String acceptedBy) {
         this.summaryDate = summaryDate;
         this.cashTotal = cashTotal;
         this.cardTotal = cardTotal;
         this.cashBox = cashBox;
-        this.card_terminal = card_terminal;
+        this.cardTerminal = cardTerminal;
         this.nonSummaryTotal = nonSummaryTotal;
         this.numberOfReservations = numberOfReservations;
         this.isCorrect = isCorrect;
@@ -105,12 +105,12 @@ public class SettlementDay {
         this.cashBox = cashBox;
     }
 
-    public Double getCard_terminal() {
-        return card_terminal;
+    public Double getCardTerminal() {
+        return cardTerminal;
     }
 
-    public void setCard_terminal(Double card_terminal) {
-        this.card_terminal = card_terminal;
+    public void setCardTerminal(Double card_terminal) {
+        this.cardTerminal = card_terminal;
     }
 
     public Double getNonSummaryTotal() {
@@ -161,7 +161,7 @@ public class SettlementDay {
                 ", cashTotal=" + cashTotal +
                 ", cardTotal=" + cardTotal +
                 ", cashBox=" + cashBox +
-                ", card_terminal=" + card_terminal +
+                ", card_terminal=" + cardTerminal +
                 ", nonSummaryTotal=" + nonSummaryTotal +
                 ", numberOfReservations=" + numberOfReservations +
                 ", isCorrect=" + isCorrect +

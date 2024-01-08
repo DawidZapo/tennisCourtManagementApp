@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -41,33 +42,54 @@ public class navBarController {
     }
     @GetMapping("/daySummary")
     public String showDaySummary(@RequestParam(name = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
-            model.addAttribute("username", username);
-        }
-
         if(date==null){
             date = LocalDate.now();
         }
-
         SettlementDay settlementDay = settlementDayService.findBySummaryDate(date);
         if(settlementDay == null){
             settlementDay = new SettlementDay();
         }
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username;
+        if (authentication != null && authentication.isAuthenticated()) {
+            username = authentication.getName();
+            model.addAttribute("username", username);
+            settlementDay.setAcceptedBy(username);
+        }
+
+
         model.addAttribute("date", date);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         String formattedDate = date.format(formatter);
 
         List<CourtReservation> reservationsValidForSummary = courtReservationService.findByReservationDateAndValidForFinanceSummary(date,true);
         List<CourtReservation> reservationsInvalidForSummary = courtReservationService.findByReservationDateAndValidForFinanceSummary(date,false);
+        List<CourtReservation> allReservations = courtReservationService.findAllByReservationDate(date);
+
         Double totalCashMoney = getTotalCashMoney(reservationsValidForSummary);
         Double totalCardMoney = getTotalCardMoney(reservationsValidForSummary);
-        boolean isSummaryEligible = checkEligibility(reservationsValidForSummary);
+        Double nonSummaryTotal = getNonSummaryTotal(reservationsInvalidForSummary);
 
+        settlementDay.setCashTotal(totalCashMoney);
+        settlementDay.setCardTotal(totalCardMoney);
+        settlementDay.setNonSummaryTotal(nonSummaryTotal);
+        settlementDay.setNumberOfReservations(allReservations.size());
+
+        Boolean isSummaryEligible = null;
+        List<CourtReservation> invalidReservations = checkEligibility(reservationsValidForSummary);
+        if(invalidReservations.isEmpty()){
+            isSummaryEligible = true;
+        }
+        else{
+            isSummaryEligible = false;
+        }
+        model.addAttribute("allReservations",allReservations);
+        model.addAttribute("invalidReservations", invalidReservations);
         model.addAttribute("isSummaryEligible", isSummaryEligible);
         model.addAttribute("totalCashMoney", totalCashMoney);
         model.addAttribute("totalCardMoney", totalCardMoney);
+        model.addAttribute("nonSummaryTotal", nonSummaryTotal);
         model.addAttribute("reservationsValid", reservationsValidForSummary);
         model.addAttribute("reservationsInvalid", reservationsInvalidForSummary);
         model.addAttribute("settlementDay", settlementDay);
@@ -112,12 +134,22 @@ public class navBarController {
         }
         return sum;
     }
-    private boolean checkEligibility(List<CourtReservation> reservations){
+    private Double getNonSummaryTotal(List<CourtReservation> reservations){
+        Double sum = 0.0;
         for(var reservation : reservations){
-            if(reservation.getValidForFinanceSummary() && (reservation.getPaid().equals(Boolean.FALSE) || reservation.getCash() == null)){
-                return false;
+            if(!reservation.getValidForFinanceSummary()){
+                sum += reservation.getTotalPrice();
             }
         }
-        return true;
+        return sum;
+    }
+    private List<CourtReservation> checkEligibility(List<CourtReservation> reservations){
+        List<CourtReservation> invalidReservations = new ArrayList<>();
+        for(var reservation : reservations){
+            if(reservation.getValidForFinanceSummary() && (reservation.getPaid().equals(Boolean.FALSE) || reservation.getCash() == null)){
+                invalidReservations.add(reservation);
+            }
+        }
+        return invalidReservations;
     }
 }
