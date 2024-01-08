@@ -232,6 +232,7 @@
     </div>
 </div>
 <div id="data" th:data-enable-changes="${enableChanges}" hidden></div>
+<div id="paymentDetermined" th:payment-determined="${reservation.cash}" hidden></div>
 <script src="/js/updateTime.js"></script>
 <script>
     const cashRadio = document.getElementById('cash');
@@ -333,6 +334,21 @@
             alert("Ups! Próbujesz modyfikować rezerwację dla minionego dnia. W celu korekcji przeszłych rezerwacji skontaktuj się z administratorem strony");
         }
     }
+</script>
+<script th:inline="javascript">
+    //handle if isCash is null
+    document.addEventListener('DOMContentLoaded', function() {
+        let payButton = document.getElementById('submitToPayBtn');
+        let paymentDetermined = document.getElementById('paymentDetermined').getAttribute('payment-determined');
+
+        if (paymentDetermined === null) {
+            payButton.disabled = true;
+        } else {
+            payButton.disabled = false;
+        }
+    });
+
+
 </script>
 </body>
 </html>
