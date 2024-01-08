@@ -73,6 +73,11 @@
                     </div>
                     <div style="text-decoration: none;" class="card-body">
                         <div class="row">
+                            <th:block th:if="${!isNew}">
+                                <div class="alert alert-warning">
+                                    <p>Uwaga! Dla tego dnia został już wyeksportowany dzień obrachunkowy <span th:text="'('+${settlementDay.acceptedBy}+' '+${settlementDay.acceptedAt}+')'"></span>. Klikając 'zapisz dzień obrachunkowy' nadpiszesz dane.</p>
+                                </div>
+                            </th:block>
                             <div class="col-sm-12 d-flex">
                                 <div class="col-md-4">
                                     <div class="card mb-1">
@@ -163,15 +168,16 @@
                             </div>
                         </div>
                     </div>
+                    <div id="summaryEligibility" th:data-is-eligible="${isSummaryEligible}"></div>
+
                     <th:block th:if="${!isSummaryEligible}">
                         <div class="alert alert-danger">
                             <p>Nie wszystkie rezerwacje zostały opłacone lub nie wszystkim rezerwacjom została przypisana płatność. Wróc kiedy rozliczysz dzisiejsze rezerwacje: <span th:each="reservation : ${invalidReservations}" th:text="'{Kort ' + ${reservation.courtNumber}+' '+${reservation.timeStart}+'-'+${reservation.timeEnd}+'}, '"></span></p>
                         </div>
-                        <button disabled class="btn btn-success" type="submit">Zapisz dzień obrachunkowy</button>
                     </th:block>
-                    <th:block th:if="${isSummaryEligible}">
-                        <button class="btn btn-success" type="submit">Zapisz dzień obrachunkowy</button>
-                    </th:block>
+
+                    <button id="submitSummaryBtn" class="btn btn-success" type="submit">Zapisz dzień obrachunkowy</button>
+
                 </div>
             </div>
     </div>
@@ -202,6 +208,31 @@
     function changeDateWithSelected(selectedDate) {
         window.location.href = `/daySummary?date=${selectedDate}`;
     }
+</script>
+<script>
+    //walidacja przycisku
+    var isEligible = document.getElementById('summaryEligibility').getAttribute('data-is-eligible');
+    var isSummaryEligible = isEligible === 'true';
+
+    var submitBtn = document.getElementById('submitSummaryBtn');
+    var cashBoxInput = document.getElementById('cashBox');
+    var cardTerminalInput = document.getElementById('cardTerminal');
+
+    function checkValues() {
+        var cashBoxValue = cashBoxInput.value.trim();
+        var cardTerminalValue = cardTerminalInput.value.trim();
+
+        if (isSummaryEligible === false || cashBoxValue === '' || cardTerminalValue === '') {
+            submitBtn.disabled = true;
+        } else {
+            submitBtn.disabled = false;
+        }
+    }
+
+    cashBoxInput.addEventListener('input', checkValues);
+    cardTerminalInput.addEventListener('input', checkValues);
+
+    checkValues();
 </script>
 </body>
 </html>

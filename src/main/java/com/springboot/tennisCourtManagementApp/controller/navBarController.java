@@ -45,9 +45,11 @@ public class navBarController {
         if(date==null){
             date = LocalDate.now();
         }
+        boolean isNew = false;
         SettlementDay settlementDay = settlementDayService.findBySummaryDate(date);
         if(settlementDay == null){
             settlementDay = new SettlementDay();
+            isNew = true;
         }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -94,6 +96,7 @@ public class navBarController {
         model.addAttribute("reservationsInvalid", reservationsInvalidForSummary);
         model.addAttribute("settlementDay", settlementDay);
         model.addAttribute("formattedDate", formattedDate);
+        model.addAttribute("isNew", isNew);
 
         return "day-summary";
     }
