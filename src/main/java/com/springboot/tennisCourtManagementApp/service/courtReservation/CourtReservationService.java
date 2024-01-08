@@ -13,12 +13,14 @@ public interface CourtReservationService {
     void deleteById(int id);
     void delete(CourtReservation courtReservation);
     List<CourtReservation> findAllByReservationDate(LocalDate date);
-    CourtReservation createNewCourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, boolean isDoublesMatch, String acceptedBy);
+    CourtReservation createNewCourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, boolean isDoublesMatch, String acceptedBy, boolean isValidForSummary);
     void updatePayment(int id, Boolean isCash);
     void updateDiscount(int id, Integer priceSchedule, Boolean isDoublesMatch);
     void updateTotalPrice(int id, Double newTotalPrice);
     void updateComments(int id, String comments);
     void updateIsPaid(int id,Boolean isPaid);
+    void updateIsValidForFinanceSummary(int id, Boolean isValidForFinanceSummary);
+
     List<CourtReservation> findByReservationDateAndValidForFinanceSummary(LocalDate date, Boolean valid);
     boolean existsByIsCashIsNotNullAndIsPaidTrueAndReservationDate(LocalDate date);
 }

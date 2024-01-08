@@ -117,6 +117,15 @@
                                     <span>Nie</span>
                                 </span>
                             </p>
+                            <p class="mb-2"><strong>Wliczono w rozliczenie:</strong>
+                                <span th:if="${reservation.validForFinanceSummary}">
+                                    Tak
+                                </span>
+                                <span th:if="${!reservation.validForFinanceSummary}">
+                                    Nie
+                                </span>
+                            </p>
+
                             <p class="mb-2"><strong>Stawka:</strong> <span th:text="${reservation.getPricePerHourForHTML(priceSchedule)}"></span></p>
                             <form th:action="@{/reservation/updateIsPaid}" method="post" class="mt-4">
                                 <input type="hidden" name="id" th:value="${reservation.id}" />
@@ -153,7 +162,21 @@
                                     <button id="submitPaymentBtn" type="submit" class="btn btn-primary flex-fill w-100" disabled>Zmień płatność</button>
                                 </div>
                             </form>
-                            <form th:action="@{/reservation/updateDiscount}" method="POST" class="mt-4">
+                            <form th:action="@{/reservation/updateIsValidForSummary}" method="POST" class="d-flex align-items-center mt-3">
+                                <input type="hidden" name="id" th:value="${reservation.id}" />
+                                <div class="col-sm-6">
+                                    <input type="radio" class="form-check-input" name="isValidForSummary" id="valid" value="true">
+                                    <label class="form-check-label" for="valid">Tak</label>
+                                    <span class="m-2">
+                                        <input type="radio" class="form-check-input" name="isValidForSummary" id="invalid" value="false">
+                                        <label class="form-check-label" for="invalid">Nie</label>
+                                    </span>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button id="submitValidForSummaryBtn" type="submit" class="btn btn-primary flex-fill w-100" disabled>Zmień rozliczenie</button>
+                                </div>
+                            </form>
+                            <form th:action="@{/reservation/updateDiscount}" method="POST" class="mt-3">
                                 <select name="discount" id="discount" class="form-control mr-2">
                                     <option th:value="0" disabled selected>Wybierz zniżkę</option>
                                     <option th:each="discount : ${discounts}" th:value="${discount.getId()}" th:text="${discount.getDiscountName()}"></option>
@@ -173,7 +196,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <form th:action="@{/reservation/updateTotalPrice}" method="POST" class="d-flex align-items-center mt-4">
+                            <form th:action="@{/reservation/updateTotalPrice}" method="POST" class="d-flex align-items-center mt-3">
                                 <input type="hidden" name="id" th:value="${reservation.id}" />
                                 <div class="col-md-6">
                                     <input type="number" name="totalPrice" id="totalPrice" class="form-control mr-2" placeholder="Podaj cenę" step="any" required>
@@ -182,7 +205,7 @@
                                     <button id="submitTotalPriceBtn" type="submit" class="btn btn-primary w-100" disabled>Zmień należność</button>
                                 </div>
                             </form>
-                            <form th:action="@{/reservation/updateComments}" method="post" class="mt-4">
+                            <form th:action="@{/reservation/updateComments}" method="post" class="mt-3">
                                 <input type="hidden" name="id" th:value="${reservation.id}" />
                                 <input type="text" name="comments" id="comments" class="form-control mr-2" placeholder="Dodaj komentarz do rezerwacji">
                                 <div class="d-flex align-items-center">
@@ -193,7 +216,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <form th:action="@{/reservation/delete}" method="post" class="mt-4">
+                            <form th:action="@{/reservation/delete}" method="post" class="mt-3">
                                 <input type="hidden" name="id" th:value="${reservation.id}" />
                                 <input type="hidden" name="date" th:value="${date}">
                                 <th:block th:if="${enableChanges}">
@@ -262,13 +285,36 @@
     }
 
 
-
     const commentsInput = document.getElementById('comments');
     const submitCommentsBtn = document.getElementById('submitCommentsBtn');
 
     commentsInput.addEventListener('input', function() {
         submitCommentsBtn.disabled = commentsInput.value.trim() === '';
     });
+
+
+
+
+
+    const submitButton = document.getElementById('submitValidForSummaryBtn');
+    const validRadio = document.getElementById('valid');
+    const invalidRadio = document.getElementById('invalid');
+
+    validRadio.addEventListener('change', updateSubmitButton);
+    invalidRadio.addEventListener('change', updateSubmitButton);
+
+    function updateSubmitButton() {
+        const isChecked = validRadio.checked || invalidRadio.checked;
+
+        if (isChecked) {
+            submitButton.removeAttribute('disabled');
+        } else {
+            submitButton.setAttribute('disabled', 'disabled');
+        }
+    }
+
+
+
 
 </script>
 <script th:inline="javascript">

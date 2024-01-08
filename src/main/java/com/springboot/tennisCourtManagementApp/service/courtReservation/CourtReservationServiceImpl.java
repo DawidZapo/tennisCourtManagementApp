@@ -63,12 +63,12 @@ public class CourtReservationServiceImpl implements CourtReservationService {
     }
 
     @Override
-    public CourtReservation createNewCourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, boolean isDoublesMatch, String acceptedBy) {
+    public CourtReservation createNewCourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, boolean isDoublesMatch, String acceptedBy, boolean isValidForSummary) {
         PriceSchedule price = priceScheduleService.findById(priceSchedule);
 
         Double totalPrice = CourtReservation.getCalculatedPrice(reservationDate,timeStart,timeEnd,isDoublesMatch,price);
 
-        return new CourtReservation(courtNumber,reservationDate,timeStart,timeEnd,priceSchedule,totalPrice,isDoublesMatch,false,acceptedBy,true);
+        return new CourtReservation(courtNumber,reservationDate,timeStart,timeEnd,priceSchedule,totalPrice,isDoublesMatch,false,acceptedBy,isValidForSummary);
     }
     @Override
     public void updatePayment(int id, Boolean isCash) {
@@ -112,6 +112,11 @@ public class CourtReservationServiceImpl implements CourtReservationService {
     @Override
     public void updateIsPaid(int id, Boolean isPaid) {
         courtReservationRepository.updateIsPaid(id,isPaid);
+    }
+
+    @Override
+    public void updateIsValidForFinanceSummary(int id, Boolean isValidForFinanceSummary) {
+        courtReservationRepository.updateIsValidForFinanceSummary(id,isValidForFinanceSummary);
     }
 
     @Override

@@ -27,7 +27,7 @@ public class CourtReservationController {
         this.priceScheduleService = priceScheduleService;
         this.customerService = customerService;
     }
-    @PostMapping("reservation/updatePayment")
+    @PostMapping("/reservation/updatePayment")
     public String updatePayment(@RequestParam("id") int id, @RequestParam(name = "payment", required = false) String payment){
         if(payment==null){
             System.out.println("Payment == null");
@@ -48,7 +48,7 @@ public class CourtReservationController {
         return "redirect:/reservation?id="+id;
     }
 
-    @PostMapping("reservation/updateDiscount")
+    @PostMapping("/reservation/updateDiscount")
     public String updateDiscount(@RequestParam("id") int id, @RequestParam(name = "discount", required = false) Integer discount, @RequestParam(name = "isDoublesMatch", required = false) String isDoublesMatch){
         if(discount==null || isDoublesMatch==null){
             System.out.println("Discount == null");
@@ -98,18 +98,18 @@ public class CourtReservationController {
         List<CourtReservation> reservations = reservationDto.getReservations();
         LocalDate date = reservations.get(0).getReservationDate();
         for(var res : reservations){
-            Boolean doubles;
-            if(res.getDoublesMatch() != null){
-                doubles = res.getDoublesMatch();
+            Boolean valid;
+            if(res.getValidForFinanceSummary() != null){
+                valid = res.getValidForFinanceSummary();
             }
             else{
-                doubles = false;
+                valid = true;
             }
             // former way of saving reservation, inefficient bcoz we had to fetch customer with all his reservations in order to save one more
 //            Customer customer = customerService.findCustomerByIdJoinFetch(res.getCustomer().getId());
 //            customer.addReservation(courtReservationService.createNewCourtReservation(res.getCourtNumber(),res.getReservationDate(),res.getTimeStart(),res.getTimeEnd(),res.getPriceSchedule(),doubles,res.getAcceptedBy()));
 //            customerService.save(customer);
-            CourtReservation courtReservation = courtReservationService.createNewCourtReservation(res.getCourtNumber(),res.getReservationDate(),res.getTimeStart(),res.getTimeEnd(),res.getPriceSchedule(),doubles,res.getAcceptedBy());
+            CourtReservation courtReservation = courtReservationService.createNewCourtReservation(res.getCourtNumber(),res.getReservationDate(),res.getTimeStart(),res.getTimeEnd(),res.getPriceSchedule(),false,res.getAcceptedBy(),valid);
             Customer customer = customerService.findById(res.getCustomer().getId());
             courtReservation.setCustomer(customer);
             courtReservationService.save(courtReservation);
@@ -121,6 +121,12 @@ public class CourtReservationController {
     public String deleteReservation(@RequestParam("id") int id, @RequestParam("date") LocalDate date){
         courtReservationService.deleteById(id);
         return "redirect:/?date="+date.toString();
+    }
+
+    @PostMapping("/reservation/updateIsValidForSummary")
+    public String updateIsValidForSummary(@RequestParam("id") int id, @RequestParam("isValidForSummary") Boolean isValidForSummary){
+        courtReservationService.updateIsValidForFinanceSummary(id,isValidForSummary);
+        return "redirect:/reservation?id="+id;
     }
 
 }

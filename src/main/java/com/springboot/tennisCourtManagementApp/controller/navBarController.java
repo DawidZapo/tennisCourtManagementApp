@@ -89,9 +89,11 @@ public class navBarController {
     private Double getTotalCashMoney(List<CourtReservation> reservations){
         Double sum = 0.0;
         for(var reservation : reservations){
-            if(reservation.getCash() != null){
-                if(reservation.getCash()){
-                    sum += reservation.getTotalPrice();
+            if(reservation.getValidForFinanceSummary()){
+                if(reservation.getCash() != null){
+                    if(reservation.getCash()){
+                        sum += reservation.getTotalPrice();
+                    }
                 }
             }
         }
@@ -100,9 +102,11 @@ public class navBarController {
     private Double getTotalCardMoney(List<CourtReservation> reservations){
         Double sum = 0.0;
         for(var reservation : reservations){
-            if(reservation.getCash() != null){
-                if(!reservation.getCash()){
-                    sum += reservation.getTotalPrice();
+            if(reservation.getValidForFinanceSummary()){
+                if(reservation.getCash() != null){
+                    if(!reservation.getCash()){
+                        sum += reservation.getTotalPrice();
+                    }
                 }
             }
         }
@@ -110,7 +114,7 @@ public class navBarController {
     }
     private boolean checkEligibility(List<CourtReservation> reservations){
         for(var reservation : reservations){
-            if(reservation.getPaid().equals(Boolean.FALSE) || reservation.getCash() == null){
+            if(reservation.getValidForFinanceSummary() && (reservation.getPaid().equals(Boolean.FALSE) || reservation.getCash() == null)){
                 return false;
             }
         }
