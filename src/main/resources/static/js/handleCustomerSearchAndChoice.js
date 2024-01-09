@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", function() {
     var selectCustomers = document.querySelectorAll('.row select#selectCustomer');
     var submitBtn = document.getElementById('submitBtn');
     var defaultValue = document.getElementById('defaultValue');
+    var alertDiv = document.getElementById('alertDiv');
+    var addCustomerBtn = document.getElementById('addCustomerBtn');
+
 
     searchInputs.forEach(function(searchInput, index) {
         searchInput.addEventListener('input', function() {
@@ -10,12 +13,14 @@ document.addEventListener("DOMContentLoaded", function() {
             var select = selectCustomers[index];
             var options = select.getElementsByTagName('option');
             var defaultOption = options[0];
+            var foundCustomers = 0;
 
             for (var i = 0; i < options.length; i++) {
                 var customerText = options[i].text.toLowerCase();
                 var option = options[i];
                 if (customerText.includes(searchValue)) {
                     option.style.display = '';
+                    foundCustomers++;
                 } else {
                     option.style.display = 'none';
                 }
@@ -38,6 +43,16 @@ document.addEventListener("DOMContentLoaded", function() {
                     break;
                 }
             }
+
+            if (foundCustomers === 0) {
+                alertDiv.style.display = '';
+                addCustomerBtn.style.display = '';
+            } else {
+                alertDiv.style.display = 'none';
+                addCustomerBtn.style.display = 'none';
+            }
+
+
             checkSelectionForBtn(); // Sprawdzamy po zmianie wartości
         });
     });

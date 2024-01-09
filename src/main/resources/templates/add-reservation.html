@@ -107,7 +107,16 @@
                                             <option th:each="customer : ${customerDto.customers}" th:value="${customer.id}" th:text="${customer.firstName} + ' ' + ${customer.lastName}"></option>
                                         </select>
                                     </div>
-
+                                    <div class="col-sm-12 d-flex flex-wrap align-items-center">
+                                        <div class="col-md-6 text-center">
+                                            <div id="alertDiv" class="alert alert-warning" style="padding: 5px;margin-bottom: 0;display: none">
+                                                Brak klienta
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 text-center">
+                                            <a id="addCustomerBtn" class="btn btn-success w-100" style="display: none">Dodaj klienta</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
