@@ -1,7 +1,9 @@
 package com.springboot.tennisCourtManagementApp.controller;
 
+import com.springboot.tennisCourtManagementApp.entity.Court;
 import com.springboot.tennisCourtManagementApp.entity.CourtReservation;
 import com.springboot.tennisCourtManagementApp.entity.SettlementDay;
+import com.springboot.tennisCourtManagementApp.service.court.CourtService;
 import com.springboot.tennisCourtManagementApp.service.courtReservation.CourtReservationService;
 import com.springboot.tennisCourtManagementApp.service.settlementDay.SettlementDayService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +18,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
-public class navBarController {
+public class NavBarController {
 
     private SettlementDayService settlementDayService;
     private CourtReservationService courtReservationService;
+    private CourtService courtService;
 
     @Autowired
-    public navBarController(SettlementDayService settlementDayService, CourtReservationService courtReservationService) {
+    public NavBarController(SettlementDayService settlementDayService, CourtReservationService courtReservationService, CourtService courtService) {
         this.settlementDayService = settlementDayService;
         this.courtReservationService = courtReservationService;
+        this.courtService = courtService;
     }
 
     @GetMapping("/courts")
@@ -37,6 +43,9 @@ public class navBarController {
             String username = authentication.getName();
             model.addAttribute("username", username);
         }
+        List<Court> courts = courtService.findAll();
+
+        model.addAttribute("courts", courts);
 
         return "courts";
     }
@@ -80,6 +89,9 @@ public class navBarController {
 
         Boolean isSummaryEligible = null;
         List<CourtReservation> invalidReservations = checkEligibility(reservationsValidForSummary);
+        // Sortowanie listy rezerwacji względem courtNumber
+        Collections.sort(invalidReservations, Comparator.comparing(CourtReservation::getCourtNumber));
+
         if(invalidReservations.isEmpty()){
             isSummaryEligible = true;
         }

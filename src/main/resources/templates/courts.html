@@ -43,9 +43,64 @@
       <input type="submit" value="Wyloguj się" class="btn btn-outline-danger">
     </form>
   </div>
-
-
 </nav>
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-3">
+                <div class="card-header text-center">
+                    <h5>
+                        Zarządzanie kortami
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div th:each="court, itemStat : *{courts}" class="col-md-4">
+                            <div class="card mb-3">
+                                <div th:if="${!court.active}" class="card-header text-center alert alert-danger" style="padding: 8px; margin-bottom: 0">
+                                    <h5 th:text="'Kort ' + ${itemStat.index + 1}"></h5>
+                                </div>
+                                <div th:if="${court.active}" class="card-header text-center">
+                                    <h5 th:text="'Kort ' + ${itemStat.index + 1}"></h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12 d-flex flex-wrap align-items-center">
+                                            <div class="col-md-4 mb-2 text-center">
+                                                <strong>Sprawny:</strong>
+                                            </div>
+                                            <div class="col-md-4 mb-2 text-center">
+                                                <div class="form-control w-100" th:if="${court.functional}">Tak</div>
+                                                <div class="form-control w-100" th:if="${!court.functional}">Nie</div>
+                                            </div>
+                                            <div class="col-md-4 mb-2 text-center">
+                                                <a th:if="${court.functional}" class="btn btn-success w-100">Zmień</a>
+                                                <a th:if="${!court.functional}" class="btn btn-outline-danger w-100">Zmień</a>
+                                            </div>
+
+                                            <div class="col-md-4 text-center">
+                                                <strong>Zalany:</strong>
+                                            </div>
+                                            <div class="col-md-4 text-center">
+                                                <div class="form-control w-100" th:if="${court.flooded}">Tak</div>
+                                                <div class="form-control w-100" th:if="${!court.flooded}">Nie</div>
+                                            </div>
+                                            <div class="col-md-4 text-center">
+                                                <a th:if="${!court.flooded}" class="btn btn-outline-primary w-100">Zmień</a>
+                                                <a th:if="${court.flooded}" class="btn btn-primary w-100">Zmień</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="/js/updateTime.js"></script>
 </body>

@@ -14,19 +14,19 @@ public class Court {
     private Integer courtNumber;
     @Column(name = "is_active")
     private Boolean isActive;
-    @Column(name = "is_taken")
-    private Boolean isTaken;
+    @Column(name = "is_functional")
+    private Boolean isFunctional;
     @Column(name = "is_flooded")
     private Boolean isFlooded;
 
     public Court() {
     }
 
-    public Court(Integer id, Integer courtNumber, Boolean isActive, Boolean isTaken, Boolean isFlooded) {
+    public Court(Integer id, Integer courtNumber, Boolean isActive, Boolean isFunctional, Boolean isFlooded) {
         this.id = id;
         this.courtNumber = courtNumber;
         this.isActive = isActive;
-        this.isTaken = isTaken;
+        this.isFunctional = isFunctional;
         this.isFlooded = isFlooded;
     }
 
@@ -54,12 +54,13 @@ public class Court {
         isActive = active;
     }
 
-    public Boolean getTaken() {
-        return isTaken;
+
+    public Boolean getFunctional() {
+        return isFunctional;
     }
 
-    public void setTaken(Boolean taken) {
-        isTaken = taken;
+    public void setFunctional(Boolean functional) {
+        isFunctional = functional;
     }
 
     public Boolean getFlooded() {

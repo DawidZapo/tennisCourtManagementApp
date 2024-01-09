@@ -233,6 +233,8 @@
 </div>
 <div id="data" th:data-enable-changes="${enableChanges}" hidden></div>
 <div id="paymentDetermined" th:payment-determined="${reservation.cash}" hidden></div>
+<div id="validForSummary" th:valid-for-summary="${reservation.validForFinanceSummary}" hidden></div>
+
 <script src="/js/updateTime.js"></script>
 <script>
     const cashRadio = document.getElementById('cash');
@@ -336,10 +338,12 @@
     }
 </script>
 <script th:inline="javascript">
-    //handle if isCash is null
+    //handle if isCash is null or if res is not valid for summary
     document.addEventListener('DOMContentLoaded', function() {
         let payButton = document.getElementById('submitToPayBtn');
         let paymentDetermined = document.getElementById('paymentDetermined').getAttribute('payment-determined');
+        let validForSummary = document.getElementById('validForSummary').getAttribute('valid-for-summary');
+        validForSummary = validForSummary ==='true';
 
         if (paymentDetermined === null) {
             payButton.disabled = true;
