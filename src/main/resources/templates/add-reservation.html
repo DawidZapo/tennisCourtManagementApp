@@ -96,27 +96,24 @@
                                             <label class="form-check-label" for="invalid">Nie</label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 mb-2 text-center">
+                                    <div class="col-md-6 mb-0 text-center">
                                         <strong class="mr-2">Wyszukaj:</strong>
                                         <input type="text" id="searchCustomer" class="form-control mr-2" placeholder="Wyszukaj klienta...">
                                     </div>
-                                    <div class="col-md-6 mb-2 text-center">
+                                    <div class="col-md-6 mb-0 text-center">
                                         <strong class="mr-2">Klient:</strong>
                                         <select id="selectCustomer" class="form-control mr-2 text-center" th:field="*{reservations[__${itemStat.index}__].customer.id}">
                                             <option id="defaultValue" value="" selected>Wybierz klienta</option>
                                             <option th:each="customer : ${customerDto.customers}" th:value="${customer.id}" th:text="${customer.firstName} + ' ' + ${customer.lastName}"></option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-12 d-flex flex-wrap align-items-center">
-                                        <div class="col-md-6 text-center">
-                                            <div th:id="'alertDiv-' + ${itemStat.index}" class="alert alert-warning" style="padding:5px; margin-bottom: 0; display: none">
-                                                Brak klienta
-                                            </div>
-
+                                    <div class="col-md-6 text-center">
+                                        <div th:id="'alertDiv-' + ${itemStat.index}" class="alert alert-warning" style="padding:5px; margin-bottom: 0; display: none">
+                                            Brak klienta
                                         </div>
-                                        <div class="col-md-6 text-center">
-                                            <btn th:id="'addCustomerBtn-' + ${itemStat.index}" class="btn btn-success w-100" style="display: none">Dodaj klienta</btn>
-                                        </div>
+                                    </div>
+                                    <div class="col-md-6 text-center">
+                                        <a th:id="'addCustomerBtn-' + ${itemStat.index}" class="btn btn-success w-100" style="display: none">Dodaj klienta</a>
                                     </div>
                                 </div>
                             </div>
@@ -148,6 +145,22 @@
             alert("Ups! Próbujesz dodać rezerwację dla minionego dnia. W celu korekcji przeszłych rezerwacji skontaktuj się z administratorem strony");
         }
     }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var addCustomerBtns = document.querySelectorAll('[id^="addCustomerBtn"]');
+
+        addCustomerBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var currentUrl = new URL(window.location.href);
+                var pathAfterDomain = currentUrl.pathname;
+                var redirectTo = window.location.origin + '/customer/showFormForAdd?urlArgs=' + encodeURIComponent(currentUrl.search);
+                window.location.href = redirectTo;
+            });
+        });
+    });
+
+
 </script>
 
 </body>

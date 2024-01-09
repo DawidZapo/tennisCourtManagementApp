@@ -34,15 +34,23 @@ public class CustomerController {
     }
 
     @GetMapping("/showFormForAdd")
-    public String showFormForAdd(Model model){
+    public String showFormForAdd(@RequestParam(name = "urlArgs", required = false)String urlArgs, Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
             model.addAttribute("username", username);
         }
+
+        Boolean comeBack = false;
+        if(urlArgs != null){
+            comeBack = true;
+            model.addAttribute("urlArgs", urlArgs);
+
+        }
         Customer customer = new Customer();
         model.addAttribute("customer", customer);
         model.addAttribute("isUpdate",false);
+        model.addAttribute("comaBack",comeBack);
 
         return "customer-form";
     }
@@ -54,9 +62,12 @@ public class CustomerController {
     }
 
     @PostMapping("/save")
-    public String saveCustomer(@ModelAttribute("customer") Customer customer){
+    public String saveCustomer(@ModelAttribute("customer") Customer customer, @RequestParam(name = "urlArgs", required = false)String urlArgs){
         customerService.save(customer);
-        return "redirect:/";
+        if(urlArgs != null){
+            return "redirect:/addReservation"+urlArgs;
+        }
+        else return "redirect:/";
     }
 
 }

@@ -48,6 +48,8 @@
 
 <div class="container mt-2">
     <form action="#" th:action="@{/customer/save}" th:object="${customer}" method="POST">
+        <input type="hidden" name="urlArgs" th:value="${urlArgs}" />
+
         <div class="row d-flex justify-content-center align-items-center">
             <div class="col-md-6">
                 <div class="card mb-4">

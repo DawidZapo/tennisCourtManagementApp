@@ -4,12 +4,11 @@ document.addEventListener("DOMContentLoaded", function() {
     var submitBtn = document.getElementById('submitBtn');
     var defaultValue = document.getElementById('defaultValue');
 
-
-
     searchInputs.forEach(function(searchInput, index) {
         searchInput.addEventListener('input', function() {
             var alertDiv = document.getElementById('alertDiv-' + index);
             var addCustomerBtn = document.getElementById('addCustomerBtn-' + index);
+            var inputPhone = document.getElementById('inputPhone-' + index);
             var searchValue = searchInput.value.trim().toLowerCase();
             var select = selectCustomers[index];
             var options = select.getElementsByTagName('option');
@@ -68,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         submitBtn.disabled = !allSelected;
+
     }
 
     selectCustomers.forEach(function(select) {
