@@ -3,12 +3,13 @@ document.addEventListener("DOMContentLoaded", function() {
     var selectCustomers = document.querySelectorAll('.row select#selectCustomer');
     var submitBtn = document.getElementById('submitBtn');
     var defaultValue = document.getElementById('defaultValue');
-    var alertDiv = document.getElementById('alertDiv');
-    var addCustomerBtn = document.getElementById('addCustomerBtn');
+
 
 
     searchInputs.forEach(function(searchInput, index) {
         searchInput.addEventListener('input', function() {
+            var alertDiv = document.getElementById('alertDiv-' + index);
+            var addCustomerBtn = document.getElementById('addCustomerBtn-' + index);
             var searchValue = searchInput.value.trim().toLowerCase();
             var select = selectCustomers[index];
             var options = select.getElementsByTagName('option');

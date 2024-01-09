@@ -114,8 +114,8 @@ public class MainController {
     }
 
     @GetMapping("/addReservation")
-    public String showReservationForm(@RequestParam(value = "selectedTiles", required = false) String selectedTilesParam,
-                                      @RequestParam(value = "date", required = false) LocalDate date, Model model) {
+    public String showReservationForm(@RequestParam(value = "selectedTiles") String selectedTilesParam,
+                                      @RequestParam(value = "date") LocalDate date, Model model) {
 
         String[] selectedTiles = selectedTilesParam != null ? selectedTilesParam.split(",") : new String[0];
         List<String> court1Tiles = new ArrayList<>();
@@ -164,6 +164,7 @@ public class MainController {
         model.addAttribute("courtReservationDto", courtReservationDto);
         model.addAttribute("customerDto", customerDto);
         model.addAttribute("priceSchedulesDto", priceScheduleDto);
+        model.addAttribute("date",date);
         boolean enableChanges = true;
         if(date.isBefore(LocalDate.now())){
             enableChanges = false;

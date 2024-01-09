@@ -43,6 +43,7 @@ public class CustomerController {
         Customer customer = new Customer();
         model.addAttribute("customer", customer);
         model.addAttribute("isUpdate",false);
+
         return "customer-form";
     }
 
