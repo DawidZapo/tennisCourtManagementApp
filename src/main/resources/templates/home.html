@@ -22,10 +22,13 @@
                 <a class="nav-link" th:href="@{/courts}">Korty</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/daySummary}">Podsumowanie dnia</a>
+                <a class="nav-link" th:href="@{/daySummary}">Roliczenie</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/settings}">Ustawienia</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/settings}">Pomoc</a>
             </li>
         </ul>
     </div>
@@ -42,7 +45,10 @@
         </div>
 
         <form class="mx-4" action="#" th:action="@{/logout}" method="POST">
-            <input type="submit" value="Wyloguj się" class="btn btn-outline-danger">
+            <button type="submit" value="Wyloguj się" class="btn btn-outline-danger">
+                Wyloguj się
+                <i class="fa-solid fa-right-from-bracket mx-2"></i>
+            </button>
         </form>
     </div>
 
@@ -336,10 +342,10 @@
                         <div class="row">
                             <div th:each="court : ${courts}" class="col-md-4">
                                 <div th:id="displayCourtCard + ${court.id}" class="card mb-4">
-                                    <div class="card-header">
-                                        <h5 class="card-title" th:text="Kort + ' ' + ${court.id}"></h5>
+                                    <div th:classappend="${!court.active} ? 'card-header alert alert-danger my-alert' : 'card-header'">
+                                        <h5 class="card-title text-center" th:text="Kort + ' ' + ${court.id}"></h5>
                                     </div>
-                                    <a th:id="displayCourtCardBody+${court.id}" style="text-decoration: none;" class="card-body">
+                                    <a th:id="displayCourtCardBody+${court.id}" style="text-decoration: none;" th:classappend="${!court.active} ? 'card-body my-disabled' : 'card-body'">
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <p class="mb-2"><strong>Status: </strong>wolny</p>
@@ -358,10 +364,10 @@
                         <div class="row">
                             <div th:each="court : ${courts}" class="col-md-4">
                                 <div th:id="futureCourtCard + ${court.id}" class="card mb-4">
-                                    <div class="card-header">
-                                        <h5 class="card-title" th:text="Kort + ' ' + ${court.id}"></h5>
+                                    <div th:classappend="${!court.active} ? 'card-header alert alert-danger my-alert' : 'card-header'">
+                                        <h5 class="card-title text-center" th:text="Kort + ' ' + ${court.id}"></h5>
                                     </div>
-                                    <div style="text-decoration: none;" class="card-body">
+                                    <div style="text-decoration: none;" th:classappend="${!court.active} ? 'card-body my-disabled' : 'card-body'">
                                         <div class="row">
                                             <div th:id="futureCourtCardBody+${court.id}" class="col-sm-12">
                                                 <a style="text-decoration: none;">

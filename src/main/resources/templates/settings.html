@@ -21,10 +21,13 @@
                 <a class="nav-link" th:href="@{/courts}">Korty</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/daySummary}">Podsumowanie dnia</a>
+                <a class="nav-link" th:href="@{/daySummary}">Roliczenie</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/settings}">Ustawienia</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/settings}">Pomoc</a>
             </li>
         </ul>
     </div>
@@ -41,7 +44,10 @@
         </div>
 
         <form class="mx-4" action="#" th:action="@{/logout}" method="POST">
-            <input type="submit" value="Wyloguj się" class="btn btn-outline-danger">
+            <button type="submit" value="Wyloguj się" class="btn btn-outline-danger">
+                Wyloguj się
+                <i class="fa-solid fa-right-from-bracket mx-2"></i>
+            </button>
         </form>
     </div>
 

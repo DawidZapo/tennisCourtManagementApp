@@ -41,3 +41,7 @@ td{
     bottom: 5px;
     right: 5px;
 }
+.my-alert{
+    padding: 8px;
+    margin-bottom: 0;
+}
