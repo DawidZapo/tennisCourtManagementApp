@@ -344,6 +344,12 @@
                                 <div th:id="displayCourtCard + ${court.id}" class="card mb-4">
                                     <div th:classappend="${!court.active} ? 'card-header alert alert-danger my-alert' : 'card-header'">
                                         <h5 class="card-title text-center" th:text="Kort + ' ' + ${court.id}"></h5>
+                                        <span th:if="${court.flooded}">
+                                            <i class="fa fa-solid fa-cloud-showers-heavy my-court-card-right-icon"></i>
+                                        </span>
+                                        <span th:if="${!court.functional}">
+                                            <i class="fa fa-solid fa-ban my-court-card-left-icon"></i>
+                                        </span>
                                     </div>
                                     <a th:id="displayCourtCardBody+${court.id}" style="text-decoration: none;" th:classappend="${!court.active} ? 'card-body my-disabled' : 'card-body'">
                                         <div class="row">
@@ -366,6 +372,12 @@
                                 <div th:id="futureCourtCard + ${court.id}" class="card mb-4">
                                     <div th:classappend="${!court.active} ? 'card-header alert alert-danger my-alert' : 'card-header'">
                                         <h5 class="card-title text-center" th:text="Kort + ' ' + ${court.id}"></h5>
+                                        <span th:if="${court.flooded}">
+                                            <i class="fa fa-solid fa-cloud-showers-heavy my-court-card-right-icon"></i>
+                                        </span>
+                                        <span th:if="${!court.functional}">
+                                            <i class="fa fa-solid fa-ban my-court-card-left-icon"></i>
+                                        </span>
                                     </div>
                                     <div style="text-decoration: none;" th:classappend="${!court.active} ? 'card-body my-disabled' : 'card-body'">
                                         <div class="row">

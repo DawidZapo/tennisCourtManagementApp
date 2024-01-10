@@ -41,6 +41,16 @@ td{
     bottom: 5px;
     right: 5px;
 }
+.my-court-card-right-icon{
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+.my-court-card-left-icon{
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+}
 .my-alert{
     padding: 8px;
     margin-bottom: 0;
