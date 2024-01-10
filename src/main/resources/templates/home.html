@@ -426,7 +426,7 @@
     }
 
     class Reservation {
-        constructor(id, courtNumber, reservationDate, timeStart, timeEnd, duration, priceSchedule, totalPrice, comments, reservationMadeTimestamp, paid, doublesMatch, customer, isCash, acceptedBy, acceptedAt) {
+        constructor(id, courtNumber, reservationDate, timeStart, timeEnd, duration, priceSchedule, totalPrice, comments, reservationMadeTimestamp, paid, doublesMatch, customer, isCash, acceptedBy, acceptedAt, validForFinanceSummary) {
             this.id = id;
             this.courtNumber = courtNumber;
             this.reservationDate = reservationDate;
@@ -448,6 +448,7 @@
             this.isCash = isCash;
             this.acceptedBy = acceptedBy;
             this.acceptedAt = acceptedAt;
+            this.validForFinanceSummary = validForFinanceSummary;
         }
     }
 
@@ -482,7 +483,8 @@
                 newCustomer,
                 reservation.isCash,  // Dodaj isCash
                 reservation.acceptedBy,  // Dodaj acceptedBy
-                reservation.acceptedAt  // Dodaj acceptedAt
+                reservation.acceptedAt, // Dodaj acceptedAt
+                reservation.validForFinanceSummary
             );
 
             reservationObjects.push(newReservation);
@@ -526,9 +528,15 @@
             const reservationURL = `/reservation?id=${reservation.id}`;
             tile.setAttribute('href', reservationURL);
 
-            if (reservation.paid) {
+
+            if(!reservation.validForFinanceSummary){
                 const icon = document.createElement('i');
-                icon.classList.add('fa', 'fa-check', 'paid-icon'); // Przykładowa ikona FontAwesome
+                icon.classList.add('fa', 'fa-solid', 'fa-hand-holding-dollar', 'my-icon');
+                tile.appendChild(icon);
+            }
+            else if (reservation.paid) {
+                const icon = document.createElement('i');
+                icon.classList.add('fa', 'fa-check', 'my-icon'); // Przykładowa ikona FontAwesome
                 tile.appendChild(icon);
             }
 
