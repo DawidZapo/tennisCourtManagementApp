@@ -66,7 +66,7 @@ public class MainController {
 
         List<Customer> customers = customerService.findAll();
 
-        List<Court> courts = courtService.findAll();
+        List<Court> courts = courtService.findAllByOrderByCourtNumber();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         String formattedDate = date.format(formatter);
