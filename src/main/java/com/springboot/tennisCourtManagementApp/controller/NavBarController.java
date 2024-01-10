@@ -123,6 +123,17 @@ public class NavBarController {
         return "settings";
     }
 
+    @GetMapping("/help")
+    public String showHelp(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            model.addAttribute("username", username);
+        }
+
+        return "help";
+    }
+
     private Double getTotalCashMoney(List<CourtReservation> reservations){
         Double sum = 0.0;
         for(var reservation : reservations){
