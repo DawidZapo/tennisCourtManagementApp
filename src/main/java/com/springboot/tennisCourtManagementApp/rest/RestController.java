@@ -1,7 +1,9 @@
 package com.springboot.tennisCourtManagementApp.rest;
 
+import com.springboot.tennisCourtManagementApp.entity.Court;
 import com.springboot.tennisCourtManagementApp.entity.CourtReservation;
 import com.springboot.tennisCourtManagementApp.entity.Customer;
+import com.springboot.tennisCourtManagementApp.service.court.CourtService;
 import com.springboot.tennisCourtManagementApp.service.courtReservation.CourtReservationService;
 import com.springboot.tennisCourtManagementApp.service.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,13 @@ import java.util.List;
 public class RestController {
     private CustomerService customerService;
     private CourtReservationService courtReservationService;
+    private CourtService courtService;
 
     @Autowired
-    public RestController(CustomerService customerService, CourtReservationService courtReservationService) {
+    public RestController(CustomerService customerService, CourtReservationService courtReservationService, CourtService courtService) {
         this.customerService = customerService;
         this.courtReservationService = courtReservationService;
+        this.courtService = courtService;
     }
 
     @GetMapping("/customer/search")
@@ -69,6 +73,11 @@ public class RestController {
         }
         CourtReservation.sortReservations(upcomingAndOngoingReservations);
         return upcomingAndOngoingReservations;
+    }
+
+    @GetMapping("/courts")
+    public List<Court> getCourts(){
+        return courtService.findAllByOrderByCourtNumber();
     }
 
 }

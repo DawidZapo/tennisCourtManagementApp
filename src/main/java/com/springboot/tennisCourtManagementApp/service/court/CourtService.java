@@ -7,6 +7,7 @@ import java.util.List;
 public interface CourtService {
     Court findById(int id);
     List<Court> findAll();
+    List<Court> findAllByOrderByCourtNumber();
     Court save(Court court);
     void updateCourtAttributes(int id,boolean isActive, boolean isFlooded);
     void changeFlooded(int id);

@@ -425,6 +425,16 @@
         }
     }
 
+    class Court {
+        constructor(id, courtNumber, active, functional, flooded) {
+            this.id = id;
+            this.courtNumber = courtNumber;
+            this.active = active;
+            this.functional = functional;
+            this.flooded = flooded;
+        }
+    }
+
     class Reservation {
         constructor(id, courtNumber, reservationDate, timeStart, timeEnd, duration, priceSchedule, totalPrice, comments, reservationMadeTimestamp, paid, doublesMatch, customer, isCash, acceptedBy, acceptedAt, validForFinanceSummary) {
             this.id = id;
@@ -496,7 +506,7 @@
 
     let jsReservations = createReservationObjects();
 
-    function fillUpTheTable(reservations){
+    function fillUpTheTable(reservations,courts){
         reservations.forEach(reservation=>{
             const timeStartId = reservation.timeStart.slice(0,5)+'court'+reservation.courtNumber;
             const td = document.getElementById(timeStartId);
@@ -519,7 +529,6 @@
                     }
                 }
             }
-
             const tile = document.createElement('a');
             tile.classList.add('btn', 'btn-success', 'tile');
             tile.setAttribute('style', 'white-space: pre;');
@@ -527,6 +536,14 @@
             + reservation.timeStart.slice(0,5) + ' - ' + reservation.timeEnd.slice(0,5);
             const reservationURL = `/reservation?id=${reservation.id}`;
             tile.setAttribute('href', reservationURL);
+
+
+            // jesli kort zalany dodajemy wyszarzenie, sprawdzamy tez czy null bo jesli fetch bedzie z błedem to wywolujemy funkcje z null
+            if(courts != null){
+                if(courts[reservation.courtNumber-1].active === false){
+                    tile.classList.add('my-disabled');
+                }
+            }
 
 
             if(!reservation.validForFinanceSummary){
@@ -544,7 +561,28 @@
 
         })
     }
-    fillUpTheTable(jsReservations);
+
+
+    fetch('/api/courts')
+        .then(response => response.json())
+        .then(data => {
+            const courts = data.map(courtData => {
+                return new Court(
+                    courtData.id,
+                    courtData.courtNumber,
+                    courtData.active,
+                    courtData.functional,
+                    courtData.flooded
+                );
+            });
+
+            fillUpTheTable(jsReservations,courts);
+        })
+        .catch(error => {
+            console.error('There was an error!', error); // Obsługa błędów
+            fillUpTheTable(jsReservations,null);
+        });
+
 
 </script>
 <script th:inline="javascript">

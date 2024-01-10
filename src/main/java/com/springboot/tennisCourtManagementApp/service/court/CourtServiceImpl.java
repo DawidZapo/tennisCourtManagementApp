@@ -23,6 +23,11 @@ public class CourtServiceImpl implements CourtService {
     }
 
     @Override
+    public List<Court> findAllByOrderByCourtNumber() {
+        return courtRepository.findAllByOrderByCourtNumber();
+    }
+
+    @Override
     public Court findById(int id) {
         Optional<Court> result = courtRepository.findById(id);
         Court court = null;

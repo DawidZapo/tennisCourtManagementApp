@@ -70,4 +70,15 @@ public class Court {
     public void setFlooded(Boolean flooded) {
         isFlooded = flooded;
     }
+
+    @Override
+    public String toString() {
+        return "Court{" +
+                "id=" + id +
+                ", courtNumber=" + courtNumber +
+                ", isActive=" + isActive +
+                ", isFunctional=" + isFunctional +
+                ", isFlooded=" + isFlooded +
+                '}';
+    }
 }

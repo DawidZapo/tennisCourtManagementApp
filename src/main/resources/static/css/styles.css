@@ -32,6 +32,9 @@ td{
     background-color: #F0F0F0;
     opacity: 0.5;
 }
+.my-disabled {
+    opacity: 0.4;
+}
 .my-icon {
     /* Ustawienie ikony w prawym dolnym rogu */
     position: absolute;
