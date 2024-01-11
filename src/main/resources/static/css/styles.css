@@ -35,11 +35,17 @@ td{
 .my-disabled {
     opacity: 0.4;
 }
-.my-icon {
+.my-tile-right-icon {
     /* Ustawienie ikony w prawym dolnym rogu */
     position: absolute;
     bottom: 5px;
     right: 5px;
+}
+.my-tile-left-icon {
+    /* Ustawienie ikony w prawym dolnym rogu */
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
 }
 .my-court-card-right-icon{
     position: absolute;

@@ -157,10 +157,10 @@
                             <form th:action="@{/reservation/updatePayment}" method="POST" class="d-flex align-items-center">
                                 <input type="hidden" name="id" th:value="${reservation.id}" />
                                 <div class="col-sm-6">
-                                    <input type="radio" class="form-check-input" name="payment" id="cash" value="cash">
+                                    <input type="radio" class="form-check-input bg-light" name="payment" id="cash" value="cash">
                                     <label class="form-check-label" for="cash">Gotówka</label>
                                     <span class="m-2">
-                                        <input type="radio" class="form-check-input" name="payment" id="card" value="card">
+                                        <input type="radio" class="form-check-input bg-light" name="payment" id="card" value="card">
                                         <label class="form-check-label" for="card">Karta</label>
                                     </span>
                                 </div>
@@ -171,10 +171,10 @@
                             <form th:action="@{/reservation/updateIsValidForSummary}" method="POST" class="d-flex align-items-center mt-3">
                                 <input type="hidden" name="id" th:value="${reservation.id}" />
                                 <div class="col-sm-6">
-                                    <input type="radio" class="form-check-input" name="isValidForSummary" id="valid" value="true">
+                                    <input type="radio" class="form-check-input bg-light" name="isValidForSummary" id="valid" value="true">
                                     <label class="form-check-label" for="valid">Tak</label>
                                     <span class="m-2">
-                                        <input type="radio" class="form-check-input" name="isValidForSummary" id="invalid" value="false">
+                                        <input type="radio" class="form-check-input bg-light" name="isValidForSummary" id="invalid" value="false">
                                         <label class="form-check-label" for="invalid">Nie</label>
                                     </span>
                                 </div>
@@ -190,10 +190,10 @@
                                 <input type="hidden" name="id" th:value="${reservation.id}" />
                                 <div class="d-flex align-items-center">
                                     <div class="col-md-6">
-                                        <input type="radio" class="form-check-input" name="isDoublesMatch" id="singlesMatch" value="false">
+                                        <input type="radio" class="form-check-input bg-light" name="isDoublesMatch" id="singlesMatch" value="false">
                                         <label class="form-check-label" for="singlesMatch">Singiel</label>
                                         <span class="m-2">
-                                            <input type="radio" class="form-check-input" name="isDoublesMatch" id="doublesMatch" value="true">
+                                            <input type="radio" class="form-check-input bg-light" name="isDoublesMatch" id="doublesMatch" value="true">
                                         <label class="form-check-label" for="doublesMatch">Debel</label>
                                         </span>
                                     </div>

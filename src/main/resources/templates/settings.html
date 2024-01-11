@@ -53,22 +53,260 @@
 
 
 </nav>
-<div class="container mt-3">
-    <div class="row mt-3">
-        <div class="col-md-12">
-            <div class="card mb-4">
-                <div class="card-header text-center">
-                    <h5>Ustawienia</h5>
+<div class="container mt-3 mb-3">
+    <form>
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <div class="card mb-0">
+                    <div class="card-header">
+                        <h5 class="card-title text-center">Ustawienia</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 d-flex">
+                                <div class="col-md-4">
+                                    <div class="card mb-1">
+                                        <div class="card-header">
+                                            <h5 class="card-title text-center">Rezerwacje</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-12 d-flex flex-wrap">
+                                                    <div class="col-sm-12 text-center mb-2">
+                                                        <strong>Na rezerwacji wyświetlaj</strong>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center">
+                                                        <label class="form-check-inline mr-2 text-center">
+                                                            <input class="form-check-input bg-light" type="radio" name="nameDisplay" value="costam"> Imię i nazwisko
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center">
+                                                        <label class="form-check-inline mr-2 text-center">
+                                                            <input class="form-check-input bg-light" type="radio" name="nameDisplay" value="costam"> Imię
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center">
+                                                        <label class="form-check-inline mr-2 text-center">
+                                                            <input class="form-check-input bg-light" type="radio" name="nameDisplay" value="costam"> Nazwisko
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center">
+                                                        <label class="form-check-inline mr-2 text-center">
+                                                            <input class="form-check-input bg-light" type="radio" name="nameDisplay" value="costam"> Imię i inicjał
+                                                        </label>
+                                                    </div>
+
+
+                                                    <hr class="my-3 w-100">
+
+                                                    <div class="col-sm-12 text-center mb-2">
+                                                        <strong>Pokaż czas trwania na rezerwacji</strong>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center">
+                                                        <label class="form-check-inline mr-2 text-center">
+                                                            <input class="form-check-input bg-light" type="radio" name="showReservationDurationTime" value="true"> Tak
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center">
+                                                        <label class="form-check-inline mr-2 text-center">
+                                                            <input class="form-check-input bg-light" type="radio" name="showReservationDurationTime" value="false"> Nie
+                                                        </label>
+                                                    </div>
+
+                                                    <hr class="my-3 w-100">
+
+                                                    <div class="col-sm-12 text-center mb-2">
+                                                        <strong>Podpowiadaj podczas wyszukiwania klienta</strong>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center">
+                                                        <label class="form-check-inline mr-2 text-center">
+                                                            <input class="form-check-input bg-light" type="radio" name="clientAutoComplete" value="true"> Tak
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center">
+                                                        <label class="form-check-inline mr-2 text-center">
+                                                            <input class="form-check-input bg-light" type="radio" name="clientAutoComplete" value="false"> Nie
+                                                        </label>
+                                                    </div>
+
+                                                    <hr class="my-3 w-100">
+
+                                                    <div class="col-sm-12 text-center mb-2">
+                                                        <strong>Pokaż rezerwacje niewliczane do podsumowania innym kolorem</strong>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center">
+                                                        <label class="form-check-inline mr-2 text-center">
+                                                            <input class="form-check-input bg-light" type="radio" name="nonSummaryReservationsWithDifferentColor" value="true"> Tak
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center">
+                                                        <label class="form-check-inline mr-2 text-center">
+                                                            <input class="form-check-input bg-light" type="radio" name="nonSummaryReservationsWithDifferentColor" value="false"> Nie
+                                                        </label>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mx-1">
+                                    <div class="card mb-1">
+                                        <div class="card-header">
+                                            <h5 class="card-title text-center">Ikony</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-12 d-flex flex-wrap">
+                                                    <div class="col-sm-12 text-center mb-2">
+                                                        <strong>Pokazuj ikonę opłacenia kortu</strong>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center">
+                                                        <label class="form-check-inline mr-2 text-center">
+                                                            <input class="form-check-input bg-light" type="radio" name="showPaidIcon" value="true"> Tak
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center">
+                                                        <label class="form-check-inline mr-2 text-center">
+                                                            <input class="form-check-input bg-light" type="radio" name="showPaidIcon" value="false"> Nie
+                                                        </label>
+                                                    </div>
+
+                                                    <hr class="my-3 w-100">
+
+                                                    <div class="col-sm-12 text-center mb-2">
+                                                        <strong>Pokazuj ikonę gotówki/karty</strong>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center">
+                                                        <label class="form-check-inline mr-2 text-center">
+                                                            <input class="form-check-input bg-light" type="radio" name="cashOrCardIcon" value="true"> Tak
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center">
+                                                        <label class="form-check-inline mr-2 text-center">
+                                                            <input class="form-check-input bg-light" type="radio" name="cashOrCardIcon" value="false"> Nie
+                                                        </label>
+                                                    </div>
+
+                                                    <hr class="my-3 w-100">
+
+                                                    <div class="col-sm-12 text-center mb-2">
+                                                        <strong>Pokazuj ikonę rezerwacji niewliczonej w podsumowanie</strong>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center">
+                                                        <label class="form-check-inline mr-2 text-center">
+                                                            <input class="form-check-input bg-light" type="radio" name="nonSummaryIcon" value="true"> Tak
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center">
+                                                        <label class="form-check-inline mr-2 text-center">
+                                                            <input class="form-check-input bg-light" type="radio" name="nonSummaryIcon" value="false"> Nie
+                                                        </label>
+                                                    </div>
+
+                                                    <hr class="my-3 w-100">
+
+                                                    <div class="col-sm-12 text-center mb-2">
+                                                        <strong>Pokazuj ikony niesprawności kortu w tabeli głównej</strong>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center">
+                                                        <label class="form-check-inline mr-2 text-center">
+                                                            <input class="form-check-input bg-light" type="radio" name="courtIconsInReservationTable" value="true"> Tak
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center">
+                                                        <label class="form-check-inline mr-2 text-center">
+                                                            <input class="form-check-input bg-light" type="radio" name="courtIconsInReservationTable" value="false"> Nie
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card mb-1">
+                                        <div class="card-header">
+                                            <h5 class="card-title text-center">Kolory</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-12 d-flex flex-wrap">
+                                                    <div class="col-sm-12 text-center mb-2">
+                                                        <strong>Dostosuj domyślny kolor wyświetlanych rezerwacji</strong>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
+                                                        <label class="form-check">
+                                                            <input class="form-check-input bg-light" type="radio" name="tileColor" value="yellow">
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
+                                                        <button class="btn btn-warning w-100">Przykład</button>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
+                                                        <label class="form-check">
+                                                            <input class="form-check-input bg-light" type="radio" name="tileColor" value="green">
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
+                                                        <button class="btn btn-success w-100">Przykład</button>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
+                                                        <label class="form-check">
+                                                            <input class="form-check-input bg-light" type="radio" name="tileColor" value="blue">
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
+                                                        <button class="btn btn-primary w-100">Przykład</button>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
+                                                        <label class="form-check">
+                                                            <input class="form-check-input bg-light" type="radio" name="tileColor" value="grey">
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
+                                                        <button class="btn btn-secondary w-100">Przykład</button>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
+                                                        <label class="form-check">
+                                                            <input class="form-check-input bg-light" type="radio" name="tileColor" value="red">
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
+                                                        <button class="btn btn-danger w-100">Przykład</button>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
+                                                        <label class="form-check">
+                                                            <input class="form-check-input bg-light" type="radio" name="tileColor" value="cyan">
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
+                                                        <button class="btn btn-info w-100">Przykład</button>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
+                                                        <label class="form-check">
+                                                            <input class="form-check-input bg-light" type="radio" name="tileColor" value="black">
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-sm-6 d-flex justify-content-center align-items-center mb-1">
+                                                        <button class="btn btn-dark w-100">Przykład</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    ciało
-                </div>
-                <div class="card-footer">
-                    stopka
-                </div>
+                <button class="btn btn-success w-100">Zapisz zmiany</button>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 
 <script src="/js/updateTime.js"></script>

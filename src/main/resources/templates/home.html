@@ -515,7 +515,7 @@
     }
 
     class Reservation {
-        constructor(id, courtNumber, reservationDate, timeStart, timeEnd, duration, priceSchedule, totalPrice, comments, reservationMadeTimestamp, paid, doublesMatch, customer, isCash, acceptedBy, acceptedAt, validForFinanceSummary) {
+        constructor(id, courtNumber, reservationDate, timeStart, timeEnd, duration, priceSchedule, totalPrice, comments, reservationMadeTimestamp, paid, doublesMatch, customer, cash, acceptedBy, acceptedAt, validForFinanceSummary) {
             this.id = id;
             this.courtNumber = courtNumber;
             this.reservationDate = reservationDate;
@@ -534,7 +534,7 @@
                 customer.lastName,
                 customer.phone
             );
-            this.isCash = isCash;
+            this.cash = cash;
             this.acceptedBy = acceptedBy;
             this.acceptedAt = acceptedAt;
             this.validForFinanceSummary = validForFinanceSummary;
@@ -570,7 +570,7 @@
                 reservation.paid,
                 reservation.doublesMatch,
                 newCustomer,
-                reservation.isCash,  // Dodaj isCash
+                reservation.cash,  // Dodaj isCash
                 reservation.acceptedBy,  // Dodaj acceptedBy
                 reservation.acceptedAt, // Dodaj acceptedAt
                 reservation.validForFinanceSummary
@@ -624,16 +624,31 @@
                 }
             }
 
+            console.log(reservation);
 
             if(!reservation.validForFinanceSummary){
                 const icon = document.createElement('i');
-                icon.classList.add('fa', 'fa-solid', 'fa-hand-holding-dollar', 'my-icon');
+                icon.classList.add('fa', 'fa-solid', 'fa-hand-holding-dollar', 'my-tile-right-icon');
                 tile.appendChild(icon);
             }
             else if (reservation.paid) {
                 const icon = document.createElement('i');
-                icon.classList.add('fa', 'fa-check', 'my-icon'); // Przykładowa ikona FontAwesome
+                icon.classList.add('fa', 'fa-check', 'my-tile-right-icon');
                 tile.appendChild(icon);
+
+                if(reservation.cash){
+                    const cashIcon = document.createElement('i');
+                    cashIcon.classList.add('fa', 'fa-solid', 'fa-money-bill-1-wave','my-tile-left-icon');
+                    tile.appendChild(cashIcon);
+                }
+                else if(!reservation.cash){
+                    const cardIcon = document.createElement('i');
+                    cardIcon.classList.add('fa', 'fa-solid', 'fa-credit-card','my-tile-left-icon');
+                    tile.appendChild(cardIcon);
+                }
+                else{
+                    console.log("Blaaaad");
+                }
             }
 
             td.appendChild(tile);

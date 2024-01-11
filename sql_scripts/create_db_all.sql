@@ -116,3 +116,31 @@ CREATE TABLE IF NOT EXISTS settlement_day (
     accepted_by VARCHAR(50),
     accepted_at VARCHAR(50)
 ) ENGINE=InnoDB;
+
+USE court_management;
+CREATE TABLE IF NOT EXISTS setting (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    `name` TEXT,
+    is_active TINYINT(1)
+) ENGINE=InnoDB;
+INSERT INTO setting (`name`,is_active) VALUES
+('showFirstNameAndLastName',1),
+('showFirstName',0),
+('showLastName',0),
+('showFirstNameAndFirstLetterOfLastName',0),
+('showReservationDurationTime',1),
+('clientAutoComplete',1),
+('showNonSummaryReservationsWithDifferentColour',0),
+
+('showPaidIcon',1),
+('showIfCashOrCashIcon',1),
+('showNonSummaryIcon',1),
+('showCourtIconsInReservationTable',1),
+
+('isTileYellow',0),
+('isTileGreen',1),
+('isTileBlue',0),
+('isTileGrey',0),
+('isTileRed',0),
+('isTileCyan',0),
+('isTileBlack',0)
