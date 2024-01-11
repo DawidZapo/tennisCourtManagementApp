@@ -1,5 +1,6 @@
 package com.springboot.tennisCourtManagementApp.controller;
 
+import com.springboot.tennisCourtManagementApp.dto.SettingManagerDto;
 import com.springboot.tennisCourtManagementApp.entity.Court;
 import com.springboot.tennisCourtManagementApp.entity.CourtReservation;
 import com.springboot.tennisCourtManagementApp.entity.SettlementDay;
@@ -119,6 +120,9 @@ public class NavBarController {
             String username = authentication.getName();
             model.addAttribute("username", username);
         }
+        SettingManagerDto settingManagerDto = new SettingManagerDto();
+
+        model.addAttribute("settingManagerDto", settingManagerDto);
 
         return "settings";
     }
