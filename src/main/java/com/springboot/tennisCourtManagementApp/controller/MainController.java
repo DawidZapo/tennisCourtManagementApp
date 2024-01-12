@@ -3,14 +3,12 @@ package com.springboot.tennisCourtManagementApp.controller;
 import com.springboot.tennisCourtManagementApp.dto.CourtReservationDto;
 import com.springboot.tennisCourtManagementApp.dto.CustomerDto;
 import com.springboot.tennisCourtManagementApp.dto.PriceScheduleDto;
-import com.springboot.tennisCourtManagementApp.entity.Court;
-import com.springboot.tennisCourtManagementApp.entity.CourtReservation;
-import com.springboot.tennisCourtManagementApp.entity.Customer;
-import com.springboot.tennisCourtManagementApp.entity.PriceSchedule;
+import com.springboot.tennisCourtManagementApp.entity.*;
 import com.springboot.tennisCourtManagementApp.service.courtReservation.CourtReservationService;
 import com.springboot.tennisCourtManagementApp.service.court.CourtService;
 import com.springboot.tennisCourtManagementApp.service.customer.CustomerService;
 import com.springboot.tennisCourtManagementApp.service.priceSchedule.PriceScheduleService;
+import com.springboot.tennisCourtManagementApp.service.setting.SettingService;
 import de.jollyday.HolidayCalendar;
 import de.jollyday.HolidayManager;
 import de.jollyday.ManagerParameters;
@@ -37,13 +35,15 @@ public class MainController {
     private PriceScheduleService priceScheduleService;
     private CustomerService customerService;
     private CourtService courtService;
+    private SettingService settingService;
 
     @Autowired
-    public MainController(CourtReservationService courtReservationService, PriceScheduleService priceScheduleService, CustomerService customerService, CourtService courtService) {
+    public MainController(CourtReservationService courtReservationService, PriceScheduleService priceScheduleService, CustomerService customerService, CourtService courtService, SettingService settingService) {
         this.courtReservationService = courtReservationService;
         this.priceScheduleService = priceScheduleService;
         this.customerService = customerService;
         this.courtService = courtService;
+        this.settingService = settingService;
     }
 
     @GetMapping("/")
@@ -71,6 +71,43 @@ public class MainController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         String formattedDate = date.format(formatter);
 
+        Setting showFirstNameAndLastName = settingService.findByName("showFirstNameAndLastName");
+        Setting showFirstName = settingService.findByName("showFirstName");
+        Setting showLastName = settingService.findByName("showLastName");
+        Setting showFirstNameAndFirstLetterOfLastName = settingService.findByName("showFirstNameAndFirstLetterOfLastName");
+        Setting showReservationDurationTime = settingService.findByName("showReservationDurationTime");
+        Setting clientAutoComplete = settingService.findByName("clientAutoComplete");
+        Setting showNonSummaryReservationsWithDifferentColor = settingService.findByName("showNonSummaryReservationsWithDifferentColor");
+        Setting showPaidIcon = settingService.findByName("showPaidIcon");
+        Setting showIfCashOrCardIcon = settingService.findByName("showIfCashOrCardIcon");
+        Setting showNonSummaryIcon = settingService.findByName("showNonSummaryIcon");
+        Setting showCourtIconsInReservationTable = settingService.findByName("showCourtIconsInReservationTable");
+        Setting isTileYellow = settingService.findByName("isTileYellow");
+        Setting isTileGreen = settingService.findByName("isTileGreen");
+        Setting isTileBlue = settingService.findByName("isTileBlue");
+        Setting isTileGrey = settingService.findByName("isTileGrey");
+        Setting isTileRed = settingService.findByName("isTileRed");
+        Setting isTileCyan = settingService.findByName("isTileCyan");
+        Setting isTileBlack = settingService.findByName("isTileBlack");
+
+        model.addAttribute("isTileYellow", isTileYellow.getActive());
+        model.addAttribute("isTileGreen", isTileGreen.getActive());
+        model.addAttribute("isTileBlue", isTileBlue.getActive());
+        model.addAttribute("isTileGrey", isTileGrey.getActive());
+        model.addAttribute("isTileRed", isTileRed.getActive());
+        model.addAttribute("isTileCyan", isTileCyan.getActive());
+        model.addAttribute("isTileBlack", isTileBlack.getActive());
+        model.addAttribute("showFirstNameAndLastName", showFirstNameAndLastName.getActive());
+        model.addAttribute("showFirstName", showFirstName.getActive());
+        model.addAttribute("showLastName", showLastName.getActive());
+        model.addAttribute("showFirstNameAndFirstLetterOfLastName", showFirstNameAndFirstLetterOfLastName.getActive());
+        model.addAttribute("showReservationDurationTimeSetting", showReservationDurationTime.getActive());
+        model.addAttribute("clientAutoComplete", clientAutoComplete.getActive());
+        model.addAttribute("showNonSummaryReservationsWithDifferentColor", showNonSummaryReservationsWithDifferentColor.getActive());
+        model.addAttribute("showPaidIcon", showPaidIcon.getActive());
+        model.addAttribute("showIfCashOrCardIcon", showIfCashOrCardIcon.getActive());
+        model.addAttribute("showNonSummaryIcon", showNonSummaryIcon.getActive());
+        model.addAttribute("showCourtIconsInReservationTable", showCourtIconsInReservationTable.getActive());
 
         model.addAttribute("reservations", reservations);
         model.addAttribute("dayOfWeek",dayOfWeekPolish);

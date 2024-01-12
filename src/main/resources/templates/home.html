@@ -479,6 +479,27 @@
         </div>
     </div>
 </div>
+
+<div id="settings"
+     th:data-isTileYellow="${isTileYellow}"
+     th:data-isTileGreen="${isTileGreen}"
+     th:data-isTileBlue="${isTileBlue}"
+     th:data-isTileGrey="${isTileGrey}"
+     th:data-isTileRed="${isTileRed}"
+     th:data-isTileCyan="${isTileCyan}"
+     th:data-isTileBlack="${isTileBlack}"
+     th:data-showFirstNameAndLastName="${showFirstNameAndLastName}"
+     th:data-showFirstName="${showFirstName}"
+     th:data-showLastName="${showLastName}"
+     th:data-showFirstNameAndFirstLetterOfLastName="${showFirstNameAndFirstLetterOfLastName}"
+     th:data-showReservationDurationTime="${showReservationDurationTimeSetting}"
+     th:data-clientAutoComplete="${clientAutoComplete}"
+     th:data-showNonSummaryReservationWithDifferentColor="${showNonSummaryReservationsWithDifferentColor}"
+     th:data-showPaidIcon="${showPaidIcon}"
+     th:data-showIfCashOrCardIcon="${showIfCashOrCardIcon}"
+     th:data-showNonSummaryIcon="${showNonSummaryIcon}"
+     th:data-showCourtIconsInReservationTable="${showCourtIconsInReservationTable}">
+</div>
 <!--<div class="navbar navbar-expand-lg navbar-light bg-primary bg-light fixed-bottom navbar-custom">-->
 <!--        <p>-->
 <!--            Przykładowy tekst paska dolnego-->
@@ -655,7 +676,6 @@
         })
     }
 
-
     fetch('/api/courts')
         .then(response => response.json())
         .then(data => {
@@ -675,6 +695,60 @@
             console.error('There was an error!', error); // Obsługa błędów
             fillUpTheTable(jsReservations,null);
         });
+
+
+    class Setting {
+        constructor(id, name, active) {
+            this.id = id;
+            this.name = name;
+            this.active = active;
+        }
+    }
+
+
+
+    var settingsData = document.getElementById('settings');
+    // Access boolean values directly from dataset
+    var isTileYellow = settingsData.getAttribute('data-isTileYellow');
+    var isTileGreen = settingsData.getAttribute('data-isTileGreen');
+    var isTileBlue = settingsData.getAttribute('data-isTileBlue');
+    var isTileGrey = settingsData.getAttribute('data-isTileGrey');
+    var isTileRed = settingsData.getAttribute('data-isTileRed');
+    var isTileCyan = settingsData.getAttribute('data-isTileCyan');
+    var isTileBlack = settingsData.getAttribute('data-isTileBlack');
+    var showFirstNameAndLastName = settingsData.getAttribute('data-showFirstNameAndLastName');
+    var showFirstName = settingsData.getAttribute('data-showFirstName');
+    var showLastName = settingsData.getAttribute('data-showLastName');
+    var showFirstNameAndFirstLetterOfLastName = settingsData.getAttribute('data-showFirstNameAndFirstLetterOfLastName');
+    var showReservationDurationTime = settingsData.getAttribute('data-showReservationDurationTime');
+    var clientAutoComplete = settingsData.getAttribute('data-clientAutoComplete');
+    var showNonSummaryReservationWithDifferentColor = settingsData.getAttribute('data-showNonSummaryReservationWithDifferentColor');
+    var showPaidIcon = settingsData.getAttribute('data-showPaidIcon');
+    var showIfCashOrCardIcon = settingsData.getAttribute('data-showIfCashOrCardIcon');
+    var showNonSummaryIcon = settingsData.getAttribute('data-showNonSummaryIcon');
+    var showCourtIconsInReservationTable = settingsData.getAttribute('data-showCourtIconsInReservationTable');
+
+    // Your boolean values are now ready to use
+    console.log(showFirstNameAndLastName);
+    console.log(showFirstName);
+    console.log(showLastName);
+    console.log(showFirstNameAndFirstLetterOfLastName);
+    console.log("=================");
+    console.log(showReservationDurationTime);
+    console.log(clientAutoComplete);
+    console.log(showNonSummaryReservationWithDifferentColor);
+    console.log(showPaidIcon);
+    console.log(showIfCashOrCardIcon);
+    console.log(showNonSummaryIcon);
+    console.log(showCourtIconsInReservationTable);
+    console.log("=================");
+    console.log(isTileYellow);
+    console.log(isTileGreen);
+    console.log(isTileBlue);
+    console.log(isTileGrey);
+    console.log(isTileRed);
+    console.log(isTileCyan);
+    console.log(isTileBlack);
 
 
 </script>

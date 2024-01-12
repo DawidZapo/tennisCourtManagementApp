@@ -87,7 +87,7 @@ public class SettingServiceImpl implements SettingService{
         updateSetting("showPaidIcon", settingManagerDto.getShowPaidIcon());
 
         //zmiana czy pokazac ikone karty/gotowki
-        updateSetting("showIfCashOrCashIcon", settingManagerDto.getShowIfCashOrCardIcon());
+        updateSetting("showIfCashOrCardIcon", settingManagerDto.getShowIfCashOrCardIcon());
 
         //zmiana czy pokazac ikone niewliczonych rezerewacji
         updateSetting("showNonSummaryIcon", settingManagerDto.getShowNonSummaryIcon());
