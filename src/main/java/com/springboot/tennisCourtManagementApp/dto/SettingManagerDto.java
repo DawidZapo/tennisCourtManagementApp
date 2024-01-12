@@ -4,11 +4,11 @@ public class SettingManagerDto {
     private String nameDisplay;
     private Boolean showReservationDurationTime;
     private Boolean clientAutoComplete;
-    private Boolean nonSummaryReservationsWithDifferentColor;
+    private Boolean showNonSummaryReservationsWithDifferentColor;
     private Boolean showPaidIcon;
-    private Boolean showCashOrCardIcon;
+    private Boolean showIfCashOrCardIcon;
     private Boolean showNonSummaryIcon;
-    private Boolean showCourtsIconInReservationTable;
+    private Boolean showCourtIconsInReservationTable;
     private String tileColor;
 
     public String getNameDisplay() {
@@ -35,12 +35,12 @@ public class SettingManagerDto {
         this.clientAutoComplete = clientAutoComplete;
     }
 
-    public Boolean getNonSummaryReservationsWithDifferentColor() {
-        return nonSummaryReservationsWithDifferentColor;
+    public Boolean getShowNonSummaryReservationsWithDifferentColor() {
+        return showNonSummaryReservationsWithDifferentColor;
     }
 
-    public void setNonSummaryReservationsWithDifferentColor(Boolean nonSummaryReservationsWithDifferentColor) {
-        this.nonSummaryReservationsWithDifferentColor = nonSummaryReservationsWithDifferentColor;
+    public void setShowNonSummaryReservationsWithDifferentColor(Boolean showNonSummaryReservationsWithDifferentColor) {
+        this.showNonSummaryReservationsWithDifferentColor = showNonSummaryReservationsWithDifferentColor;
     }
 
     public Boolean getShowPaidIcon() {
@@ -51,12 +51,12 @@ public class SettingManagerDto {
         this.showPaidIcon = showPaidIcon;
     }
 
-    public Boolean getShowCashOrCardIcon() {
-        return showCashOrCardIcon;
+    public Boolean getShowIfCashOrCardIcon() {
+        return showIfCashOrCardIcon;
     }
 
-    public void setShowCashOrCardIcon(Boolean showCashOrCardIcon) {
-        this.showCashOrCardIcon = showCashOrCardIcon;
+    public void setShowIfCashOrCardIcon(Boolean showIfCashOrCardIcon) {
+        this.showIfCashOrCardIcon = showIfCashOrCardIcon;
     }
 
     public Boolean getShowNonSummaryIcon() {
@@ -67,12 +67,12 @@ public class SettingManagerDto {
         this.showNonSummaryIcon = showNonSummaryIcon;
     }
 
-    public Boolean getShowCourtsIconInReservationTable() {
-        return showCourtsIconInReservationTable;
+    public Boolean getShowCourtIconsInReservationTable() {
+        return showCourtIconsInReservationTable;
     }
 
-    public void setShowCourtsIconInReservationTable(Boolean showCourtsIconInReservationTable) {
-        this.showCourtsIconInReservationTable = showCourtsIconInReservationTable;
+    public void setShowCourtIconsInReservationTable(Boolean showCourtIconsInReservationTable) {
+        this.showCourtIconsInReservationTable = showCourtIconsInReservationTable;
     }
 
     public String getTileColor() {
@@ -89,11 +89,11 @@ public class SettingManagerDto {
                 "nameDisplay='" + nameDisplay + '\'' +
                 ", showReservationDurationTime=" + showReservationDurationTime +
                 ", clientAutoComplete=" + clientAutoComplete +
-                ", nonSummaryReservationsWithDifferentColor=" + nonSummaryReservationsWithDifferentColor +
+                ", showNonSummaryReservationsWithDifferentColor=" + showNonSummaryReservationsWithDifferentColor +
                 ", showPaidIcon=" + showPaidIcon +
-                ", showCashOrCardIcon=" + showCashOrCardIcon +
+                ", showIfCashOrCardIcon=" + showIfCashOrCardIcon +
                 ", showNonSummaryIcon=" + showNonSummaryIcon +
-                ", showCourtsIconInReservationTable=" + showCourtsIconInReservationTable +
+                ", showCourtIconsInReservationTable=" + showCourtIconsInReservationTable +
                 ", tileColor='" + tileColor + '\'' +
                 '}';
     }

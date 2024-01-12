@@ -77,22 +77,22 @@
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center">
                                                         <label class="form-check-inline mr-2 text-center">
-                                                            <input class="form-check-input bg-light" type="radio" name="nameDisplay" th:field="${settingManagerDto.nameDisplay}" th:value="firstNameAndLastName"> Imię i nazwisko
+                                                            <input class="form-check-input bg-light" type="radio" name="nameDisplay" th:field="${settingManagerDto.nameDisplay}" th:value="showFirstNameAndLastName"> Imię i nazwisko
                                                         </label>
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center">
                                                         <label class="form-check-inline mr-2 text-center">
-                                                            <input class="form-check-input bg-light" type="radio" name="nameDisplay" th:field="${settingManagerDto.nameDisplay}" th:value="firstName"> Imię
+                                                            <input class="form-check-input bg-light" type="radio" name="nameDisplay" th:field="${settingManagerDto.nameDisplay}" th:value="showFirstName"> Imię
                                                         </label>
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center">
                                                         <label class="form-check-inline mr-2 text-center">
-                                                            <input class="form-check-input bg-light" type="radio" name="nameDisplay" th:field="${settingManagerDto.nameDisplay}" th:value="lastName"> Nazwisko
+                                                            <input class="form-check-input bg-light" type="radio" name="nameDisplay" th:field="${settingManagerDto.nameDisplay}" th:value="showLastName"> Nazwisko
                                                         </label>
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center">
                                                         <label class="form-check-inline mr-2 text-center">
-                                                            <input class="form-check-input bg-light" type="radio" name="nameDisplay" th:field="${settingManagerDto.nameDisplay}" th:value="firstNameAndFirstLetterOfLastName"> Imię i inicjał
+                                                            <input class="form-check-input bg-light" type="radio" name="nameDisplay" th:field="${settingManagerDto.nameDisplay}" th:value="showFirstNameAndFirstLetterOfLastName"> Imię i inicjał
                                                         </label>
                                                     </div>
 
@@ -136,12 +136,12 @@
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center">
                                                         <label class="form-check-inline mr-2 text-center">
-                                                            <input class="form-check-input bg-light" type="radio" name="nonSummaryReservationsWithDifferentColor" th:field="${settingManagerDto.nonSummaryReservationsWithDifferentColor}" th:value="${true}"> Tak
+                                                            <input class="form-check-input bg-light" type="radio" name="showNonSummaryReservationsWithDifferentColor" th:field="${settingManagerDto.showNonSummaryReservationsWithDifferentColor}" th:value="${true}"> Tak
                                                         </label>
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center">
                                                         <label class="form-check-inline mr-2 text-center">
-                                                            <input class="form-check-input bg-light" type="radio" name="nonSummaryReservationsWithDifferentColor" th:field="${settingManagerDto.nonSummaryReservationsWithDifferentColor}" th:value="${false}"> Nie
+                                                            <input class="form-check-input bg-light" type="radio" name="showNonSummaryReservationsWithDifferentColor" th:field="${settingManagerDto.showNonSummaryReservationsWithDifferentColor}" th:value="${false}"> Nie
                                                         </label>
                                                     </div>
 
@@ -180,12 +180,12 @@
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center">
                                                         <label class="form-check-inline mr-2 text-center">
-                                                            <input class="form-check-input bg-light" type="radio" name="showCashOrCardIcon" th:field="${settingManagerDto.showCashOrCardIcon}" th:value="${true}"> Tak
+                                                            <input class="form-check-input bg-light" type="radio" name="showIfCashOrCardIcon" th:field="${settingManagerDto.showIfCashOrCardIcon}" th:value="${true}"> Tak
                                                         </label>
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center">
                                                         <label class="form-check-inline mr-2 text-center">
-                                                            <input class="form-check-input bg-light" type="radio" name="showCashOrCardIcon" th:field="${settingManagerDto.showCashOrCardIcon}" th:value="${false}"> Nie
+                                                            <input class="form-check-input bg-light" type="radio" name="showIfCashOrCardIcon" th:field="${settingManagerDto.showIfCashOrCardIcon}" th:value="${false}"> Nie
                                                         </label>
                                                     </div>
 
@@ -212,12 +212,12 @@
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center">
                                                         <label class="form-check-inline mr-2 text-center">
-                                                            <input class="form-check-input bg-light" type="radio" name="showCourtIconsInReservationTable" th:field="${settingManagerDto.showCourtsIconInReservationTable}" th:value="${true}"> Tak
+                                                            <input class="form-check-input bg-light" type="radio" name="showCourtIconsInReservationTable" th:field="${settingManagerDto.showCourtIconsInReservationTable}" th:value="${true}"> Tak
                                                         </label>
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center">
                                                         <label class="form-check-inline mr-2 text-center">
-                                                            <input class="form-check-input bg-light" type="radio" name="showCourtIconsInReservationTable" th:field="${settingManagerDto.showCourtsIconInReservationTable}" th:value="${false}"> Nie
+                                                            <input class="form-check-input bg-light" type="radio" name="showCourtIconsInReservationTable" th:field="${settingManagerDto.showCourtIconsInReservationTable}" th:value="${false}"> Nie
                                                         </label>
                                                     </div>
 
@@ -239,7 +239,7 @@
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
                                                         <label class="form-check">
-                                                            <input class="form-check-input bg-light" type="radio" name="tileColor" th:field="${settingManagerDto.tileColor}" th:value="yellow">
+                                                            <input class="form-check-input bg-light" type="radio" name="tileColor" th:field="${settingManagerDto.tileColor}" th:value="isTileYellow">
                                                         </label>
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
@@ -247,7 +247,7 @@
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
                                                         <label class="form-check">
-                                                            <input class="form-check-input bg-light" type="radio" name="tileColor"  th:field="${settingManagerDto.tileColor}" th:value="green">
+                                                            <input class="form-check-input bg-light" type="radio" name="tileColor"  th:field="${settingManagerDto.tileColor}" th:value="isTileGreen">
                                                         </label>
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
@@ -255,7 +255,7 @@
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
                                                         <label class="form-check">
-                                                            <input class="form-check-input bg-light" type="radio" name="tileColor"  th:field="${settingManagerDto.tileColor}" th:value="blue">
+                                                            <input class="form-check-input bg-light" type="radio" name="tileColor"  th:field="${settingManagerDto.tileColor}" th:value="isTileBlue">
                                                         </label>
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
@@ -263,7 +263,7 @@
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
                                                         <label class="form-check">
-                                                            <input class="form-check-input bg-light" type="radio" name="tileColor" th:field="${settingManagerDto.tileColor}" th:value="grey">
+                                                            <input class="form-check-input bg-light" type="radio" name="tileColor" th:field="${settingManagerDto.tileColor}" th:value="isTileGrey">
                                                         </label>
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
@@ -271,7 +271,7 @@
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
                                                         <label class="form-check">
-                                                            <input class="form-check-input bg-light" type="radio" name="tileColor" th:field="${settingManagerDto.tileColor}" th:value="red">
+                                                            <input class="form-check-input bg-light" type="radio" name="tileColor" th:field="${settingManagerDto.tileColor}" th:value="isTileRed">
                                                         </label>
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
@@ -279,7 +279,7 @@
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
                                                         <label class="form-check">
-                                                            <input class="form-check-input bg-light" type="radio" name="tileColor" th:field="${settingManagerDto.tileColor}" th:value="cyan">
+                                                            <input class="form-check-input bg-light" type="radio" name="tileColor" th:field="${settingManagerDto.tileColor}" th:value="isTileCyan">
                                                         </label>
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
@@ -287,7 +287,7 @@
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center align-items-center mb-2">
                                                         <label class="form-check">
-                                                            <input class="form-check-input bg-light" type="radio" name="tileColor" th:field="${settingManagerDto.tileColor}" th:value="black">
+                                                            <input class="form-check-input bg-light" type="radio" name="tileColor" th:field="${settingManagerDto.tileColor}" th:value="isTileBlack">
                                                         </label>
                                                     </div>
                                                     <div class="col-sm-6 d-flex justify-content-center align-items-center mb-1">
