@@ -54,9 +54,10 @@
     <div class="col-md-4 d-flex flex-wrap justify-content-end align-items-center">
         <div class="user-info m-3">
             Zalogowany jako: <strong th:text="${username}"></strong>
+            <i class="fa-solid fa-user mx-1"></i>
         </div>
 
-        <form class="mx-4" action="#" th:action="@{/logout}" method="POST">
+        <form class="mx-2" action="#" th:action="@{/logout}" method="POST">
             <button type="submit" value="Wyloguj się" class="btn btn-outline-danger">
                 Wyloguj się
                 <i class="fa-solid fa-right-from-bracket mx-2"></i>
@@ -623,8 +624,6 @@
                     tile.classList.add('my-disabled');
                 }
             }
-
-            console.log(reservation);
 
             if(!reservation.validForFinanceSummary){
                 const icon = document.createElement('i');

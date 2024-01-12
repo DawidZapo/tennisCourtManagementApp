@@ -13,4 +13,5 @@ public interface SettingService {
     void changeSettings(SettingManagerDto settingManagerDto);
     List<Setting> findAllByNameContaining(String keyword);
     List<Setting> findAllByNameContainingOrNameContaining(String keyword1, String keyword2);
+    SettingManagerDto getCurrentSettings();
 }

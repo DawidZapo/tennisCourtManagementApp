@@ -21,6 +21,7 @@ public class SettingController {
 
         settingService.changeSettings(settingManagerDto);
 
-        return "redirect:/settings";
+        boolean recentlyUpdated = true;
+        return "redirect:/settings?recentlyUpdated="+recentlyUpdated;
     }
 }

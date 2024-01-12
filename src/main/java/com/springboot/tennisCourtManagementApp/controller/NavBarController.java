@@ -6,6 +6,7 @@ import com.springboot.tennisCourtManagementApp.entity.CourtReservation;
 import com.springboot.tennisCourtManagementApp.entity.SettlementDay;
 import com.springboot.tennisCourtManagementApp.service.court.CourtService;
 import com.springboot.tennisCourtManagementApp.service.courtReservation.CourtReservationService;
+import com.springboot.tennisCourtManagementApp.service.setting.SettingService;
 import com.springboot.tennisCourtManagementApp.service.settlementDay.SettlementDayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,12 +30,14 @@ public class NavBarController {
     private SettlementDayService settlementDayService;
     private CourtReservationService courtReservationService;
     private CourtService courtService;
+    private SettingService settingService;
 
     @Autowired
-    public NavBarController(SettlementDayService settlementDayService, CourtReservationService courtReservationService, CourtService courtService) {
+    public NavBarController(SettlementDayService settlementDayService, CourtReservationService courtReservationService, CourtService courtService, SettingService settingService) {
         this.settlementDayService = settlementDayService;
         this.courtReservationService = courtReservationService;
         this.courtService = courtService;
+        this.settingService = settingService;
     }
 
     @GetMapping("/courts")
@@ -114,14 +117,19 @@ public class NavBarController {
         return "day-summary";
     }
     @GetMapping("/settings")
-    public String showSettings(Model model){
+    public String showSettings(@RequestParam(name = "recentlyUpdated", required = false) Boolean recentlyUpdated, Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
             model.addAttribute("username", username);
         }
-        SettingManagerDto settingManagerDto = new SettingManagerDto();
+        SettingManagerDto settingManagerDto = settingService.getCurrentSettings();
 
+        if(recentlyUpdated == null){
+            recentlyUpdated = false;
+        }
+
+        model.addAttribute("recentlyUpdated", recentlyUpdated);
         model.addAttribute("settingManagerDto", settingManagerDto);
 
         return "settings";

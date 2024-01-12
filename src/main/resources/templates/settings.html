@@ -54,6 +54,9 @@
 
 </nav>
 <div class="container mt-3 mb-3">
+    <div th:if="${recentlyUpdated}" class="alert alert-success text-center" role="alert" style="padding: 5px">
+        Pomyślnie zapisano zmiany
+    </div>
     <form th:action="@{/settings/save}" th:object="${settingManagerDto}" method="post">
         <div class="row mt-2">
             <div class="col-md-12">

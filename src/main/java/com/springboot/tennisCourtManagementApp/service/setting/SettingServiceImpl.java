@@ -118,5 +118,39 @@ public class SettingServiceImpl implements SettingService{
         }
     }
 
+    @Override
+    public SettingManagerDto getCurrentSettings() {
+        SettingManagerDto settingManagerDto = new SettingManagerDto();
+        List<Setting> nameDisplaySettings = findAllByNameContainingOrNameContaining("firstName", "lastName");
+        for(var setting : nameDisplaySettings){
+            if(setting.getActive()){
+                settingManagerDto.setNameDisplay(setting.getName());
+                break;
+            }
+        }
 
+        settingManagerDto.setShowReservationDurationTime(getSettingActiveStatus("showReservationDurationTime"));
+        settingManagerDto.setClientAutoComplete(getSettingActiveStatus("clientAutoComplete"));
+        settingManagerDto.setShowNonSummaryReservationsWithDifferentColor(getSettingActiveStatus("showNonSummaryReservationsWithDifferentColor"));
+        settingManagerDto.setShowPaidIcon(getSettingActiveStatus("showPaidIcon"));
+        settingManagerDto.setShowIfCashOrCardIcon(getSettingActiveStatus("showIfCashOrCardIcon"));
+        settingManagerDto.setShowNonSummaryIcon(getSettingActiveStatus("showNonSummaryIcon"));
+        settingManagerDto.setShowCourtIconsInReservationTable(getSettingActiveStatus("showCourtIconsInReservationTable"));
+
+        List<Setting> colorSettings = findAllByNameContaining("Tile");
+        for(var setting : colorSettings){
+            if(setting.getActive()){
+                settingManagerDto.setTileColor(setting.getName());
+                break;
+            }
+        }
+
+
+        return settingManagerDto;
+    }
+
+    private boolean getSettingActiveStatus(String settingName) {
+        Setting setting = findByName(settingName);
+        return setting != null && setting.getActive();
+    }
 }
