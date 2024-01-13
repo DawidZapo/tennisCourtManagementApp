@@ -703,27 +703,32 @@
             }
 
             if(!reservation.validForFinanceSummary){
-                const icon = document.createElement('i');
-                icon.classList.add('fa', 'fa-solid', 'fa-hand-holding-dollar', 'my-tile-right-icon');
-                tile.appendChild(icon);
+                if(showNonSummaryIcon === 'true'){
+                    const icon = document.createElement('i');
+                    icon.classList.add('fa', 'fa-solid', 'fa-hand-holding-dollar', 'my-tile-right-icon');
+                    tile.appendChild(icon);
+                }
             }
             else if (reservation.paid) {
-                const icon = document.createElement('i');
-                icon.classList.add('fa', 'fa-check', 'my-tile-right-icon');
-                tile.appendChild(icon);
-
-                if(reservation.cash){
-                    const cashIcon = document.createElement('i');
-                    cashIcon.classList.add('fa', 'fa-solid', 'fa-money-bill-1-wave','my-tile-left-icon');
-                    tile.appendChild(cashIcon);
+                if(showPaidIcon === 'true'){
+                    const icon = document.createElement('i');
+                    icon.classList.add('fa', 'fa-check', 'my-tile-right-icon');
+                    tile.appendChild(icon);
                 }
-                else if(!reservation.cash){
-                    const cardIcon = document.createElement('i');
-                    cardIcon.classList.add('fa', 'fa-solid', 'fa-credit-card','my-tile-left-icon');
-                    tile.appendChild(cardIcon);
-                }
-                else{
-                    console.log("Blaaaad");
+                if(showIfCashOrCardIcon === 'true'){
+                    if(reservation.cash){
+                        const cashIcon = document.createElement('i');
+                        cashIcon.classList.add('fa', 'fa-solid', 'fa-money-bill-1-wave','my-tile-left-icon');
+                        tile.appendChild(cashIcon);
+                    }
+                    else if(!reservation.cash){
+                        const cardIcon = document.createElement('i');
+                        cardIcon.classList.add('fa', 'fa-solid', 'fa-credit-card','my-tile-left-icon');
+                        tile.appendChild(cardIcon);
+                    }
+                    else{
+                        console.log("Blaaaad");
+                    }
                 }
             }
 
