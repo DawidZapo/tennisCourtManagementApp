@@ -633,10 +633,16 @@
         const showNonSummaryIcon = settingsData.getAttribute('data-showNonSummaryIcon');
         const showCourtIconsInReservationTable = settingsData.getAttribute('data-showCourtIconsInReservationTable');
 
-        let index = 0;
+        let colorIndex = 0;
+        let nameIndex = 0;
         for(let i=0;i<tileColors.length;i++){
             if(tileColors[i].value === 'true'){
-                index = i;
+                colorIndex = i;
+            }
+        }
+        for(let i=0;i<nameOptions.length;i++){
+            if(nameOptions[i].value === 'true'){
+                nameIndex = i;
             }
         }
 
@@ -664,10 +670,27 @@
                 }
             }
             const tile = document.createElement('a');
-            tile.classList.add('btn', 'btn-' + tileColors[index].name, 'tile');
+            tile.classList.add('btn', 'btn-' + tileColors[colorIndex].name, 'tile');
             tile.setAttribute('style', 'white-space: pre;');
-            tile.textContent = reservation.customer.firstName+ ' ' + reservation.customer.lastName + '\r\n'
-            + reservation.timeStart.slice(0,5) + ' - ' + reservation.timeEnd.slice(0,5);
+
+            if(nameOptions[nameIndex].name === 'showFirstName'){
+                tile.textContent = reservation.customer.firstName + '\r\n';
+            }
+            else if(nameOptions[nameIndex].name === 'showLastName'){
+                tile.textContent = reservation.customer.lastName + '\r\n';
+            }
+            else if(nameOptions[nameIndex].name === 'showFirstNameAndFirstLetterOfLastName'){
+                tile.textContent = reservation.customer.firstName+ ' ' + reservation.customer.lastName.substring(0,1) + '\r\n';
+            }
+            else{
+                tile.textContent = reservation.customer.firstName+ ' ' + reservation.customer.lastName + '\r\n';
+            }
+
+            if(showReservationDurationTime === 'true'){
+                tile.textContent += reservation.timeStart.slice(0,5) + ' - ' + reservation.timeEnd.slice(0,5);
+            }
+
+
             const reservationURL = `/reservation?id=${reservation.id}`;
             tile.setAttribute('href', reservationURL);
 
