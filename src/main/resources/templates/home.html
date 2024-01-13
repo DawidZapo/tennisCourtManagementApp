@@ -608,6 +608,39 @@
     let jsReservations = createReservationObjects();
 
     function fillUpTheTable(reservations,courts){
+        //settings
+        const settingsData = document.getElementById('settings');
+        const tileColors = [
+            { name: 'warning', value: settingsData.getAttribute('data-isTileYellow') },
+            { name: 'success', value: settingsData.getAttribute('data-isTileGreen')},
+            { name: 'primary', value: settingsData.getAttribute('data-isTileBlue') },
+            { name: 'secondary', value: settingsData.getAttribute('data-isTileGrey') },
+            { name: 'danger', value: settingsData.getAttribute('data-isTileRed') },
+            { name: 'info', value: settingsData.getAttribute('data-isTileCyan') },
+            { name: 'dark', value: settingsData.getAttribute('data-isTileBlack') }
+        ];
+        const nameOptions = [
+            { name: 'showFirstNameAndLastName', value: settingsData.getAttribute('data-showFirstNameAndLastName') },
+            { name: 'showFirstName', value: settingsData.getAttribute('data-showFirstName') },
+            { name: 'showLastName', value: settingsData.getAttribute('data-showLastName') },
+            { name: 'showFirstNameAndFirstLetterOfLastName', value: settingsData.getAttribute('data-showFirstNameAndFirstLetterOfLastName') }
+        ];
+        const showReservationDurationTime = settingsData.getAttribute('data-showReservationDurationTime');
+        const clientAutoComplete = settingsData.getAttribute('data-clientAutoComplete');
+        const showNonSummaryReservationWithDifferentColor = settingsData.getAttribute('data-showNonSummaryReservationWithDifferentColor');
+        const showPaidIcon = settingsData.getAttribute('data-showPaidIcon');
+        const showIfCashOrCardIcon = settingsData.getAttribute('data-showIfCashOrCardIcon');
+        const showNonSummaryIcon = settingsData.getAttribute('data-showNonSummaryIcon');
+        const showCourtIconsInReservationTable = settingsData.getAttribute('data-showCourtIconsInReservationTable');
+
+        let index = 0;
+        for(let i=0;i<tileColors.length;i++){
+            if(tileColors[i].value === 'true'){
+                index = i;
+            }
+        }
+
+
         reservations.forEach(reservation=>{
             const timeStartId = reservation.timeStart.slice(0,5)+'court'+reservation.courtNumber;
             const td = document.getElementById(timeStartId);
@@ -631,7 +664,7 @@
                 }
             }
             const tile = document.createElement('a');
-            tile.classList.add('btn', 'btn-success', 'tile');
+            tile.classList.add('btn', 'btn-' + tileColors[index].name, 'tile');
             tile.setAttribute('style', 'white-space: pre;');
             tile.textContent = reservation.customer.firstName+ ' ' + reservation.customer.lastName + '\r\n'
             + reservation.timeStart.slice(0,5) + ' - ' + reservation.timeEnd.slice(0,5);
@@ -697,63 +730,28 @@
         });
 
 
-    class Setting {
-        constructor(id, name, active) {
-            this.id = id;
-            this.name = name;
-            this.active = active;
-        }
-    }
-
-
-
-    var settingsData = document.getElementById('settings');
-    // Access boolean values directly from dataset
-    var isTileYellow = settingsData.getAttribute('data-isTileYellow');
-    var isTileGreen = settingsData.getAttribute('data-isTileGreen');
-    var isTileBlue = settingsData.getAttribute('data-isTileBlue');
-    var isTileGrey = settingsData.getAttribute('data-isTileGrey');
-    var isTileRed = settingsData.getAttribute('data-isTileRed');
-    var isTileCyan = settingsData.getAttribute('data-isTileCyan');
-    var isTileBlack = settingsData.getAttribute('data-isTileBlack');
-    var showFirstNameAndLastName = settingsData.getAttribute('data-showFirstNameAndLastName');
-    var showFirstName = settingsData.getAttribute('data-showFirstName');
-    var showLastName = settingsData.getAttribute('data-showLastName');
-    var showFirstNameAndFirstLetterOfLastName = settingsData.getAttribute('data-showFirstNameAndFirstLetterOfLastName');
-    var showReservationDurationTime = settingsData.getAttribute('data-showReservationDurationTime');
-    var clientAutoComplete = settingsData.getAttribute('data-clientAutoComplete');
-    var showNonSummaryReservationWithDifferentColor = settingsData.getAttribute('data-showNonSummaryReservationWithDifferentColor');
-    var showPaidIcon = settingsData.getAttribute('data-showPaidIcon');
-    var showIfCashOrCardIcon = settingsData.getAttribute('data-showIfCashOrCardIcon');
-    var showNonSummaryIcon = settingsData.getAttribute('data-showNonSummaryIcon');
-    var showCourtIconsInReservationTable = settingsData.getAttribute('data-showCourtIconsInReservationTable');
-
-    // Your boolean values are now ready to use
-    console.log(showFirstNameAndLastName);
-    console.log(showFirstName);
-    console.log(showLastName);
-    console.log(showFirstNameAndFirstLetterOfLastName);
-    console.log("=================");
-    console.log(showReservationDurationTime);
-    console.log(clientAutoComplete);
-    console.log(showNonSummaryReservationWithDifferentColor);
-    console.log(showPaidIcon);
-    console.log(showIfCashOrCardIcon);
-    console.log(showNonSummaryIcon);
-    console.log(showCourtIconsInReservationTable);
-    console.log("=================");
-    console.log(isTileYellow);
-    console.log(isTileGreen);
-    console.log(isTileBlue);
-    console.log(isTileGrey);
-    console.log(isTileRed);
-    console.log(isTileCyan);
-    console.log(isTileBlack);
 
 
 </script>
 <script th:inline="javascript">
     //funkcja dodajaca mozliwosc zaznaczaia kafelek bez rezerwacji
+
+    const settingsData = document.getElementById('settings');
+    const tileColors = [
+        { name: 'warning', value: settingsData.getAttribute('data-isTileYellow') },
+        { name: 'success', value: settingsData.getAttribute('data-isTileGreen')},
+        { name: 'primary', value: settingsData.getAttribute('data-isTileBlue') },
+        { name: 'secondary', value: settingsData.getAttribute('data-isTileGrey') },
+        { name: 'danger', value: settingsData.getAttribute('data-isTileRed') },
+        { name: 'info', value: settingsData.getAttribute('data-isTileCyan') },
+        { name: 'dark', value: settingsData.getAttribute('data-isTileBlack') }
+    ];
+    let index = 0;
+    for(let i=0;i<tileColors.length;i++){
+        if(tileColors[i].value === 'true'){
+            index = i;
+        }
+    }
     function countSelectedTiles() {
         return document.querySelectorAll('.clicked').length;
     }
@@ -800,7 +798,7 @@
                             cell.classList.add('clicked'); // Dodanie klasy po kliknięciu, oznaczającej, że komórka została zaznaczona
                             //cell.style.backgroundColor = 'orange'; // Zmiana koloru po kliknięciu
                             const tile = document.createElement('a');
-                            tile.classList.add('btn', 'btn-success', 'tile');
+                            tile.classList.add('btn', 'btn-' + tileColors[index].name, 'tile');
                             tile.setAttribute('style', 'white-space: pre;');
                             cell.appendChild(tile);
                         } else {
