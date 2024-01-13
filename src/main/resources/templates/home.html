@@ -119,43 +119,43 @@
                                                     </th>
                                                     <th class="align-middle text-center position-relative">
                                                         Kort 1
-                                                        <span th:if="${courts.get(0).flooded}" class="position-absolute end-0 me-3">
+                                                        <span th:if="${courts.get(0).flooded and showCourtIconsInReservationTable}" class="position-absolute end-0 me-3">
                                                             <i class="fa fa-solid fa-cloud-showers-heavy"></i>
                                                         </span>
-                                                        <span th:if="${!courts.get(0).functional}" class="position-absolute start-0 ms-3">
+                                                        <span th:if="${!courts.get(0).functional and showCourtIconsInReservationTable}" class="position-absolute start-0 ms-3">
                                                             <i class="fa fa-solid fa-ban"></i>
                                                         </span>
                                                     </th>
 
                                                     <th class="align-middle text-center position-relative">Kort 2
-                                                        <span th:if="${courts.get(1).flooded}" class="position-absolute end-0 me-3">
+                                                        <span th:if="${courts.get(1).flooded and showCourtIconsInReservationTable}" class="position-absolute end-0 me-3">
                                                             <i class="fa fa-solid fa-cloud-showers-heavy"></i>
                                                         </span>
-                                                        <span th:if="${!courts.get(1).functional}" class="position-absolute start-0 ms-3">
+                                                        <span th:if="${!courts.get(1).functional and showCourtIconsInReservationTable}" class="position-absolute start-0 ms-3">
                                                             <i class="fa fa-solid fa-ban"></i>
                                                         </span>
                                                     </th>
                                                     <th class="align-middle text-center position-relative">Kort 3
-                                                        <span th:if="${courts.get(2).flooded}" class="position-absolute end-0 me-3">
+                                                        <span th:if="${courts.get(2).flooded and showCourtIconsInReservationTable}" class="position-absolute end-0 me-3">
                                                             <i class="fa fa-solid fa-cloud-showers-heavy"></i>
                                                         </span>
-                                                        <span th:if="${!courts.get(2).functional}" class="position-absolute start-0 ms-3">
+                                                        <span th:if="${!courts.get(2).functional and showCourtIconsInReservationTable}" class="position-absolute start-0 ms-3">
                                                             <i class="fa fa-solid fa-ban"></i>
                                                         </span>
                                                     </th>
                                                     <th class="align-middle text-center position-relative">Kort 4
-                                                        <span th:if="${courts.get(3).flooded}" class="position-absolute end-0 me-3">
+                                                        <span th:if="${courts.get(3).flooded and showCourtIconsInReservationTable}" class="position-absolute end-0 me-3">
                                                             <i class="fa fa-solid fa-cloud-showers-heavy"></i>
                                                         </span>
-                                                        <span th:if="${!courts.get(3).functional}" class="position-absolute start-0 ms-3">
+                                                        <span th:if="${!courts.get(3).functional and showCourtIconsInReservationTable}" class="position-absolute start-0 ms-3">
                                                             <i class="fa fa-solid fa-ban"></i>
                                                         </span>
                                                     </th>
                                                     <th class="align-middle text-center position-relative">Kort 5
-                                                        <span th:if="${courts.get(4).flooded}" class="position-absolute end-0 me-3">
+                                                        <span th:if="${courts.get(4).flooded and showCourtIconsInReservationTable}" class="position-absolute end-0 me-3">
                                                             <i class="fa fa-solid fa-cloud-showers-heavy"></i>
                                                         </span>
-                                                        <span th:if="${!courts.get(4).functional}" class="position-absolute start-0 ms-3">
+                                                        <span th:if="${!courts.get(4).functional and showCourtIconsInReservationTable}" class="position-absolute start-0 ms-3">
                                                             <i class="fa fa-solid fa-ban"></i>
                                                         </span>
                                                     </th>
@@ -631,7 +631,7 @@
         const showPaidIcon = settingsData.getAttribute('data-showPaidIcon');
         const showIfCashOrCardIcon = settingsData.getAttribute('data-showIfCashOrCardIcon');
         const showNonSummaryIcon = settingsData.getAttribute('data-showNonSummaryIcon');
-        const showCourtIconsInReservationTable = settingsData.getAttribute('data-showCourtIconsInReservationTable');
+        const showCourtIconsInReservationTable = settingsData.getAttribute('data-showCourtIconsInReservationTable'); //setting introduced in thymelaf in html
 
         let colorIndex = 0;
         let nameIndex = 0;
