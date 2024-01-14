@@ -57,6 +57,9 @@
 
 </nav>
 <div class="container mt-3">
+    <div th:if="${recentlyUpdated}" class="alert alert-success text-center" role="alert" style="padding: 5px">
+        Pomyślnie zapisano zmiany
+    </div>
     <form th:action="@{/settlementDay/save}" th:object="${settlementDay}" method="post">
         <div class="row mt-3">
             <input type="hidden" th:field="${settlementDay.id}">
@@ -82,7 +85,7 @@
                     </div>
                     <div style="text-decoration: none;" class="card-body">
                         <div class="row">
-                            <th:block th:if="${!isNew}">
+                            <th:block th:if="${!isNew and !recentlyUpdated}">
                                 <div class="alert alert-warning">
                                     <p>Uwaga! Dla tego dnia został już wyeksportowany dzień obrachunkowy <span th:text="'('+${settlementDay.acceptedBy}+' '+${settlementDay.acceptedAt}+')'"></span>. Klikając 'zapisz dzień obrachunkowy' nadpiszesz istniejące dane.</p>
                                 </div>

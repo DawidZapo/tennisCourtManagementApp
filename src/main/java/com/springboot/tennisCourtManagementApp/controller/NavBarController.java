@@ -54,7 +54,7 @@ public class NavBarController {
         return "courts";
     }
     @GetMapping("/daySummary")
-    public String showDaySummary(@RequestParam(name = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, Model model){
+    public String showDaySummary(@RequestParam(name = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, @RequestParam(name = "recentlyUpdated", required = false) Boolean recentlyUpdated, Model model){
         if(date==null){
             date = LocalDate.now();
         }
@@ -73,6 +73,11 @@ public class NavBarController {
             settlementDay.setAcceptedBy(username);
         }
 
+        if(recentlyUpdated == null){
+            recentlyUpdated = false;
+        }
+
+        model.addAttribute("recentlyUpdated", recentlyUpdated);
 
         model.addAttribute("date", date);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");

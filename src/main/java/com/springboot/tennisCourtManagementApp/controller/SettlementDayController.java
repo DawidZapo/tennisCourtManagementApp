@@ -42,6 +42,6 @@ public class SettlementDayController {
         settlementDay.setAcceptedAt(acceptedAt);
 
         settlementDayService.save(settlementDay);
-        return "redirect:/daySummary?date="+settlementDay.getSummaryDate();
+        return "redirect:/daySummary?date="+settlementDay.getSummaryDate()+"&recentlyUpdated="+true;
     }
 }
