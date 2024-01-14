@@ -68,7 +68,7 @@ public class CourtReservationServiceImpl implements CourtReservationService {
 
         Double totalPrice = CourtReservation.getCalculatedPrice(reservationDate,timeStart,timeEnd,isDoublesMatch,price);
 
-        return new CourtReservation(courtNumber,reservationDate,timeStart,timeEnd,priceSchedule,totalPrice,isDoublesMatch,false,acceptedBy,isValidForSummary);
+        return new CourtReservation(courtNumber,reservationDate,timeStart,timeEnd,priceSchedule,totalPrice,isDoublesMatch,false,acceptedBy,isValidForSummary, 0.0);
     }
     @Override
     public void updatePayment(int id, Boolean isCash) {
@@ -92,6 +92,7 @@ public class CourtReservationServiceImpl implements CourtReservationService {
                     courtReservation.isDoublesMatch(),
                     price);
             courtReservation.setTotalPrice(newTotalPrice);
+            courtReservation.setLightTotal(0.0);
             courtReservationRepository.save(courtReservation);
         }
         else{

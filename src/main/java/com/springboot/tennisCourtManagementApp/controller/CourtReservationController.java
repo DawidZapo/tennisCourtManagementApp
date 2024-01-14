@@ -74,10 +74,27 @@ public class CourtReservationController {
     public String updateTotalPrice(@RequestParam("id") int id, @RequestParam(name="totalPrice", required = false) Double totalPrice){
         if(totalPrice ==0 || totalPrice >= 0.01){
             double truncatedPriceToTwoDecimals = Math.floor(totalPrice*100)/100;
-            courtReservationService.updateTotalPrice(id,truncatedPriceToTwoDecimals);
+//            courtReservationService.updateTotalPrice(id,truncatedPriceToTwoDecimals);
+            CourtReservation courtReservation = courtReservationService.findById(id);
+            courtReservation.setLightTotal(0.0);
+            courtReservation.setTotalPrice(truncatedPriceToTwoDecimals);
+            courtReservationService.save(courtReservation);
         }
         return "redirect:/reservation?id="+id;
     }
+
+    @PostMapping("/reservation/updateLightTotal")
+    public String updateLightTotal(@RequestParam("id") int id, @RequestParam(name="lightTotal", required = false) Double lightTotal){
+        if(lightTotal ==0 || lightTotal >= 0.01){
+            double truncatedLighTotalTwoDecimals = Math.floor(lightTotal*100)/100;
+            CourtReservation courtReservation = courtReservationService.findById(id);
+            courtReservation.setLightTotal(truncatedLighTotalTwoDecimals);
+            courtReservation.setTotalPrice(courtReservation.getTotalPrice()+truncatedLighTotalTwoDecimals);
+            courtReservationService.save(courtReservation);
+        }
+        return "redirect:/reservation?id="+id;
+    }
+
 
     @PostMapping("/reservation/updateComments")
     public String updateComments(@RequestParam("id") int id, @RequestParam(name = "comments", required = false) String comments){

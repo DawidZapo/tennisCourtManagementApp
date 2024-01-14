@@ -51,13 +51,16 @@ public class CourtReservation {
     private String acceptedBy;
     @Column(name = "accepted_at")
     private String acceptedAt;
-
     @Column(name = "valid_for_finance_summary")
     private Boolean validForFinanceSummary;
+
+    @Column(name = "light_total")
+    private Double lightTotal;
+
     public CourtReservation() {
     }
 
-    public CourtReservation(Long id, Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Double duration, Integer priceSchedule, Double totalPrice, Boolean isDoublesMatch, Boolean isPaid, Boolean isCash, String comments, Customer customer, String acceptedBy, String acceptedAt, Boolean validForFinanceSummary) {
+    public CourtReservation(Long id, Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Double duration, Integer priceSchedule, Double totalPrice, Boolean isDoublesMatch, Boolean isPaid, Boolean isCash, String comments, Customer customer, String acceptedBy, String acceptedAt, Boolean validForFinanceSummary,Double lightTotal) {
         this.id = id;
         this.courtNumber = courtNumber;
         this.reservationDate = reservationDate;
@@ -74,6 +77,7 @@ public class CourtReservation {
         this.acceptedBy = acceptedBy;
         this.acceptedAt = acceptedAt;
         this.validForFinanceSummary = validForFinanceSummary;
+        this.lightTotal = lightTotal;
     }
 
     // constructor to create possible reservation (not saved yet) to pass as argument in addReservation form
@@ -84,7 +88,7 @@ public class CourtReservation {
         this.timeEnd = timeEnd;
     }
 
-    public CourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, Double totalPrice, Boolean isDoublesMatch, Boolean isPaid, String acceptedBy, Boolean validForFinanceSummary) {
+    public CourtReservation(Integer courtNumber, LocalDate reservationDate, LocalTime timeStart, LocalTime timeEnd, Integer priceSchedule, Double totalPrice, Boolean isDoublesMatch, Boolean isPaid, String acceptedBy, Boolean validForFinanceSummary, Double lightTotal) {
         this.courtNumber = courtNumber;
         this.reservationDate = reservationDate;
         this.timeStart = timeStart;
@@ -98,6 +102,7 @@ public class CourtReservation {
         this.acceptedBy = acceptedBy;
         this.acceptedAt = LocalDate.now().toString() + " " + LocalTime.now().truncatedTo(ChronoUnit.MINUTES);
         this.validForFinanceSummary = validForFinanceSummary;
+        this.lightTotal = lightTotal;
     }
 
     public Long getId() {
@@ -240,6 +245,14 @@ public class CourtReservation {
         this.validForFinanceSummary = validForFinanceSummary;
     }
 
+    public Double getLightTotal() {
+        return lightTotal;
+    }
+
+    public void setLightTotal(Double lightTotal) {
+        this.lightTotal = lightTotal;
+    }
+
     public String getDiscountNameForHTML() {
         return switch (priceSchedule) {
             case 1 -> "Cena regularna";
@@ -275,6 +288,7 @@ public class CourtReservation {
                 ", acceptedBy='" + acceptedBy + '\'' +
                 ", acceptedAt='" + acceptedAt + '\'' +
                 ", validForFinanceSummary=" + validForFinanceSummary +
+                ", lightTotal=" + lightTotal +
                 '}';
     }
 
