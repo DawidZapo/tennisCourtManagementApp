@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.springboot</groupId>
 	<artifactId>tennisCourtManagementApp</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>tennisCourtManagementApp</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -115,10 +115,40 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.12.1</version>
+				<configuration>
+					<source>17</source>
+					<target>17</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.3.0</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>com.springboot.tennisCourtManagementApp.TennisCourtManagementAppApplication</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
+
 
 </project>
