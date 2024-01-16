@@ -669,7 +669,14 @@
                 }
             }
             const tile = document.createElement('a');
-            tile.classList.add('btn', 'btn-' + tileColors[colorIndex].name, 'tile');
+
+            if(!reservation.validForFinanceSummary && showNonSummaryReservationWithDifferentColor === 'true'){
+                tile.classList.add('btn', 'btn-outline-' + tileColors[colorIndex].name, 'tile');
+            }
+            else{
+                tile.classList.add('btn', 'btn-' + tileColors[colorIndex].name, 'tile');
+            }
+
             tile.setAttribute('style', 'white-space: pre;');
 
             if(nameOptions[nameIndex].name === 'showFirstName'){
