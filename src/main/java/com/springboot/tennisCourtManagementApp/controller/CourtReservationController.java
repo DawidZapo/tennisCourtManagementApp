@@ -106,7 +106,7 @@ public class CourtReservationController {
 
     @PostMapping("/reservation/updateIsPaid")
     public String updateIsPaid(@RequestParam("id") int id, @RequestParam("isPaid") Boolean isPaid){
-        courtReservationService.updateIsPaid(id, !isPaid); // if current state is unpaid we have to invert the boolean to make any changes
+        courtReservationService.updateIsPaid(id, isPaid); // if current state is unpaid we have to invert the boolean to make any changes
         return "redirect:/reservation?id="+id;
     }
 

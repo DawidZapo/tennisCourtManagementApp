@@ -1,5 +1,6 @@
 package com.springboot.tennisCourtManagementApp.controller;
 
+import com.springboot.tennisCourtManagementApp.annotation.ModelMethod;
 import com.springboot.tennisCourtManagementApp.dto.CourtReservationDto;
 import com.springboot.tennisCourtManagementApp.dto.CustomerDto;
 import com.springboot.tennisCourtManagementApp.dto.PriceScheduleDto;
@@ -46,6 +47,7 @@ public class MainController {
         this.settingService = settingService;
     }
 
+    @ModelMethod
     @GetMapping("/")
     public String home(@RequestParam(name = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, Model model) {
         if (date == null) {
@@ -119,6 +121,7 @@ public class MainController {
         return "home";
     }
 
+    @ModelMethod
     @GetMapping("/reservation")
     public String showReservationDetailLook(@RequestParam("id") int id, Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -150,6 +153,7 @@ public class MainController {
         return "reservation-detail-look";
     }
 
+    @ModelMethod
     @GetMapping("/addReservation")
     public String showReservationForm(@RequestParam(value = "selectedTiles") String selectedTilesParam,
                                       @RequestParam(value = "date") LocalDate date, Model model) {

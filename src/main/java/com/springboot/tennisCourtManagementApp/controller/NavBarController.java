@@ -1,5 +1,6 @@
 package com.springboot.tennisCourtManagementApp.controller;
 
+import com.springboot.tennisCourtManagementApp.annotation.ModelMethod;
 import com.springboot.tennisCourtManagementApp.dto.SettingManagerDto;
 import com.springboot.tennisCourtManagementApp.entity.Court;
 import com.springboot.tennisCourtManagementApp.entity.CourtReservation;
@@ -40,6 +41,7 @@ public class NavBarController {
         this.settingService = settingService;
     }
 
+    @ModelMethod
     @GetMapping("/courts")
     public String showCourts(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -53,6 +55,8 @@ public class NavBarController {
 
         return "courts";
     }
+
+    @ModelMethod
     @GetMapping("/daySummary")
     public String showDaySummary(@RequestParam(name = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, @RequestParam(name = "recentlyUpdated", required = false) Boolean recentlyUpdated, Model model){
         if(date==null){
@@ -121,6 +125,8 @@ public class NavBarController {
 
         return "day-summary";
     }
+
+    @ModelMethod
     @GetMapping("/settings")
     public String showSettings(@RequestParam(name = "recentlyUpdated", required = false) Boolean recentlyUpdated, Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -140,6 +146,7 @@ public class NavBarController {
         return "settings";
     }
 
+    @ModelMethod
     @GetMapping("/help")
     public String showHelp(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

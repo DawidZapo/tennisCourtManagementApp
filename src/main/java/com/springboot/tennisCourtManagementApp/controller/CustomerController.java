@@ -1,5 +1,6 @@
 package com.springboot.tennisCourtManagementApp.controller;
 
+import com.springboot.tennisCourtManagementApp.annotation.ModelMethod;
 import com.springboot.tennisCourtManagementApp.entity.Customer;
 import com.springboot.tennisCourtManagementApp.service.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
+    @ModelMethod
     @GetMapping("/showFormForUpdate")
     public String showFormForUpdate(@RequestParam("id") Long id, Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -33,6 +35,7 @@ public class CustomerController {
         return "customer-form";
     }
 
+    @ModelMethod
     @GetMapping("/showFormForAdd")
     public String showFormForAdd(@RequestParam(name = "urlArgs", required = false)String urlArgs, Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -150,7 +150,8 @@
 
                             <form th:action="@{/reservation/updateIsPaid}" method="post" class="mt-4">
                                 <input type="hidden" name="id" th:value="${reservation.id}" />
-                                <input type="hidden" name="isPaid" th:value="${reservation.isPaid()}">
+                                <input th:if="${reservation.paid}" type="hidden" name="isPaid" th:value="${false}">
+                                <input th:if="${!reservation.paid}" type="hidden" name="isPaid" th:value="${true}">
                                 <th:block th:if="${enableChanges}">
                                     <button th:if="${!reservation.isPaid()}" type="submit" id="submitToPayBtn" class="btn btn-outline-success w-100">Opłać</button>
                                     <button th:if="${reservation.isPaid()}" type="submit" id="submitToUnpayBtn" class="btn btn-outline-danger w-100">Wycofaj zapłatę</button>
