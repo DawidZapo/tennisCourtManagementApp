@@ -4,6 +4,10 @@ document.addEventListener("DOMContentLoaded", function() {
     var submitBtn = document.getElementById('submitBtn');
     var defaultValue = document.getElementById('defaultValue');
 
+    const settingsData = document.getElementById('settings');
+    const clientAutoComplete = settingsData.getAttribute('data-clientAutoComplete');
+
+
     searchInputs.forEach(function(searchInput, index) {
         searchInput.addEventListener('input', function() {
             var alertDiv = document.getElementById('alertDiv-' + index);
@@ -34,13 +38,14 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
 
-            //select.selectedIndex = -1;
             // mozna dodac opcje by zmienic to w ustawieniach
-            for (let i = 0; i < options.length; i++) {
-                var optionToCheck = options[i];
-                if (optionToCheck.style.display !== 'none') {
-                    optionToCheck.selected = true;
-                    break;
+            if(clientAutoComplete === 'true'){
+                for (let i = 0; i < options.length; i++) {
+                    var optionToCheck = options[i];
+                    if (optionToCheck.style.display !== 'none') {
+                        optionToCheck.selected = true;
+                        break;
+                    }
                 }
             }
 

@@ -25,10 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class MainController {
@@ -211,6 +208,9 @@ public class MainController {
             enableChanges = false;
         }
         model.addAttribute("enableChanges", enableChanges);
+
+        Setting clientAutoCompleteSetting = settingService.findByName("clientAutoComplete");
+        model.addAttribute("clientAutoComplete", clientAutoCompleteSetting.getActive());
 
 
         return "add-reservation";
