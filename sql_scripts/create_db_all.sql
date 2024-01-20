@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS court_reservation (
     accepted_by VARCHAR(50),
     accepted_at VARCHAR(50),
     valid_for_finance_summary TINYINT(1),
-    lightTotal DOUBLE,
+    light_total DOUBLE,
     FOREIGN KEY (customer_id) REFERENCES customer(id)
 ) ENGINE=InnoDB;
 
@@ -88,6 +88,8 @@ CREATE TABLE IF NOT EXISTS price_info (
     price double
 );
 
+INSERT INTO price_info (description_info,price) VALUES ('light',10),('pon-fri before 3pm season ticket',125),('whole facility for one day',800);
+
 USE court_management;
 CREATE TABLE IF NOT EXISTS court (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -96,7 +98,7 @@ CREATE TABLE IF NOT EXISTS court (
     is_flooded TINYINT(1),
     is_functional TINYINT(1)
 ) ENGINE=InnoDB;
-INSERT INTO court (court_number,is_active,is_taken,is_flooded) VALUES
+INSERT INTO court (court_number,is_active,is_flooded,is_functional) VALUES
 (1,1,0,1),
 (2,1,0,1),
 (3,1,0,1),
@@ -131,10 +133,10 @@ INSERT INTO setting (`name`,is_active) VALUES
 ('showFirstNameAndFirstLetterOfLastName',0),
 ('showReservationDurationTime',1),
 ('clientAutoComplete',1),
-('showNonSummaryReservationsWithDifferentColour',0),
+('showNonSummaryReservationsWithDifferentColor',0),
 
 ('showPaidIcon',1),
-('showIfCashOrCashIcon',1),
+('showIfCashOrCardIcon',1),
 ('showNonSummaryIcon',1),
 ('showCourtIconsInReservationTable',1),
 
