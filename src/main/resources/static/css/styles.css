@@ -61,3 +61,9 @@ td{
     padding: 8px;
     margin-bottom: 0;
 }
+.my-fixed-button {
+    position: fixed;
+    bottom: 10px; /* Ustaw przycisk na górze */
+    z-index: 1000; /* Dostosuj wartość z-index według potrzeb */
+    width: 79%;
+}
