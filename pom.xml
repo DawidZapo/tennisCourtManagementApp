@@ -115,6 +115,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>ws-java-app</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -148,6 +149,9 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<executable>true</executable>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
